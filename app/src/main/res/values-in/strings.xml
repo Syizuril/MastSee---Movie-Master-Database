@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MastSee</string>
+    <string name="long_app_name">Master Movie Database</string>
+    <string name="title_movies">Film</string>
+    <string name="title_tv_shows">Acara TV</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hai Fragment Kosong</string>
+    <string name="search">Cari</string>
+    <string name="search_hint">Masukkan Judul Movie atau Tv Show</string>
+    <string name="change_language">Ubah Bahasa</string>
+    <string name="mastsee">MastSee</string>
+    <string name="image_banner_upcoming_movies">Gambar banner Film yang akan datang</string>
+    <string name="upcoming">Film Akan Datang</string>
+    <string name="popular">Film Populer</string>
+    <string name="image_cover_movies">Gambar cover film</string>
+    <string name="background_cover">Latar belakang cover</string>
+    <string name="top_movies">Film Terbaik</string>
+    <string name="see_more">Lihat lainnya</string>
+    <string name="popular_tv_shows">Acara TV Populer</string>
+    <string name="top_tv_shows">Acara TV Terbaik</string>
+    <string name="overview">Ringkasan</string>
+    <string name="featured_crew">Kru Unggulan</string>
+    <string name="runtime">Durasi</string>
+    <string name="genre">Aliran</string>
+</resources>
