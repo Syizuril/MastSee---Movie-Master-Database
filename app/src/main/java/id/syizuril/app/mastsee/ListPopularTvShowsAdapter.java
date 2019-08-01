@@ -13,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
+import id.syizuril.app.mastsee.models.MoviesTVShows;
+
 public class ListPopularTvShowsAdapter extends RecyclerView.Adapter<ListPopularTvShowsAdapter.ListViewHolder> {
     private ArrayList<MoviesTVShows> listPopularTvShows;
     private OnItemClickCallback onItemClickCallback;

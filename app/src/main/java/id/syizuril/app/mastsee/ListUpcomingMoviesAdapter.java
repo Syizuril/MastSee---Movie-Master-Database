@@ -14,6 +14,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
+import id.syizuril.app.mastsee.models.MoviesTVShows;
+
 public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcomingMoviesAdapter.ListViewHolder>{
     private ArrayList<MoviesTVShows> listUpcomingMovies;
     private OnItemClickCallback onItemClickCallback;

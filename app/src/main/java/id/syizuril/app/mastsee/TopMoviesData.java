@@ -1,6 +1,9 @@
 package id.syizuril.app.mastsee;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import id.syizuril.app.mastsee.models.MoviesTVShows;
 
 public class TopMoviesData {
     public static String [][] data = new String[][]{
@@ -16,7 +19,7 @@ public class TopMoviesData {
             {"Life Is Beautiful","October 22, 1998","85","A touching story of an Italian book seller of Jewish ancestry who lives in his own little fairy tale. His creative and happy life would come to an abrupt halt when his entire family is deported to a concentration camp during World War II. While locked up he tries to convince his son that the whole thing is just a game.","Roberto Benigni\nVincenzo Cerami","Released","1h 56m","Comedy, Drama","https://image.tmdb.org/t/p/w600_and_h900_bestv2/f7DImXDebOs148U4uPjI61iDvaK.jpg","https://image.tmdb.org/t/p/w533_and_h300_bestv2/bORe0eI72D874TMawOOFvqWS6Xe.jpg"},
     };
 
-    public static ArrayList<MoviesTVShows> getListData(){
+    public static Collection<? extends MoviesTVShows> getListData(){
         ArrayList<MoviesTVShows> listTop = new ArrayList<>();
         for(String[] aData : data){
             MoviesTVShows topMovies = new MoviesTVShows();

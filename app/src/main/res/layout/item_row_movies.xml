@@ -43,6 +43,8 @@
         android:textColor="#37474f"
         android:textSize="12sp"
         android:textStyle="bold"
+        android:lines="2"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="@+id/imgBackCover"
         app:layout_constraintEnd_toEndOf="@+id/imgCover"
         app:layout_constraintStart_toStartOf="@+id/imgCover"

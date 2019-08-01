@@ -322,5 +322,30 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Action, Comedy"
             />
+        
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
+        
+        <TextView
+            android:id="@+id/txt_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="sans-serif"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/error_text"
+            android:visibility="gone"
+            />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

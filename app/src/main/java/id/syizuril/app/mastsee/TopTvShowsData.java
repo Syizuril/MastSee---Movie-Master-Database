@@ -2,6 +2,8 @@ package id.syizuril.app.mastsee;
 
 import java.util.ArrayList;
 
+import id.syizuril.app.mastsee.models.MoviesTVShows;
+
 public class TopTvShowsData {
     public static String[][] data = new String[][]{
             {"I Am Not an Animal", "2004", "95", "I Am Not An Animal is an animated comedy series about the only six talking animals in the world, whose cosseted existence in a vivisection unit is turned upside down when they are liberated by animal rights activists.", "Peter Baynham\nSteve Coogan", "Ended", "30m", "Animation, Comedy", "https://image.tmdb.org/t/p/w600_and_h900_bestv2/nMhv6jG5dtLdW7rgguYWvpbk0YN.jpg", "https://image.tmdb.org/t/p/w533_and_h300_bestv2/o8Site0BMZ8xhknKJ0m52iLfqHg.jpg", "https://image.tmdb.org/t/p/w533_and_h300_bestv2/o8Site0BMZ8xhknKJ0m52iLfqHg.jpg"},

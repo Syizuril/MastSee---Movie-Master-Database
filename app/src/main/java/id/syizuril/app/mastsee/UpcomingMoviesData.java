@@ -1,6 +1,9 @@
 package id.syizuril.app.mastsee;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import id.syizuril.app.mastsee.models.MoviesTVShows;
 
 public class UpcomingMoviesData {
     public static String[][] data = new String[][]{
@@ -9,7 +12,7 @@ public class UpcomingMoviesData {
             {"The Reports on Sarah and Saleem","July 12, 2019","75","Bima and Dara are lovers who are still in high school. At the age of 17, they were determined to copulate outside of marriage. Dara was pregnant. Both are then confronted with a life that is unimaginable for children of their age, life as parents.","Muayad Alayan\nRami Musa Alayan","Released","2h 7m","Drama","https://image.tmdb.org/t/p/w600_and_h900_bestv2/wkIkeadOsytJfcGPDzbxge1bzJH.jpg","https://image.tmdb.org/t/p/w533_and_h300_bestv2/sFE7JGAWtr24hCYZpegWmSvbmU2.jpg","https://i.ibb.co/jfWR5sz/report-on.png"},
     };
 
-    public static ArrayList<MoviesTVShows> getListData() {
+    public static Collection<? extends MoviesTVShows> getListData() {
         ArrayList<MoviesTVShows> list = new ArrayList<>();
         for (String[] mData : data) {
             MoviesTVShows upcoming = new MoviesTVShows();

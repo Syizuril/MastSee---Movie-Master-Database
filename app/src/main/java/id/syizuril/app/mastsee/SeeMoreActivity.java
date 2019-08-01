@@ -1,10 +1,13 @@
 package id.syizuril.app.mastsee;
 
 import android.app.SearchManager;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,13 +20,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import id.syizuril.app.mastsee.adapters.ListPopularMoviesAdapter;
+import id.syizuril.app.mastsee.models.MovieResult;
+import id.syizuril.app.mastsee.models.MoviesTVShows;
+import id.syizuril.app.mastsee.viewmodels.ListPopularMoviesViewModel;
 
 public class SeeMoreActivity extends AppCompatActivity {
     private RecyclerView rvSeeMore;
-    private ArrayList<MoviesTVShows> listPopularMogies = new ArrayList<>();
+    private ArrayList<MovieResult> listPopularMogies = new ArrayList<>();
     private ArrayList<MoviesTVShows> listTopMovies = new ArrayList<>();
     private ArrayList<MoviesTVShows> listPopularTv = new ArrayList<>();
     private ArrayList<MoviesTVShows> listTopTv = new ArrayList<>();
+    private ListPopularMoviesViewModel mListPopularMoviesViewModel;
+    private ListPopularMoviesAdapter mAdapter;
     public static final String EXTRA_CATEGORY = "extra_category";
 
     @Override
@@ -38,7 +49,14 @@ public class SeeMoreActivity extends AppCompatActivity {
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
         switch (category) {
             case "listPopular":
-                listPopularMogies.addAll(PopularMoviesData.getListData());
+                mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
+                mListPopularMoviesViewModel.init();
+                mListPopularMoviesViewModel.getMoviesTVShows().observe(this, new Observer<List<MovieResult>>() {
+                    @Override
+                    public void onChanged(@Nullable List<MovieResult> movieResults) {
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
                 tvToolbarTitle.setText(R.string.popular);
                 break;
             case "listTop":
@@ -106,12 +124,12 @@ public class SeeMoreActivity extends AppCompatActivity {
         switch (category) {
             case "listPopular":
                 rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));
-                ListPopularMoviesAdapter listPopularMoviesAdapter = new ListPopularMoviesAdapter(listPopularMogies);
-                rvSeeMore.setAdapter(listPopularMoviesAdapter);
-                listPopularMoviesAdapter.setOnItemClickCallback(new ListPopularMoviesAdapter.OnItemClickCallback() {
+                mAdapter = new ListPopularMoviesAdapter(this, mListPopularMoviesViewModel.getMoviesTVShows().getValue());
+                rvSeeMore.setAdapter(mAdapter);
+                mAdapter.setOnItemClickCallback(new ListPopularMoviesAdapter.OnItemClickCallback() {
                     @Override
-                    public void onItemClicked(MoviesTVShows data) {
-                        showSelectedMovie(data);
+                    public void onItemClicked(MovieResult data) {
+                        showSelectedMovie2(data);
                     }
                 });
                 break;
@@ -155,5 +173,10 @@ public class SeeMoreActivity extends AppCompatActivity {
         Intent sendDataMovieTV = new Intent(this, DetailActivity.class);
         sendDataMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, moviesTVShows);
         startActivity(sendDataMovieTV);
+    }
+
+    private void showSelectedMovie2(MovieResult movieResult){
+        Intent senDataMovieTV = new Intent(this, DetailActivity.class);
+        senDataMovieTV.putExtra(DetailActivityNew.EXTRA_MOVIE, String.valueOf(movieResult));
     }
 }

@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import id.syizuril.app.mastsee.models.MoviesTVShows;
+
 
 /**
  * A simple {@link Fragment} subclass.

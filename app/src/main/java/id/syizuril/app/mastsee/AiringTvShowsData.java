@@ -2,6 +2,8 @@ package id.syizuril.app.mastsee;
 
 import java.util.ArrayList;
 
+import id.syizuril.app.mastsee.models.MoviesTVShows;
+
 public class AiringTvShowsData {
     public static String[][] data = new String [][]{
             {"Fear the Walking Dead","2015","63","What did the world look like as it was transforming into the horrifying apocalypse depicted in \"The Walking Dead\"? This spin-off set in Los Angeles, following new characters as they face the beginning of the end of the world, will answer that question.","Dave Erickson\nRobert Kirkman","Returning Series","43m, 60m","Drama, Horror","https://image.tmdb.org/t/p/w600_and_h900_bestv2/aOdTWn8dXlS0tA5xl0ZBr8Ws15R.jpg","https://image.tmdb.org/t/p/w533_and_h300_bestv2/7r4FieFH6Eh6S55hi8c9LOiFENg.jpg","https://i.ibb.co/GVcwZcS/altbanner-fear.png"},

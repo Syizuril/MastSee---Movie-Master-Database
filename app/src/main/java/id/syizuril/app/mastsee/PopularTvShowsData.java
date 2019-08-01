@@ -2,6 +2,8 @@ package id.syizuril.app.mastsee;
 
 import java.util.ArrayList;
 
+import id.syizuril.app.mastsee.models.MoviesTVShows;
+
 public class PopularTvShowsData {
     public static String[][] data = new String[][]{
             {"See No Evil: The Moors Murders","2006","60","The dramatisation of one of the most notorious killing sprees in British history.","Christopher Menaul\nNicola Morrow","Ended","90m","Drama","https://image.tmdb.org/t/p/w600_and_h900_bestv2/b71BaRjp9TwxUZodLGgSRIlkfL8.jpg","https://image.tmdb.org/t/p/w533_and_h300_bestv2/7AKhSfJHnVi0zXQS4eJirHDs22p.jpg","https://image.tmdb.org/t/p/w533_and_h300_bestv2/7AKhSfJHnVi0zXQS4eJirHDs22p.jpg"},

@@ -1,6 +1,9 @@
 package id.syizuril.app.mastsee;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import id.syizuril.app.mastsee.models.MoviesTVShows;
 
 public class PopularMoviesData {
     public static String [][] dataPopulerMovies = new String[][]{
@@ -16,7 +19,7 @@ public class PopularMoviesData {
             {"Avengers: Infinity War","April 27, 2018","83","As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.","Joe Russo\nAnthony Russo\nStephen McFeely\nChristopher Markus","Released","2h 29m","Action, Adventure, Fantasy","https://image.tmdb.org/t/p/w600_and_h900_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg","https://image.tmdb.org/t/p/w533_and_h300_bestv2/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"},
 };
 
-    static ArrayList<MoviesTVShows> getListData(){
+    static Collection<? extends MoviesTVShows> getListData(){
         ArrayList<MoviesTVShows> popularList = new ArrayList<>();
         for (String[] aData: dataPopulerMovies){
             MoviesTVShows popularMovies = new MoviesTVShows();

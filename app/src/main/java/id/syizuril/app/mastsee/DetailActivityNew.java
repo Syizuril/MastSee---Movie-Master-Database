@@ -17,9 +17,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import id.syizuril.app.mastsee.models.MoviesTVShows;
+import java.util.Date;
 
-public class DetailActivity extends AppCompatActivity {
+import id.syizuril.app.mastsee.models.MovieResult;
+
+public class DetailActivityNew extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
 
     @Override
@@ -40,31 +42,31 @@ public class DetailActivity extends AppCompatActivity {
         ImageView imgBanner = findViewById(R.id.banner);
         TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
 
-        MoviesTVShows moviesTVShows = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        String title = moviesTVShows.getTitle();
-        String date = moviesTVShows.getDate();
-        String score = moviesTVShows.getScore();
-        String overview = moviesTVShows.getOverview();
-        String crew = moviesTVShows.getCrew();
-        String status = moviesTVShows.getStatus();
-        String runtime = moviesTVShows.getRuntime();
-        String genre = moviesTVShows.getGenre();
+        MovieResult movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        String title = movieResult.getOriginalTitle();
+        Date date = movieResult.getReleaseDate();
+        Double score = movieResult.getVoteAverage();
+        String overview = movieResult.getOverview();
+//        String crew = movieResult.getCrew();
+//        String status = movieResult.getStatus();
+//        String runtime = moviesTVShows.getRuntime();
+//        String genre = moviesTVShows.getGenre();
 
-        Glide.with(DetailActivity.this)
-                .load(moviesTVShows.getCover())
+        Glide.with(DetailActivityNew.this)
+                .load(movieResult.getPosterPath())
                 .into(imgCover);
 
-        Glide.with(DetailActivity.this)
-                .load(moviesTVShows.getBanner())
+        Glide.with(DetailActivityNew.this)
+                .load(movieResult.getBackdropPath())
                 .into(imgBanner);
         tvTitle.setText(title);
-        tvDate.setText(date);
-        tvScore.setText(score);
+        tvDate.setText((CharSequence) date);
+//        tvScore.setText(score);
         tvOverview.setText(overview);
-        tvCrew.setText(crew);
-        tvStatus.setText(status);
-        tvRuntime.setText(runtime);
-        tvGenre.setText(genre);
+//        tvCrew.setText(crew);
+//        tvStatus.setText(status);
+//        tvRuntime.setText(runtime);
+//        tvGenre.setText(genre);
         tvToolbarTitle.setText(title);
 
         setSupportActionBar(tbBack);
@@ -89,7 +91,7 @@ public class DetailActivity extends AppCompatActivity {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    Toast.makeText(DetailActivity.this, query, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivityNew.this, query, Toast.LENGTH_SHORT).show();
                     return true;
                 }
                 @Override

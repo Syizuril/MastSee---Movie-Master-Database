@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee.adapters;
+package id.syizuril.app.mastsee;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +14,6 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 import id.syizuril.app.mastsee.models.MoviesTVShows;
-import id.syizuril.app.mastsee.R;
 
 public class ListTopTvShowsAdapter extends RecyclerView.Adapter<ListTopTvShowsAdapter.ListViewHolder> {
     private ArrayList<MoviesTVShows> listTopTv;

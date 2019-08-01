@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,86 +13,104 @@ public class MoviesTVShows implements Parcelable {
     private String runtime;
     private String genre;
     private String cover;
-    private String banner;
-    private String altbanner;
 
-    String getAltbanner() {
-        return altbanner;
-    }
-
-    void setAltbanner(String altbanner) {
+    public MoviesTVShows(String title, String date, String score, String overview, String crew, String status, String runtime, String genre, String cover, String banner) {
+        this.title = title;
+        this.score = score;
+        this.date = date;
+        this.overview = overview;
+        this.crew = crew;
+        this.status = status;
+        this.runtime = runtime;
+        this.genre = genre;
+        this.cover = cover;
+        this.banner = banner;
         this.altbanner = altbanner;
     }
 
-    String getTitle() {
+    public MoviesTVShows(){
+
+    }
+    private String banner;
+    private String altbanner;
+
+    public String getAltbanner() {
+        return altbanner;
+    }
+
+    public void setAltbanner(String altbanner) {
+        this.altbanner = altbanner;
+    }
+
+    public String getTitle() {
         return title;
     }
 
-    void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    String getScore() {
+    public String getScore() {
         return score;
     }
 
-    void setScore(String score) {
+    public void setScore(String score) {
         this.score = score;
     }
 
-    String getDate() {
+    public String getDate() {
         return date;
     }
 
-    void setDate(String date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    String getOverview() {
+    public String getOverview() {
         return overview;
     }
 
-    void setOverview(String overview) {
+    public void setOverview(String overview) {
         this.overview = overview;
     }
 
-    String getCrew() {
+    public String getCrew() {
         return crew;
     }
 
-    void setCrew(String crew) {
+    public void setCrew(String crew) {
         this.crew = crew;
     }
 
-    String getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    void setStatus(String status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    String getRuntime() {
+    public String getRuntime() {
         return runtime;
     }
 
-    void setRuntime(String runtime) {
+    public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
 
-    String getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    void setGenre(String genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    String getCover() {
+    public String getCover() {
         return cover;
     }
 
-    void setCover(String cover) {
+    public void setCover(String cover) {
         this.cover = cover;
     }
 
@@ -104,8 +122,6 @@ public class MoviesTVShows implements Parcelable {
         this.banner = banner;
     }
 
-    public MoviesTVShows() {
-    }
 
     @Override
     public int describeContents() {
@@ -127,7 +143,7 @@ public class MoviesTVShows implements Parcelable {
         dest.writeString(this.altbanner);
     }
 
-    protected MoviesTVShows(Parcel in) {
+    public MoviesTVShows(Parcel in) {
         this.title = in.readString();
         this.score = in.readString();
         this.date = in.readString();
