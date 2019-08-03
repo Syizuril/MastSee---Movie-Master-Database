@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,18 +45,21 @@ public class SeeMoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_see_more);
         rvSeeMore = findViewById(R.id.rvSeeMoreMovie);
         TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
+        mProgressBar = findViewById(R.id.progressBar);
         rvSeeMore.setHasFixedSize(true);
 
         Toolbar tbBack = findViewById(R.id.tbBack);
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
         switch (category) {
             case "listPopular":
+                showProgressBar();
                 mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
                 mListPopularMoviesViewModel.init();
                 mListPopularMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
                     List<MovieResult> movieResults = movieResponse.getResults();
                     popularMovieList.addAll(movieResults);
                     mAdapter.notifyDataSetChanged();
+                    hideProgressBar();
                 });
                 tvToolbarTitle.setText(R.string.popular);
                 break;
@@ -181,5 +185,13 @@ public class SeeMoreActivity extends AppCompatActivity {
         Intent sendMovieTV = new Intent(this, DetailActivity.class);
         sendMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, movieResult);
         startActivity(sendMovieTV);
+    }
+
+    private void showProgressBar(){
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar(){
+        mProgressBar.setVisibility(View.GONE);
     }
 }

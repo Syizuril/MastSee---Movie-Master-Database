@@ -63,13 +63,15 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
         rvTopMovies.setHasFixedSize(true);
         tvSeeMorePopular.setOnClickListener(this);
         tvSeeMoreTop.setOnClickListener(this);
-
+        showProgressBar();
         mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
         mListPopularMoviesViewModel.init();
         mListPopularMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
+            assert movieResponse != null;
             List<MovieResult> movieResults = movieResponse.getResults();
             popularMovieList.addAll(movieResults);
             mPopularAdapter.notifyDataSetChanged();
+            hideProgressBar();
         });
 
         listUpcomingMovies.addAll(UpcomingMoviesData.getListData());
