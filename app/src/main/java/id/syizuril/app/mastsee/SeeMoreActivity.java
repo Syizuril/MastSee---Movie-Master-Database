@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -24,18 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.syizuril.app.mastsee.adapters.ListPopularMoviesAdapter;
+import id.syizuril.app.mastsee.adapters.ListTopMoviesAdapter;
 import id.syizuril.app.mastsee.models.MovieResult;
 import id.syizuril.app.mastsee.models.MoviesTVShows;
 import id.syizuril.app.mastsee.viewmodels.ListPopularMoviesViewModel;
+import id.syizuril.app.mastsee.viewmodels.ListTopMoviesViewModel;
 
 public class SeeMoreActivity extends AppCompatActivity {
     private RecyclerView rvSeeMore;
-    private ArrayList<MoviesTVShows> listTopMovies = new ArrayList<>();
-    private ArrayList<MoviesTVShows> listPopularTv = new ArrayList<>();
     private ArrayList<MoviesTVShows> listTopTv = new ArrayList<>();
     private ArrayList<MovieResult> popularMovieList = new ArrayList<>();
+    private ArrayList<MovieResult> listTopMovies = new ArrayList<>();
     private ListPopularMoviesViewModel mListPopularMoviesViewModel;
-    private ListPopularMoviesAdapter mAdapter;
+    private ListTopMoviesViewModel mListTopMoviesViewModel;
+    private ListPopularMoviesAdapter mPopularAdapter;
+    private ListTopMoviesAdapter mTopAdapter;
     private ProgressBar mProgressBar;
     public static final String EXTRA_CATEGORY = "extra_category";
 
@@ -58,17 +60,24 @@ public class SeeMoreActivity extends AppCompatActivity {
                 mListPopularMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
                     List<MovieResult> movieResults = movieResponse.getResults();
                     popularMovieList.addAll(movieResults);
-                    mAdapter.notifyDataSetChanged();
+                    mPopularAdapter.notifyDataSetChanged();
                     hideProgressBar();
                 });
                 tvToolbarTitle.setText(R.string.popular);
                 break;
             case "listTop":
-                listTopMovies.addAll(TopMoviesData.getListData());
+                showProgressBar();
+                mListTopMoviesViewModel = ViewModelProviders.of(this).get(ListTopMoviesViewModel.class);
+                mListTopMoviesViewModel.init();
+                mListTopMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
+                    List<MovieResult> movieResults = movieResponse.getResults();
+                    listTopMovies.addAll(movieResults);
+                    mTopAdapter.notifyDataSetChanged();
+                    hideProgressBar();
+                });
                 tvToolbarTitle.setText(R.string.top_movies);
                 break;
             case "listPopularTv":
-                listPopularTv.addAll(PopularTvShowsData.getListData());
                 tvToolbarTitle.setText(R.string.popular_tv_shows);
                 break;
             case "listTopTv":
@@ -125,41 +134,30 @@ public class SeeMoreActivity extends AppCompatActivity {
 
     private void showRecyclerGrid() {
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
+        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         switch (category) {
             case "listPopular":
-                RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-                if(mAdapter == null){
-                    mAdapter = new ListPopularMoviesAdapter(this, popularMovieList);
+                if(mPopularAdapter == null){
+                    mPopularAdapter = new ListPopularMoviesAdapter(this, popularMovieList);
                     rvSeeMore.setLayoutManager(gridLayoutManager);
-                    rvSeeMore.setAdapter(mAdapter);
-                    rvSeeMore.setItemAnimator(new DefaultItemAnimator());
-                    rvSeeMore.setNestedScrollingEnabled(true);
+                    rvSeeMore.setAdapter(mPopularAdapter);
                 }else {
-                    mAdapter.notifyDataSetChanged();
+                    mPopularAdapter.notifyDataSetChanged();
                 }
-                mAdapter.setOnItemClickCallback(this::showSelectedMovie2);
+                mPopularAdapter.setOnItemClickCallback(this::showSelectedMovie2);
                 break;
             case "listTop":
-                rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));
-                ListTopMoviesAdapter listTopMoviesAdapter = new ListTopMoviesAdapter(listTopMovies);
-                rvSeeMore.setAdapter(listTopMoviesAdapter);
-                listTopMoviesAdapter.setOnItemClickCallback(new ListTopMoviesAdapter.OnItemClickCallback() {
-                    @Override
-                    public void onItemClicked(MoviesTVShows data) {
-                        showSelectedMovie(data);
-                    }
-                });
+                if(mTopAdapter == null){
+                    mTopAdapter = new ListTopMoviesAdapter(this, listTopMovies);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mTopAdapter);
+                }else {
+                    mTopAdapter.notifyDataSetChanged();
+                }
+                mTopAdapter.setOnItemClickCallback(this::showSelectedMovie2);
                 break;
             case "listPopularTv":
                 rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));
-                ListPopularTvShowsAdapter listPopularTvShowsAdapter = new ListPopularTvShowsAdapter(listPopularTv);
-                rvSeeMore.setAdapter(listPopularTvShowsAdapter);
-                listPopularTvShowsAdapter.setOnItemClickCallback(new ListPopularTvShowsAdapter.OnItemClickCallback() {
-                    @Override
-                    public void onItemClicked(MoviesTVShows data) {
-                        showSelectedMovie(data);
-                    }
-                });
                 break;
             case "listTopTv":
                 rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));

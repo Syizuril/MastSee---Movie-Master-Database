@@ -10,18 +10,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListPopularMoviesRepositories {
-    private static ListPopularMoviesRepositories instance;
-    public static ListPopularMoviesRepositories getInstance(){
+public class ListMoviesRepositories {
+    private static ListMoviesRepositories instance;
+    public static ListMoviesRepositories getInstance(){
         if(instance == null){
-            instance = new ListPopularMoviesRepositories();
+            instance = new ListMoviesRepositories();
         }
         return instance;
     }
 
     private MovieApi movieApi;
 
-    public ListPopularMoviesRepositories(){
+    public ListMoviesRepositories(){
         movieApi = RetrofitService.createService(MovieApi.class);
     }
 

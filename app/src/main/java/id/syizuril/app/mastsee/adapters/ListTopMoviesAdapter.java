@@ -1,5 +1,7 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.adapters;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,21 +13,26 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
-import id.syizuril.app.mastsee.models.MoviesTVShows;
+import id.syizuril.app.mastsee.R;
+import id.syizuril.app.mastsee.models.MovieResult;
 
 public class ListTopMoviesAdapter extends RecyclerView.Adapter<ListTopMoviesAdapter.ListViewHolder> {
-    private ArrayList<MoviesTVShows> listTop;
-    private OnItemClickCallback onItemClickCallback;
+    private Context mContext;
+    private List<MovieResult> listPopularMovies;
 
-    void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+    public ListTopMoviesAdapter(Context mContext, List<MovieResult> listPopularMovies) {
+        this.mContext = mContext;
+        this.listPopularMovies = listPopularMovies;
+    }
+
+    private OnItemClickCallback onItemClickCallback;
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    ListTopMoviesAdapter(ArrayList<MoviesTVShows> listTop) {
-        this.listTop = listTop;
-    }
 
     @NonNull
     @Override
@@ -36,31 +43,26 @@ public class ListTopMoviesAdapter extends RecyclerView.Adapter<ListTopMoviesAdap
 
     @Override
     public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
-        MoviesTVShows topMovies = listTop.get(position);
-
+        MovieResult popularMovies = listPopularMovies.get(position);
         Glide.with(holder.itemView.getContext())
-                .load(topMovies.getCover())
+                .load(popularMovies.getPosterPath())
                 .apply(new RequestOptions().override(500,750))
                 .into(holder.imgCover);
-        holder.tvTitle.setText(topMovies.getTitle());
-        holder.tvDate.setText(topMovies.getDate());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickCallback.onItemClicked(listTop.get(holder.getAdapterPosition()));
-            }
-        });
+        holder.tvTitle.setText(popularMovies.getTitle());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+        String date = formatter.format(popularMovies.getReleaseDate());
+        holder.tvDate.setText(date);
+        holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listPopularMovies.get(holder.getAdapterPosition())));
     }
 
     @Override
     public int getItemCount() {
-        return listTop.size();
+        return listPopularMovies.size();
     }
 
     class ListViewHolder extends RecyclerView.ViewHolder {
         ImageView imgCover, imgBanner;
-        TextView tvTitle,tvDate, tvScore, tvOverview, tvCrew, tvStatus, tvRuntime, tvGenre;
+        TextView tvTitle,tvDate, tvScore, tvOverview, tvVoteCount, tvOriginalLanguage, tvOriginalTitle, tvPopularityPoint;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,12 +70,16 @@ public class ListTopMoviesAdapter extends RecyclerView.Adapter<ListTopMoviesAdap
             tvDate = itemView.findViewById(R.id.tvDate);
             tvScore = itemView.findViewById(R.id.tvScore);
             tvOverview = itemView.findViewById(R.id.tvOverview);
+            tvVoteCount = itemView.findViewById(R.id.tvCount);
+            tvOriginalLanguage = itemView.findViewById(R.id.tvOriginalLanguage);
+            tvOriginalTitle = itemView.findViewById(R.id.tvOriginalTitle);
+            tvPopularityPoint = itemView.findViewById(R.id.tvPopularityPoint);
             imgCover = itemView.findViewById(R.id.imgCover);
             imgBanner = itemView.findViewById(R.id.banner);
         }
     }
 
     public interface OnItemClickCallback {
-        void onItemClicked(MoviesTVShows data);
+        void onItemClicked(MovieResult data);
     }
 }

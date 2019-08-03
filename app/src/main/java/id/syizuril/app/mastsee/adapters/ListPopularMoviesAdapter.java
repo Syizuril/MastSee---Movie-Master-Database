@@ -52,12 +52,7 @@ public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMo
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
         String date = formatter.format(popularMovies.getReleaseDate());
         holder.tvDate.setText(date);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickCallback.onItemClicked(listPopularMovies.get(holder.getAdapterPosition()));
-            }
-        });
+        holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listPopularMovies.get(holder.getAdapterPosition())));
     }
 
     @Override
