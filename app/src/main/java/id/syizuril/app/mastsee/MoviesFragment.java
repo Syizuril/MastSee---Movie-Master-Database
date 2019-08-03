@@ -1,18 +1,19 @@
 package id.syizuril.app.mastsee;
 
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,10 +30,12 @@ import id.syizuril.app.mastsee.viewmodels.ListPopularMoviesViewModel;
  */
 public class MoviesFragment extends Fragment implements View.OnClickListener {
     private RecyclerView rvUpcomingMovies, rvPopularMovies, rvTopMovies;
+    private ArrayList<MovieResult> popularMovieList = new ArrayList<>();
     private ArrayList<MoviesTVShows> listUpcomingMovies = new ArrayList<>();
     private ArrayList<MoviesTVShows> listTopMovies = new ArrayList<>();
     private ListPopularMoviesViewModel mListPopularMoviesViewModel;
-    private ListPopularMoviesAdapter mAdapter;
+    private ListPopularMoviesAdapter mPopularAdapter;
+    private ProgressBar mProgressBar;
 
     public MoviesFragment() {
         // Required empty public constructor
@@ -52,44 +55,48 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
         rvUpcomingMovies = view.findViewById(R.id.rv_upcoming_movie);
         rvPopularMovies = view.findViewById(R.id.rv_populer_movie);
         rvTopMovies = view.findViewById(R.id.rv_top_movies);
+        mProgressBar = view.findViewById(R.id.progressBarPopularMovies);
         TextView tvSeeMorePopular = view.findViewById(R.id.seeMorePopular);
         TextView tvSeeMoreTop = view.findViewById(R.id.seeMoreTop);
-
-        mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
-        mListPopularMoviesViewModel.init();
-        mListPopularMoviesViewModel.getMovieResultList().observe(this, new Observer<List<MovieResult>>() {
-            @Override
-            public void onChanged(@Nullable List<MovieResult> movieResults) {
-                mAdapter.notifyDataSetChanged();
-            }
-        });
-
+        rvPopularMovies.setHasFixedSize(true);
         rvUpcomingMovies.setHasFixedSize(true);
         rvTopMovies.setHasFixedSize(true);
         tvSeeMorePopular.setOnClickListener(this);
         tvSeeMoreTop.setOnClickListener(this);
+
+        mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
+        mListPopularMoviesViewModel.init();
+        mListPopularMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
+            List<MovieResult> movieResults = movieResponse.getResults();
+            popularMovieList.addAll(movieResults);
+            mPopularAdapter.notifyDataSetChanged();
+        });
+
         listUpcomingMovies.addAll(UpcomingMoviesData.getListData());
         listTopMovies.addAll(TopMoviesData.getListData());
         showRecyclerList();
     }
 
     private void showRecyclerList(){
+        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        if(mPopularAdapter == null){
+            mPopularAdapter = new ListPopularMoviesAdapter(this.getActivity(), popularMovieList);
+            rvPopularMovies.setLayoutManager(linearLayoutManager);
+            rvPopularMovies.setAdapter(mPopularAdapter);
+            rvPopularMovies.setItemAnimator(new DefaultItemAnimator());
+            rvPopularMovies.setNestedScrollingEnabled(true);
+        }else {
+            mPopularAdapter.notifyDataSetChanged();
+        }
         rvUpcomingMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        rvPopularMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        rvPopularMovies.setLayoutManager(linearLayoutManager);
         rvTopMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        mAdapter = new ListPopularMoviesAdapter(this.getActivity(), mListPopularMoviesViewModel.getMovieResultList().getValue());
         ListUpcomingMoviesAdapter listUpcomingMoviesAdapter = new ListUpcomingMoviesAdapter(listUpcomingMovies);
         ListTopMoviesAdapter listTopMoviesAdapter = new ListTopMoviesAdapter(listTopMovies);
         rvUpcomingMovies.setAdapter(listUpcomingMoviesAdapter);
-        rvPopularMovies.setAdapter(mAdapter);
         rvTopMovies.setAdapter(listTopMoviesAdapter);
 
-        mAdapter.setOnItemClickCallback(new ListPopularMoviesAdapter.OnItemClickCallback() {
-            @Override
-            public void onItemClicked(MovieResult data) {
-                showSelectedMovie(data);
-            }
-        });
+        mPopularAdapter.setOnItemClickCallback(this::showSelectedMovie);
     }
 
     @Override
@@ -111,5 +118,13 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
         Intent sendMovieTV = new Intent(this.getActivity(), DetailActivity.class);
         sendMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, movieResult);
         startActivity(sendMovieTV);
+    }
+
+    private void showProgressBar(){
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar(){
+        mProgressBar.setVisibility(View.GONE);
     }
 }

@@ -1,21 +1,22 @@
 package id.syizuril.app.mastsee;
 
 import android.app.SearchManager;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,12 +30,13 @@ import id.syizuril.app.mastsee.viewmodels.ListPopularMoviesViewModel;
 
 public class SeeMoreActivity extends AppCompatActivity {
     private RecyclerView rvSeeMore;
-    private ArrayList<MovieResult> listPopularMogies = new ArrayList<>();
     private ArrayList<MoviesTVShows> listTopMovies = new ArrayList<>();
     private ArrayList<MoviesTVShows> listPopularTv = new ArrayList<>();
     private ArrayList<MoviesTVShows> listTopTv = new ArrayList<>();
+    private ArrayList<MovieResult> popularMovieList = new ArrayList<>();
     private ListPopularMoviesViewModel mListPopularMoviesViewModel;
     private ListPopularMoviesAdapter mAdapter;
+    private ProgressBar mProgressBar;
     public static final String EXTRA_CATEGORY = "extra_category";
 
     @Override
@@ -51,11 +53,10 @@ public class SeeMoreActivity extends AppCompatActivity {
             case "listPopular":
                 mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
                 mListPopularMoviesViewModel.init();
-                mListPopularMoviesViewModel.getMovieResultList().observe(this, new Observer<List<MovieResult>>() {
-                    @Override
-                    public void onChanged(@Nullable List<MovieResult> movieResults) {
-                        mAdapter.notifyDataSetChanged();
-                    }
+                mListPopularMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
+                    List<MovieResult> movieResults = movieResponse.getResults();
+                    popularMovieList.addAll(movieResults);
+                    mAdapter.notifyDataSetChanged();
                 });
                 tvToolbarTitle.setText(R.string.popular);
                 break;
@@ -123,9 +124,15 @@ public class SeeMoreActivity extends AppCompatActivity {
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
         switch (category) {
             case "listPopular":
-                rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));
-                mAdapter = new ListPopularMoviesAdapter(this, mListPopularMoviesViewModel.getMovieResultList().getValue());
-                rvSeeMore.setAdapter(mAdapter);
+                RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+                if(mAdapter == null){
+                    mAdapter = new ListPopularMoviesAdapter(this, popularMovieList);
+                    rvSeeMore.setLayoutManager(linearLayoutManager);
+                    rvSeeMore.setItemAnimator(new DefaultItemAnimator());
+                    rvSeeMore.setNestedScrollingEnabled(true);
+                }else {
+                    mAdapter.notifyDataSetChanged();
+                }
                 mAdapter.setOnItemClickCallback(new ListPopularMoviesAdapter.OnItemClickCallback() {
                     @Override
                     public void onItemClicked(MovieResult data) {

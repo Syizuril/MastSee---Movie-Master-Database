@@ -4,25 +4,23 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import java.util.List;
-
-import id.syizuril.app.mastsee.models.MovieResult;
+import id.syizuril.app.mastsee.models.MovieResponse;
 import id.syizuril.app.mastsee.repositories.ListPopularMoviesRepositories;
 
 public class ListPopularMoviesViewModel extends ViewModel {
 
-    private MutableLiveData<List<MovieResult>> mMoviesTVShows;
+    private MutableLiveData<MovieResponse> mutableLiveData;
+    private ListPopularMoviesRepositories listPopularMoviesRepositories;
 
-    private ListPopularMoviesRepositories mRepo;
     public void init(){
-        if(mMoviesTVShows != null){
+        if(mutableLiveData != null){
             return;
         }
-        mRepo = ListPopularMoviesRepositories.getInstance();
-        mMoviesTVShows = mRepo.getMovieResult();
+        listPopularMoviesRepositories = ListPopularMoviesRepositories.getInstance();
+        mutableLiveData = listPopularMoviesRepositories.getMovieResult("movie","popular","b2d6f482d73c8f231cd3af7c9085e7a5","en_US",1);
     }
 
-    public LiveData<List<MovieResult>> getMovieResultList(){
-        return mMoviesTVShows;
+    public LiveData<MovieResponse> getMovieResultList(){
+        return mutableLiveData;
     }
 }

@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee.repositories;
+package id.syizuril.app.mastsee.requests;
 
 import id.syizuril.app.mastsee.models.MovieResponse;
 import retrofit2.Call;
@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface MovieDbService {
+public interface MovieApi {
 
     @GET("/3/{type}/{category}")
     Call<MovieResponse> getMovies(

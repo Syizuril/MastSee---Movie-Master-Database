@@ -87,6 +87,16 @@
             app:layout_constraintTop_toBottomOf="@id/popular_movie_title"
             tools:listitem="@layout/item_row_movies" />
 
+        <ProgressBar
+            android:id="@+id/progressBarPopularMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popular_movie_title"
+            app:layout_constraintBottom_toTopOf="@id/top_movies_title"
+            android:visibility="gone"/>
+        
         <TextView
             android:id="@+id/top_movies_title"
             android:layout_width="match_parent"
