@@ -44,6 +44,7 @@
         android:textSize="12sp"
         android:textStyle="bold"
         android:lines="2"
+        android:gravity="center_vertical"
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="@+id/imgBackCover"
         app:layout_constraintEnd_toEndOf="@+id/imgCover"

@@ -5,7 +5,6 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,7 +30,6 @@ import id.syizuril.app.mastsee.viewmodels.ListPopularMoviesViewModel;
 public class MoviesFragment extends Fragment implements View.OnClickListener {
     private RecyclerView rvUpcomingMovies, rvPopularMovies, rvTopMovies;
     private ArrayList<MoviesTVShows> listUpcomingMovies = new ArrayList<>();
-    private ArrayList<MoviesTVShows> listPopularMogies = new ArrayList<>();
     private ArrayList<MoviesTVShows> listTopMovies = new ArrayList<>();
     private ListPopularMoviesViewModel mListPopularMoviesViewModel;
     private ListPopularMoviesAdapter mAdapter;
@@ -59,7 +57,7 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
 
         mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
         mListPopularMoviesViewModel.init();
-        mListPopularMoviesViewModel.getMoviesTVShows().observe(this, new Observer<List<MovieResult>>() {
+        mListPopularMoviesViewModel.getMovieResultList().observe(this, new Observer<List<MovieResult>>() {
             @Override
             public void onChanged(@Nullable List<MovieResult> movieResults) {
                 mAdapter.notifyDataSetChanged();
@@ -67,21 +65,19 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
         });
 
         rvUpcomingMovies.setHasFixedSize(true);
-        rvPopularMovies.setHasFixedSize(true);
         rvTopMovies.setHasFixedSize(true);
         tvSeeMorePopular.setOnClickListener(this);
         tvSeeMoreTop.setOnClickListener(this);
-
         listUpcomingMovies.addAll(UpcomingMoviesData.getListData());
         listTopMovies.addAll(TopMoviesData.getListData());
         showRecyclerList();
     }
 
     private void showRecyclerList(){
-        mAdapter = new ListPopularMoviesAdapter(this.getActivity(), mListPopularMoviesViewModel.getMoviesTVShows().getValue());
         rvUpcomingMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvPopularMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvTopMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        mAdapter = new ListPopularMoviesAdapter(this.getActivity(), mListPopularMoviesViewModel.getMovieResultList().getValue());
         ListUpcomingMoviesAdapter listUpcomingMoviesAdapter = new ListUpcomingMoviesAdapter(listUpcomingMovies);
         ListTopMoviesAdapter listTopMoviesAdapter = new ListTopMoviesAdapter(listTopMovies);
         rvUpcomingMovies.setAdapter(listUpcomingMoviesAdapter);
@@ -111,9 +107,9 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void showSelectedMovie(MovieResult moviesTVShows){
-        Intent sendDataMovieTV = new Intent(this.getActivity(), DetailActivity.class);
-        sendDataMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, (Parcelable) moviesTVShows);
-        startActivity(sendDataMovieTV);
+    private void showSelectedMovie(MovieResult movieResult){
+        Intent sendMovieTV = new Intent(this.getActivity(), DetailActivity.class);
+        sendMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, movieResult);
+        startActivity(sendMovieTV);
     }
 }

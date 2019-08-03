@@ -1,5 +1,6 @@
 package id.syizuril.app.mastsee;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +18,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import id.syizuril.app.mastsee.models.MoviesTVShows;
+import java.text.SimpleDateFormat;
+
+import id.syizuril.app.mastsee.models.MovieResult;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
@@ -32,39 +35,41 @@ public class DetailActivity extends AppCompatActivity {
         TextView tvDate = findViewById(R.id.tvDate);
         TextView tvScore = findViewById(R.id.tvScore);
         TextView tvOverview = findViewById(R.id.tvOverview);
-        TextView tvCrew = findViewById(R.id.tvCrew);
-        TextView tvStatus = findViewById(R.id.tvStatus);
-        TextView tvRuntime = findViewById(R.id.tvRuntime);
-        TextView tvGenre = findViewById(R.id.tvGenre);
+        TextView tvVoteCount = findViewById(R.id.tvCount);
+        TextView tvOriginalLanguage = findViewById(R.id.tvOriginalLanguage);
+        TextView tvOriginalTitle = findViewById(R.id.tvOriginalTitle);
+        TextView tvPopularityPoint = findViewById(R.id.tvPopularityPoint);
         ImageView imgCover = findViewById(R.id.cover);
         ImageView imgBanner = findViewById(R.id.banner);
         TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
 
-        MoviesTVShows moviesTVShows = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        String title = moviesTVShows.getTitle();
-        String date = moviesTVShows.getDate();
-        String score = moviesTVShows.getScore();
-        String overview = moviesTVShows.getOverview();
-        String crew = moviesTVShows.getCrew();
-        String status = moviesTVShows.getStatus();
-        String runtime = moviesTVShows.getRuntime();
-        String genre = moviesTVShows.getGenre();
+        MovieResult movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        String title = movieResult.getTitle();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+        String date = formatter.format(movieResult.getReleaseDate());
+        Double score = movieResult.getVoteAverage();
+        String overview = movieResult.getOverview();
+        Integer voteCount = movieResult.getVoteCount();
+        String originalLanguage = movieResult.getOriginalLanguage();
+        String originalTitle = movieResult.getOriginalTitle();
+        Double popularityPoint = movieResult.getPopularity();
 
         Glide.with(DetailActivity.this)
-                .load(moviesTVShows.getCover())
+                .load(movieResult.getPosterPath())
                 .into(imgCover);
 
         Glide.with(DetailActivity.this)
-                .load(moviesTVShows.getBanner())
+                .load(movieResult.getBackdropPath())
                 .into(imgBanner);
         tvTitle.setText(title);
-        tvDate.setText(date);
-        tvScore.setText(score);
+        tvDate.setText(String.valueOf(date));
+        tvScore.setText(String.valueOf(score));
         tvOverview.setText(overview);
-        tvCrew.setText(crew);
-        tvStatus.setText(status);
-        tvRuntime.setText(runtime);
-        tvGenre.setText(genre);
+        tvVoteCount.setText(String.valueOf(voteCount));
+        tvOriginalLanguage.setText(originalLanguage);
+        tvOriginalTitle.setText(originalTitle);
+        tvPopularityPoint.setText(String.valueOf(popularityPoint));
+
         tvToolbarTitle.setText(title);
 
         setSupportActionBar(tbBack);

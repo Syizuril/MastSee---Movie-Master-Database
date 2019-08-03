@@ -20,8 +20,10 @@
     <string name="popular_tv_shows">Popular Tv Shows</string>
     <string name="top_tv_shows">Top Tv Shows</string>
     <string name="overview">Overview</string>
-    <string name="featured_crew">Featured Crew</string>
-    <string name="runtime">Runtime</string>
+    <string name="vote_count">Vote Count</string>
+    <string name="original_language">Original Language</string>
     <string name="genre">Genre</string>
     <string name="error_text">Opps! Something has wrong !</string>
+    <string name="original_title">Original Title</string>
+    <string name="popularity_point">Popularity Point</string>
 </resources>

@@ -16,10 +16,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListPopularMoviesRepositories {
     private static ListPopularMoviesRepositories instance;
-    public static String BASE_URL = "https://api.themoviedb.org";
-    public static String API_KEY = "b2d6f482d73c8f231cd3af7c9085e7a5";
+    private static String BASE_URL = "https://api.themoviedb.org";
+    private static String API_KEY = "b2d6f482d73c8f231cd3af7c9085e7a5";
 
-    private ArrayList<MovieResult> dataMovie = new ArrayList<>();
+    private ArrayList<MovieResult> dataPopularMovies = new ArrayList<>();
 
     public static ListPopularMoviesRepositories getInstance(){
         if(instance == null){
@@ -28,15 +28,14 @@ public class ListPopularMoviesRepositories {
         return instance;
     }
 
-    public MutableLiveData<List<MovieResult>> getMoviesTVShows(){
+    public MutableLiveData<List<MovieResult>> getMovieResult(){
         setMoviesTVShows();
         MutableLiveData<List<MovieResult>> data = new MutableLiveData<>();
-        data.setValue(dataMovie);
+        data.setValue(dataPopularMovies);
         return data;
     }
 
     private void setMoviesTVShows(){
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -49,7 +48,8 @@ public class ListPopularMoviesRepositories {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<MovieResult> movieResults = response.body().getResults();
-                dataMovie.addAll(movieResults);
+                dataPopularMovies.addAll(movieResults);
+                Log.d("Berhasil", String.valueOf(dataPopularMovies));
             }
 
             @Override
@@ -57,5 +57,6 @@ public class ListPopularMoviesRepositories {
                 Log.d("Error", t.getMessage());
             }
         });
+
     }
 }

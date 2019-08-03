@@ -28,6 +28,8 @@
                 android:text="@string/mastsee"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="18sp"
+                android:lines="1"
+                android:ellipsize="end"
                 />
         </android.support.v7.widget.Toolbar>
 
@@ -81,7 +83,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cover"
             app:layout_constraintTop_toTopOf="@+id/banner"
-            app:layout_constraintHorizontal_bias="0.915"
+            app:layout_constraintHorizontal_bias="0.925"
             app:layout_constraintVertical_bias="0.8"
             tools:text="90" />
 
@@ -91,7 +93,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginBottom="4dp"
             android:fontFamily="sans-serif"
             android:textAlignment="textEnd"
@@ -109,7 +111,7 @@
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginBottom="4dp"
             android:fontFamily="sans-serif"
             android:textAlignment="textEnd"
@@ -123,25 +125,6 @@
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintHorizontal_bias="1.0"
             tools:text="12 Februari 2020" />
-
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="sans-serif"
-            android:textAlignment="textEnd"
-            android:textColor="#c7c7c7"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cover"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cover"
-            app:layout_constraintTop_toBottomOf="@+id/tvDate"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintHorizontal_bias="1.0"
-            tools:text="Cancelled" />
 
         <View
             android:layout_width="0dp"
@@ -192,13 +175,13 @@
             android:layout_height="1dp"
             android:background="#c7c7c7"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/tvCrewTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvVoteCount"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvCrewTitle"
-            app:layout_constraintTop_toTopOf="@id/tvCrewTitle" />
+            app:layout_constraintStart_toEndOf="@id/tvVoteCount"
+            app:layout_constraintTop_toTopOf="@id/tvVoteCount" />
 
         <TextView
-            android:id="@+id/tvCrewTitle"
+            android:id="@+id/tvVoteCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -213,10 +196,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvOverview"
             app:layout_constraintHorizontal_bias="0.0"
-            android:text="@string/featured_crew" />
+            android:text="@string/vote_count" />
 
         <TextView
-            android:id="@+id/tvCrew"
+            android:id="@+id/tvCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -228,8 +211,8 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCrewTitle"
-            tools:text="Syekh Syihabuddin Azmil Umri"
+            app:layout_constraintTop_toBottomOf="@+id/tvVoteCount"
+            tools:text="123213"
             />
 
         <View
@@ -237,13 +220,13 @@
             android:layout_height="1dp"
             android:background="#c7c7c7"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/tvRuntimeTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvOriginalLanguageB"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvRuntimeTitle"
-            app:layout_constraintTop_toTopOf="@id/tvRuntimeTitle" />
+            app:layout_constraintStart_toEndOf="@+id/tvOriginalLanguageB"
+            app:layout_constraintTop_toTopOf="@id/tvOriginalLanguageB" />
 
         <TextView
-            android:id="@+id/tvRuntimeTitle"
+            android:id="@+id/tvOriginalLanguageB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -256,12 +239,12 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCrew"
+            app:layout_constraintTop_toBottomOf="@+id/tvCount"
             app:layout_constraintHorizontal_bias="0.0"
-            android:text="@string/runtime" />
+            android:text="@string/original_language" />
 
         <TextView
-            android:id="@+id/tvRuntime"
+            android:id="@+id/tvOriginalLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -273,8 +256,8 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRuntimeTitle"
-            tools:text="40h"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalLanguageB"
+            tools:text="Indonesian"
             />
 
         <View
@@ -282,13 +265,13 @@
             android:layout_height="1dp"
             android:background="#c7c7c7"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/tvGenreTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvOriginalTitleB"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvGenreTitle"
-            app:layout_constraintTop_toTopOf="@id/tvGenreTitle" />
+            app:layout_constraintStart_toEndOf="@+id/tvOriginalTitleB"
+            app:layout_constraintTop_toTopOf="@id/tvOriginalTitleB" />
 
         <TextView
-            android:id="@+id/tvGenreTitle"
+            android:id="@+id/tvOriginalTitleB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -301,12 +284,57 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRuntime"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalLanguage"
             app:layout_constraintHorizontal_bias="0.0"
-            android:text="@string/genre" />
+            android:text="@string/original_title" />
 
         <TextView
-            android:id="@+id/tvGenre"
+            android:id="@+id/tvOriginalTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitleB"
+            tools:text="Title Original Movie"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#c7c7c7"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvPopularityPointB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvPopularityPointB"
+            app:layout_constraintTop_toTopOf="@id/tvPopularityPointB" />
+
+        <TextView
+            android:id="@+id/tvPopularityPointB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitle"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="@string/popularity_point" />
+
+        <TextView
+            android:id="@+id/tvPopularityPoint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -318,34 +346,9 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGenreTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvPopularityPointB"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Action, Comedy"
-            />
-        
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone"/>
-        
-        <TextView
-            android:id="@+id/txt_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="sans-serif"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="@string/error_text"
-            android:visibility="gone"
+            tools:text="1999"
             />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

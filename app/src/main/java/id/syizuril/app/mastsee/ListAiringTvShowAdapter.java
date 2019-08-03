@@ -65,10 +65,6 @@ public class ListAiringTvShowAdapter extends RecyclerView.Adapter<ListAiringTvSh
             tvDate = itemView.findViewById(R.id.tvDate);
             tvScore = itemView.findViewById(R.id.tvScore);
             tvOverview = itemView.findViewById(R.id.tvOverview);
-            tvCrew = itemView.findViewById(R.id.tvCrew);
-            tvStatus = itemView.findViewById(R.id.tvStatus);
-            tvRuntime = itemView.findViewById(R.id.tvRuntime);
-            tvGenre = itemView.findViewById(R.id.tvGenre);
             imgCover = itemView.findViewById(R.id.imgCover);
             imgBanner = itemView.findViewById(R.id.banner);
             imgAltBanner = itemView.findViewById(R.id.banner_upcoming_movies);

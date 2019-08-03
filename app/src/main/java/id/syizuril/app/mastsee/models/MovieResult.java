@@ -1,16 +1,19 @@
 package id.syizuril.app.mastsee.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MovieResult {
-    public MovieResult(Integer voteCount, Integer id, Boolean video, Double voteAverage, String title, Double popularity, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, String backdropPath, Boolean adult, String overview, Date releaseDate) {
+public class MovieResult implements Parcelable {
+    public MovieResult(Integer voteCount, Integer id, Double voteAverage, String title, Double popularity, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, String backdropPath, String overview, Date releaseDate) {
         this.voteCount = voteCount;
         this.id = id;
-        this.video = video;
         this.voteAverage = voteAverage;
         this.title = title;
         this.popularity = popularity;
@@ -19,7 +22,6 @@ public class MovieResult {
         this.originalTitle = originalTitle;
         this.genreIds = genreIds;
         this.backdropPath = backdropPath;
-        this.adult = adult;
         this.overview = overview;
         this.releaseDate = releaseDate;
     }
@@ -30,9 +32,6 @@ public class MovieResult {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("video")
-    @Expose
-    private Boolean video;
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
@@ -57,9 +56,6 @@ public class MovieResult {
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
-    @SerializedName("adult")
-    @Expose
-    private Boolean adult;
     @SerializedName("overview")
     @Expose
     private String overview;
@@ -81,14 +77,6 @@ public class MovieResult {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Boolean getVideo() {
-        return video;
-    }
-
-    public void setVideo(Boolean video) {
-        this.video = video;
     }
 
     public Double getVoteAverage() {
@@ -155,14 +143,6 @@ public class MovieResult {
         this.backdropPath = backdropPath;
     }
 
-    public Boolean getAdult() {
-        return adult;
-    }
-
-    public void setAdult(Boolean adult) {
-        this.adult = adult;
-    }
-
     public String getOverview() {
         return overview;
     }
@@ -178,4 +158,54 @@ public class MovieResult {
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.voteCount);
+        dest.writeValue(this.id);
+        dest.writeValue(this.voteAverage);
+        dest.writeString(this.title);
+        dest.writeValue(this.popularity);
+        dest.writeString(this.posterPath);
+        dest.writeString(this.originalLanguage);
+        dest.writeString(this.originalTitle);
+        dest.writeList(this.genreIds);
+        dest.writeString(this.backdropPath);
+        dest.writeString(this.overview);
+        dest.writeLong(this.releaseDate != null ? this.releaseDate.getTime() : -1);
+    }
+
+    protected MovieResult(Parcel in) {
+        this.voteCount = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.voteAverage = (Double) in.readValue(Double.class.getClassLoader());
+        this.title = in.readString();
+        this.popularity = (Double) in.readValue(Double.class.getClassLoader());
+        this.posterPath = in.readString();
+        this.originalLanguage = in.readString();
+        this.originalTitle = in.readString();
+        this.genreIds = new ArrayList<Integer>();
+        in.readList(this.genreIds, Integer.class.getClassLoader());
+        this.backdropPath = in.readString();
+        this.overview = in.readString();
+        long tmpReleaseDate = in.readLong();
+        this.releaseDate = tmpReleaseDate == -1 ? null : new Date(tmpReleaseDate);
+    }
+
+    public static final Parcelable.Creator<MovieResult> CREATOR = new Parcelable.Creator<MovieResult>() {
+        @Override
+        public MovieResult createFromParcel(Parcel source) {
+            return new MovieResult(source);
+        }
+
+        @Override
+        public MovieResult[] newArray(int size) {
+            return new MovieResult[size];
+        }
+    };
 }

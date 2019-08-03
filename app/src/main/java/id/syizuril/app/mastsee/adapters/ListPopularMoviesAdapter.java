@@ -1,5 +1,6 @@
 package id.syizuril.app.mastsee.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +29,6 @@ public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMo
     }
 
     private OnItemClickCallback onItemClickCallback;
-
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
     }
@@ -48,11 +48,10 @@ public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMo
                 .load(popularMovies.getPosterPath())
                 .apply(new RequestOptions().override(500,750))
                 .into(holder.imgCover);
-        holder.tvTitle.setText(popularMovies.getOriginalTitle());
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+        holder.tvTitle.setText(popularMovies.getTitle());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
         String date = formatter.format(popularMovies.getReleaseDate());
         holder.tvDate.setText(date);
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +67,7 @@ public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMo
 
     class ListViewHolder extends RecyclerView.ViewHolder {
         ImageView imgCover, imgBanner;
-        TextView tvTitle,tvDate, tvScore, tvOverview, tvCrew, tvStatus, tvRuntime, tvGenre;
+        TextView tvTitle,tvDate, tvScore, tvOverview, tvVoteCount, tvOriginalLanguage, tvOriginalTitle, tvPopularityPoint;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,10 +75,10 @@ public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMo
             tvDate = itemView.findViewById(R.id.tvDate);
             tvScore = itemView.findViewById(R.id.tvScore);
             tvOverview = itemView.findViewById(R.id.tvOverview);
-            tvCrew = itemView.findViewById(R.id.tvCrew);
-            tvStatus = itemView.findViewById(R.id.tvStatus);
-            tvRuntime = itemView.findViewById(R.id.tvRuntime);
-            tvGenre = itemView.findViewById(R.id.tvGenre);
+            tvVoteCount = itemView.findViewById(R.id.tvCount);
+            tvOriginalLanguage = itemView.findViewById(R.id.tvOriginalLanguage);
+            tvOriginalTitle = itemView.findViewById(R.id.tvOriginalTitle);
+            tvPopularityPoint = itemView.findViewById(R.id.tvPopularityPoint);
             imgCover = itemView.findViewById(R.id.imgCover);
             imgBanner = itemView.findViewById(R.id.banner);
         }

@@ -51,7 +51,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             case "listPopular":
                 mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
                 mListPopularMoviesViewModel.init();
-                mListPopularMoviesViewModel.getMoviesTVShows().observe(this, new Observer<List<MovieResult>>() {
+                mListPopularMoviesViewModel.getMovieResultList().observe(this, new Observer<List<MovieResult>>() {
                     @Override
                     public void onChanged(@Nullable List<MovieResult> movieResults) {
                         mAdapter.notifyDataSetChanged();
@@ -124,7 +124,7 @@ public class SeeMoreActivity extends AppCompatActivity {
         switch (category) {
             case "listPopular":
                 rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));
-                mAdapter = new ListPopularMoviesAdapter(this, mListPopularMoviesViewModel.getMoviesTVShows().getValue());
+                mAdapter = new ListPopularMoviesAdapter(this, mListPopularMoviesViewModel.getMovieResultList().getValue());
                 rvSeeMore.setAdapter(mAdapter);
                 mAdapter.setOnItemClickCallback(new ListPopularMoviesAdapter.OnItemClickCallback() {
                     @Override
@@ -177,6 +177,6 @@ public class SeeMoreActivity extends AppCompatActivity {
 
     private void showSelectedMovie2(MovieResult movieResult){
         Intent senDataMovieTV = new Intent(this, DetailActivity.class);
-        senDataMovieTV.putExtra(DetailActivityNew.EXTRA_MOVIE, String.valueOf(movieResult));
+        senDataMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, movieResult);
     }
 }
