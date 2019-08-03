@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -124,21 +123,17 @@ public class SeeMoreActivity extends AppCompatActivity {
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
         switch (category) {
             case "listPopular":
-                RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+                RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
                 if(mAdapter == null){
                     mAdapter = new ListPopularMoviesAdapter(this, popularMovieList);
-                    rvSeeMore.setLayoutManager(linearLayoutManager);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mAdapter);
                     rvSeeMore.setItemAnimator(new DefaultItemAnimator());
                     rvSeeMore.setNestedScrollingEnabled(true);
                 }else {
                     mAdapter.notifyDataSetChanged();
                 }
-                mAdapter.setOnItemClickCallback(new ListPopularMoviesAdapter.OnItemClickCallback() {
-                    @Override
-                    public void onItemClicked(MovieResult data) {
-                        showSelectedMovie2(data);
-                    }
-                });
+                mAdapter.setOnItemClickCallback(this::showSelectedMovie2);
                 break;
             case "listTop":
                 rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));
@@ -183,7 +178,8 @@ public class SeeMoreActivity extends AppCompatActivity {
     }
 
     private void showSelectedMovie2(MovieResult movieResult){
-        Intent senDataMovieTV = new Intent(this, DetailActivity.class);
-        senDataMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, movieResult);
+        Intent sendMovieTV = new Intent(this, DetailActivity.class);
+        sendMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, movieResult);
+        startActivity(sendMovieTV);
     }
 }
