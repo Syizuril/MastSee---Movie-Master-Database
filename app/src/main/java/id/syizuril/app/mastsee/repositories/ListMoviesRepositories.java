@@ -26,12 +26,12 @@ public class ListMoviesRepositories {
     }
 
     public MutableLiveData<MovieResponse> getMovieResult(String type, String category, String apiKey, String language, int page){
-        final MutableLiveData<MovieResponse> popularMovieData = new MutableLiveData<>();
+        final MutableLiveData<MovieResponse> movieData = new MutableLiveData<>();
         movieApi.getMovies(type, category, apiKey, language, page).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if(response.isSuccessful()){
-                    popularMovieData.setValue(response.body());
+                    movieData.setValue(response.body());
                     Log.d("Success", response.message());
                 }else{
                     System.out.println("GAGAL");
@@ -40,10 +40,10 @@ public class ListMoviesRepositories {
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-                popularMovieData.setValue(null);
+                movieData.setValue(null);
                 Log.d("ERROR ", t.getMessage());
             }
         });
-        return popularMovieData;
+        return movieData;
     }
 }

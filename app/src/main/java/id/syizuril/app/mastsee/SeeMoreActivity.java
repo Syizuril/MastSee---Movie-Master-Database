@@ -23,21 +23,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.syizuril.app.mastsee.adapters.ListPopularMoviesAdapter;
+import id.syizuril.app.mastsee.adapters.ListPopularTvShowsAdapter;
 import id.syizuril.app.mastsee.adapters.ListTopMoviesAdapter;
+import id.syizuril.app.mastsee.adapters.ListTopTvShowsAdapter;
 import id.syizuril.app.mastsee.models.MovieResult;
-import id.syizuril.app.mastsee.models.MoviesTVShows;
+import id.syizuril.app.mastsee.models.TvShowsResult;
 import id.syizuril.app.mastsee.viewmodels.ListPopularMoviesViewModel;
+import id.syizuril.app.mastsee.viewmodels.ListPopularTvShowsViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListTopMoviesViewModel;
+import id.syizuril.app.mastsee.viewmodels.ListTopTvShowsViewModel;
 
 public class SeeMoreActivity extends AppCompatActivity {
     private RecyclerView rvSeeMore;
-    private ArrayList<MoviesTVShows> listTopTv = new ArrayList<>();
     private ArrayList<MovieResult> popularMovieList = new ArrayList<>();
     private ArrayList<MovieResult> listTopMovies = new ArrayList<>();
+    private ArrayList<TvShowsResult> popularTvList = new ArrayList<>();
+    private ArrayList<TvShowsResult> topTvList = new ArrayList<>();
     private ListPopularMoviesViewModel mListPopularMoviesViewModel;
     private ListTopMoviesViewModel mListTopMoviesViewModel;
+    private ListPopularTvShowsViewModel mListPopularTvShowsViewModel;
+    private ListTopTvShowsViewModel mTopTvShowsViewModel;
     private ListPopularMoviesAdapter mPopularAdapter;
     private ListTopMoviesAdapter mTopAdapter;
+    private ListPopularTvShowsAdapter mPopularTvAdapter;
+    private ListTopTvShowsAdapter mTopTvAdapter;
     private ProgressBar mProgressBar;
     public static final String EXTRA_CATEGORY = "extra_category";
 
@@ -57,9 +66,10 @@ public class SeeMoreActivity extends AppCompatActivity {
                 showProgressBar();
                 mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
                 mListPopularMoviesViewModel.init();
-                mListPopularMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
-                    List<MovieResult> movieResults = movieResponse.getResults();
-                    popularMovieList.addAll(movieResults);
+                mListPopularMoviesViewModel.getMovieResultList().observe(this, popularMovieResponse -> {
+                    assert popularMovieResponse != null;
+                    List<MovieResult> popularMovieResults = popularMovieResponse.getResults();
+                    popularMovieList.addAll(popularMovieResults);
                     mPopularAdapter.notifyDataSetChanged();
                     hideProgressBar();
                 });
@@ -70,6 +80,7 @@ public class SeeMoreActivity extends AppCompatActivity {
                 mListTopMoviesViewModel = ViewModelProviders.of(this).get(ListTopMoviesViewModel.class);
                 mListTopMoviesViewModel.init();
                 mListTopMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
+                    assert movieResponse != null;
                     List<MovieResult> movieResults = movieResponse.getResults();
                     listTopMovies.addAll(movieResults);
                     mTopAdapter.notifyDataSetChanged();
@@ -78,10 +89,29 @@ public class SeeMoreActivity extends AppCompatActivity {
                 tvToolbarTitle.setText(R.string.top_movies);
                 break;
             case "listPopularTv":
+                showProgressBar();
+                mListPopularTvShowsViewModel = ViewModelProviders.of(this).get(ListPopularTvShowsViewModel.class);
+                mListPopularTvShowsViewModel.init();
+                mListPopularTvShowsViewModel.getTvShowsResultList().observe(this, popularTvResponse -> {
+                    assert popularTvResponse != null;
+                    List<TvShowsResult> popularTvResults = popularTvResponse.getResults();
+                    popularTvList.addAll(popularTvResults);
+                    mPopularTvAdapter.notifyDataSetChanged();
+                    hideProgressBar();
+                });
                 tvToolbarTitle.setText(R.string.popular_tv_shows);
                 break;
             case "listTopTv":
-                listTopTv.addAll(TopTvShowsData.getListData());
+                showProgressBar();
+                mTopTvShowsViewModel = ViewModelProviders.of(this).get(ListTopTvShowsViewModel.class);
+                mTopTvShowsViewModel.init();
+                mTopTvShowsViewModel.getTvShowsResultList().observe(this, topTvResponse ->{
+                    assert topTvResponse != null;
+                    List<TvShowsResult> topTvResults = topTvResponse.getResults();
+                    topTvList.addAll(topTvResults);
+                    mTopTvAdapter.notifyDataSetChanged();
+                    hideProgressBar();
+                });
                 tvToolbarTitle.setText(R.string.top_tv_shows);
                 break;
         }
@@ -144,7 +174,7 @@ public class SeeMoreActivity extends AppCompatActivity {
                 }else {
                     mPopularAdapter.notifyDataSetChanged();
                 }
-                mPopularAdapter.setOnItemClickCallback(this::showSelectedMovie2);
+                mPopularAdapter.setOnItemClickCallback(this::showSelectedMovie);
                 break;
             case "listTop":
                 if(mTopAdapter == null){
@@ -154,34 +184,40 @@ public class SeeMoreActivity extends AppCompatActivity {
                 }else {
                     mTopAdapter.notifyDataSetChanged();
                 }
-                mTopAdapter.setOnItemClickCallback(this::showSelectedMovie2);
+                mTopAdapter.setOnItemClickCallback(this::showSelectedMovie);
                 break;
             case "listPopularTv":
-                rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));
+                if(mPopularTvAdapter == null){
+                    mPopularTvAdapter = new ListPopularTvShowsAdapter(this, popularTvList);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mPopularTvAdapter);
+                }else{
+                    mPopularTvAdapter.notifyDataSetChanged();
+                }
+                mPopularTvAdapter.setOnItemClickCallback(this::showSelectedTvShows);
                 break;
             case "listTopTv":
-                rvSeeMore.setLayoutManager(new GridLayoutManager(this, 3));
-                ListTopTvShowsAdapter listTopTvShowsAdapter = new ListTopTvShowsAdapter(listTopTv);
-                rvSeeMore.setAdapter(listTopTvShowsAdapter);
-                listTopTvShowsAdapter.setOnItemClickCallback(new ListTopTvShowsAdapter.OnItemClickCallback() {
-                    @Override
-                    public void onItemClicked(MoviesTVShows data) {
-                        showSelectedMovie(data);
-                    }
-                });
+                if(mTopTvAdapter == null){
+                    mTopTvAdapter = new ListTopTvShowsAdapter(this, topTvList);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mTopTvAdapter);
+                }else{
+                    mTopTvAdapter.notifyDataSetChanged();
+                }
+                mTopTvAdapter.setOnItemClickCallback(this::showSelectedTvShows);
                 break;
         }
     }
 
-    private void showSelectedMovie(MoviesTVShows moviesTVShows){
-        Intent sendDataMovieTV = new Intent(this, DetailActivity.class);
-        sendDataMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, moviesTVShows);
-        startActivity(sendDataMovieTV);
-    }
-
-    private void showSelectedMovie2(MovieResult movieResult){
+    private void showSelectedMovie(MovieResult movieResult){
         Intent sendMovieTV = new Intent(this, DetailActivity.class);
         sendMovieTV.putExtra(DetailActivity.EXTRA_MOVIE, movieResult);
+        startActivity(sendMovieTV);
+    }
+
+    private void showSelectedTvShows(TvShowsResult tvShowsResult){
+        Intent sendMovieTV = new Intent(this, DetailActivityTv.class);
+        sendMovieTV.putExtra(DetailActivityTv.EXTRA_MOVIE, tvShowsResult);
         startActivity(sendMovieTV);
     }
 

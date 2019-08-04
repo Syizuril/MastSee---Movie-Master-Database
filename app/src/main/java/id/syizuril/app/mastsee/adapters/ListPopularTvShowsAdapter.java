@@ -17,15 +17,15 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import id.syizuril.app.mastsee.R;
-import id.syizuril.app.mastsee.models.MovieResult;
+import id.syizuril.app.mastsee.models.TvShowsResult;
 
-public class ListTopMoviesAdapter extends RecyclerView.Adapter<ListTopMoviesAdapter.ListViewHolder> {
+public class ListPopularTvShowsAdapter extends RecyclerView.Adapter<ListPopularTvShowsAdapter.ListViewHolder> {
     private Context mContext;
-    private List<MovieResult> listPopularMovies;
+    private List<TvShowsResult> listPopularTvShows;
 
-    public ListTopMoviesAdapter(Context mContext, List<MovieResult> listPopularMovies) {
+    public ListPopularTvShowsAdapter(Context mContext, List<TvShowsResult> listPopularTvShows) {
         this.mContext = mContext;
-        this.listPopularMovies = listPopularMovies;
+        this.listPopularTvShows = listPopularTvShows;
     }
 
     private OnItemClickCallback onItemClickCallback;
@@ -43,21 +43,21 @@ public class ListTopMoviesAdapter extends RecyclerView.Adapter<ListTopMoviesAdap
 
     @Override
     public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
-        MovieResult topMovies = listPopularMovies.get(position);
+        TvShowsResult tvShows = listPopularTvShows.get(position);
         Glide.with(holder.itemView.getContext())
-                .load(topMovies.getPosterPath())
+                .load(tvShows.getPosterPath())
                 .apply(new RequestOptions().override(500,750))
                 .into(holder.imgCover);
-        holder.tvTitle.setText(topMovies.getTitle());
+        holder.tvTitle.setText(tvShows.getName());
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-        String date = formatter.format(topMovies.getReleaseDate());
+        String date = formatter.format(tvShows.getFirstAirDate());
         holder.tvDate.setText(date);
-        holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listPopularMovies.get(holder.getAdapterPosition())));
+        holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listPopularTvShows.get(holder.getAdapterPosition())));
     }
 
     @Override
     public int getItemCount() {
-        return listPopularMovies.size();
+        return listPopularTvShows.size();
     }
 
     class ListViewHolder extends RecyclerView.ViewHolder {
@@ -80,6 +80,6 @@ public class ListTopMoviesAdapter extends RecyclerView.Adapter<ListTopMoviesAdap
     }
 
     public interface OnItemClickCallback {
-        void onItemClicked(MovieResult data);
+        void onItemClicked(TvShowsResult data);
     }
 }

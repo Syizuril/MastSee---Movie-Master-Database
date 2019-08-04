@@ -11,21 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 public class MovieResult implements Parcelable {
-    public MovieResult(Integer voteCount, Integer id, Double voteAverage, String title, Double popularity, String posterPath, String originalLanguage, String originalTitle, List<Integer> genreIds, String backdropPath, String overview, Date releaseDate) {
-        this.voteCount = voteCount;
-        this.id = id;
-        this.voteAverage = voteAverage;
-        this.title = title;
-        this.popularity = popularity;
-        this.posterPath = posterPath;
-        this.originalLanguage = originalLanguage;
-        this.originalTitle = originalTitle;
-        this.genreIds = genreIds;
-        this.backdropPath = backdropPath;
-        this.overview = overview;
-        this.releaseDate = releaseDate;
-    }
-
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
