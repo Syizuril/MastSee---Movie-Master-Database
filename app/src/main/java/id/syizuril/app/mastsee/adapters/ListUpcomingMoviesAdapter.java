@@ -1,6 +1,6 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.adapters;
 
-
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,21 +12,25 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import id.syizuril.app.mastsee.models.MoviesTVShows;
+import id.syizuril.app.mastsee.R;
+import id.syizuril.app.mastsee.models.MovieResult;
 
-public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcomingMoviesAdapter.ListViewHolder>{
-    private ArrayList<MoviesTVShows> listUpcomingMovies;
+public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcomingMoviesAdapter.ListViewHolder> {
+    private Context mContext;
+    private List<MovieResult> listUpcomingMovies;
+
+    public ListUpcomingMoviesAdapter(Context mContext, List<MovieResult> listUpcomingMovies) {
+        this.mContext = mContext;
+        this.listUpcomingMovies = listUpcomingMovies;
+    }
+
     private OnItemClickCallback onItemClickCallback;
-
-    void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    ListUpcomingMoviesAdapter(ArrayList<MoviesTVShows> listUpcomingMovies) {
-        this.listUpcomingMovies = listUpcomingMovies;
-    }
 
     @NonNull
     @Override
@@ -37,29 +41,25 @@ public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcoming
 
     @Override
     public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
-        MoviesTVShows upcomingMovies = listUpcomingMovies.get(position);
-
+        MovieResult upcomingMovies = listUpcomingMovies.get(position);
         Glide.with(holder.itemView.getContext())
-                .load(upcomingMovies.getAltbanner())
+                .load(upcomingMovies.getBackdropPath())
                 .apply(new RequestOptions().override(400,190))
                 .into(holder.imgAltBanner);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickCallback.onItemClicked(listUpcomingMovies.get(holder.getAdapterPosition()));
-            }
-        });
+        holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listUpcomingMovies.get(holder.getAdapterPosition())));
     }
 
     @Override
     public int getItemCount() {
+        if (listUpcomingMovies.size()>3){
+            return 3;
+        }
         return listUpcomingMovies.size();
     }
 
     class ListViewHolder extends RecyclerView.ViewHolder {
         ImageView imgCover, imgBanner, imgAltBanner;
-        TextView tvTitle,tvDate, tvScore, tvOverview, tvCrew, tvStatus, tvRuntime, tvGenre;
+        TextView tvTitle,tvDate, tvScore, tvOverview, tvVoteCount, tvOriginalLanguage, tvOriginalTitle, tvPopularityPoint;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +67,10 @@ public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcoming
             tvDate = itemView.findViewById(R.id.tvDate);
             tvScore = itemView.findViewById(R.id.tvScore);
             tvOverview = itemView.findViewById(R.id.tvOverview);
+            tvVoteCount = itemView.findViewById(R.id.tvCount);
+            tvOriginalLanguage = itemView.findViewById(R.id.tvOriginalLanguage);
+            tvOriginalTitle = itemView.findViewById(R.id.tvOriginalTitle);
+            tvPopularityPoint = itemView.findViewById(R.id.tvPopularityPoint);
             imgCover = itemView.findViewById(R.id.imgCover);
             imgBanner = itemView.findViewById(R.id.banner);
             imgAltBanner = itemView.findViewById(R.id.banner_upcoming_movies);
@@ -74,7 +78,6 @@ public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcoming
     }
 
     public interface OnItemClickCallback {
-        void onItemClicked(MoviesTVShows data);
+        void onItemClicked(MovieResult data);
     }
 }
-

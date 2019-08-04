@@ -18,9 +18,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.syizuril.app.mastsee.adapters.ListAiringTvShowsAdapter;
 import id.syizuril.app.mastsee.adapters.ListPopularTvShowsAdapter;
 import id.syizuril.app.mastsee.adapters.ListTopTvShowsAdapter;
 import id.syizuril.app.mastsee.models.TvShowsResult;
+import id.syizuril.app.mastsee.viewmodels.ListAiringTvShowsViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListPopularTvShowsViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListTopTvShowsViewModel;
 
@@ -29,13 +31,16 @@ import id.syizuril.app.mastsee.viewmodels.ListTopTvShowsViewModel;
  * A simple {@link Fragment} subclass.
  */
 public class TvShowsFragment extends Fragment implements View.OnClickListener{
-    private RecyclerView rvUpcomingTvShow, rvPopularTvShow, rvTopTvShow;
+    private RecyclerView rvAiringTvShow, rvPopularTvShow, rvTopTvShow;
     private ArrayList<TvShowsResult> popularTvShowsList = new ArrayList<>();
     private ArrayList<TvShowsResult> topTvShowsList = new ArrayList<>();
+    private ArrayList<TvShowsResult> airingTvShowsList = new ArrayList<>();
     private ListPopularTvShowsViewModel mListPopularTvShowsViewModel;
     private ListTopTvShowsViewModel mListTopTvShowsViewModel;
+    private ListAiringTvShowsViewModel mListAiringTvShowsViewModel;
     private ListPopularTvShowsAdapter mPopularTvShows;
     private ListTopTvShowsAdapter mTopTvShows;
+    private ListAiringTvShowsAdapter mAiringTvShows;
     private ProgressBar mProgressBar, mProgressBar2;
 
     public TvShowsFragment() {
@@ -53,7 +58,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        rvUpcomingTvShow = view.findViewById(R.id.rvAiringTV);
+        rvAiringTvShow = view.findViewById(R.id.rvAiringTV);
         rvPopularTvShow = view.findViewById(R.id.rvPopularTV);
         rvTopTvShow = view.findViewById(R.id.rvTopTV);
         mProgressBar = view.findViewById(R.id.progressBarPopularTvShows);
@@ -62,7 +67,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         TextView tvSeeMoreTop = view.findViewById(R.id.tvSeeMoreTop);
 
         rvPopularTvShow.setHasFixedSize(true);
-        rvUpcomingTvShow.setHasFixedSize(true);
+        rvAiringTvShow.setHasFixedSize(true);
         rvTopTvShow.setHasFixedSize(true);
 
         tvSeeMorePopular.setOnClickListener(this);
@@ -72,8 +77,15 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
 
         mListPopularTvShowsViewModel = ViewModelProviders.of(this).get(ListPopularTvShowsViewModel.class);
         mListTopTvShowsViewModel = ViewModelProviders.of(this).get(ListTopTvShowsViewModel.class);
+        mListAiringTvShowsViewModel = ViewModelProviders.of(this).get(ListAiringTvShowsViewModel.class);
+        mListAiringTvShowsViewModel.init();
         mListPopularTvShowsViewModel.init();
         mListTopTvShowsViewModel.init();
+        mListAiringTvShowsViewModel.getTvShowsResultList().observe(this, airingTvShowResponse ->{
+            List<TvShowsResult> airingTvShowResult = airingTvShowResponse.getResults();
+            airingTvShowsList.addAll(airingTvShowResult);
+            mAiringTvShows.notifyDataSetChanged();
+        });
         mListPopularTvShowsViewModel.getTvShowsResultList().observe(this, popularTvShowResponse -> {
             assert popularTvShowResponse != null;
             List<TvShowsResult> popularTvShowResults = popularTvShowResponse.getResults();
@@ -105,7 +117,14 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         }else{
             mTopTvShows.notifyDataSetChanged();
         }
-
+        if(mAiringTvShows == null){
+            mAiringTvShows = new ListAiringTvShowsAdapter(this.getActivity(), airingTvShowsList);
+            rvAiringTvShow.setLayoutManager(new LinearLayoutManager(this.getActivity(),LinearLayoutManager.HORIZONTAL,false));
+            rvAiringTvShow.setAdapter(mAiringTvShows);
+        }else{
+            mAiringTvShows.notifyDataSetChanged();
+        }
+        mAiringTvShows.setOnItemClickCallback(this::showSelectedMovie);
         mPopularTvShows.setOnItemClickCallback(this::showSelectedMovie);
         mTopTvShows.setOnItemClickCallback(this::showSelectedMovie);
     }

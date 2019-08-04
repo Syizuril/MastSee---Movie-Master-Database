@@ -40,7 +40,6 @@ public class ListTvShowsRepositories {
 
             @Override
             public void onFailure(Call<TvShowResponse> call, Throwable t) {
-                tvShowData.setValue(null);
                 Log.d("ERROR ", t.getMessage());
             }
         });

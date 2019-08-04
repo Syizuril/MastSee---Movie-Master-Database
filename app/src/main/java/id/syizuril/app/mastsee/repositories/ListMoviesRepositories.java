@@ -1,5 +1,6 @@
 package id.syizuril.app.mastsee.repositories;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
@@ -11,6 +12,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListMoviesRepositories {
+    private MutableLiveData<Boolean> isConnected = new MutableLiveData<>();
+    public static String status ="success";
     private static ListMoviesRepositories instance;
     public static ListMoviesRepositories getInstance(){
         if(instance == null){
@@ -33,17 +36,22 @@ public class ListMoviesRepositories {
                 if(response.isSuccessful()){
                     movieData.setValue(response.body());
                     Log.d("Success", response.message());
-                }else{
-                    System.out.println("GAGAL");
+                    status = "success";
+                    isConnected.setValue(true);
                 }
             }
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-                movieData.setValue(null);
                 Log.d("ERROR ", t.getMessage());
+                status = "error";
+                isConnected.setValue(false);
             }
         });
         return movieData;
+    }
+
+    public LiveData<Boolean> getIsConnected(){
+        return isConnected;
     }
 }
