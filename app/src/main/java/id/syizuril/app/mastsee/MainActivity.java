@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,8 +73,10 @@ public class MainActivity extends AppCompatActivity {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
-                    return true;
+                    Intent moveIntent = new Intent(MainActivity.this, SeeMoreActivity.class);
+                    moveIntent.putExtra(SeeMoreActivity.EXTRA_CATEGORY,query);
+                    startActivity(moveIntent);
+                    return false;
                 }
                 @Override
                 public boolean onQueryTextChange(String newText) {

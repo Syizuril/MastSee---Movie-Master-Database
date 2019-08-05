@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".DetailActivitySearch">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbBack"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mastsee"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
+            android:lines="1"
+            android:ellipsize="end"
+            />
+            <TextView
+                android:id="@+id/toolbar_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mastsee"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="18sp"
+                android:lines="1"
+                android:ellipsize="end"
+                />
+        </android.support.v7.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/banner"
+            android:layout_width="414dp"
+            android:layout_height="240dp"
+            tools:src="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tbBack" />
+
+        <ImageView
+            android:id="@+id/coverBanner"
+            android:layout_width="414dp"
+            android:layout_height="240dp"
+            android:src="@drawable/cover_banner"
+            app:layout_constraintBottom_toBottomOf="@+id/banner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/banner"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="2.3" />
+
+        <ImageView
+            android:id="@+id/cover"
+            android:layout_width="132dp"
+            android:layout_height="199dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            tools:src="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@+id/banner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/banner"
+            app:layout_constraintVertical_bias="3.4"
+            app:layout_constraintHorizontal_bias="0.0"/>
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="sans-serif"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#c7c7c7"
+            app:layout_constraintBottom_toBottomOf="@+id/banner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cover"
+            app:layout_constraintTop_toTopOf="@+id/banner"
+            app:layout_constraintHorizontal_bias="0.925"
+            app:layout_constraintVertical_bias="0.8"
+            tools:text="90" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="238dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textEnd"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/cover"
+            app:layout_constraintTop_toBottomOf="@+id/banner"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="TITLE LONG MOVIE PART 2 : THE TITLE SECOND PART" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="238dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textEnd"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/cover"
+            app:layout_constraintTop_toBottomOf="@+id/banner"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="TITLE LONG MOVIE PART 2 : THE TITLE SECOND PART"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textEnd"
+            android:textColor="#c7c7c7"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cover"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
+            tools:text="12 Februari 2020" />
+
+        <TextView
+            android:id="@+id/tvFirstDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textEnd"
+            android:textColor="#c7c7c7"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cover"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
+            tools:text="12 Februari 2020"
+            android:visibility="visible"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#c7c7c7"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvOverviewTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvOverviewTitle"
+            app:layout_constraintTop_toTopOf="@id/tvOverviewTitle" />
+
+        <TextView
+            android:id="@+id/tvOverviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cover"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="@string/overview" />
+
+        <TextView
+            android:id="@+id/tvOverview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOverviewTitle"
+            tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#c7c7c7"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvVoteCount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvVoteCount"
+            app:layout_constraintTop_toTopOf="@id/tvVoteCount" />
+
+        <TextView
+            android:id="@+id/tvVoteCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOverview"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="@string/vote_count" />
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvVoteCount"
+            tools:text="123213"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#c7c7c7"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvOriginalLanguageB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvOriginalLanguageB"
+            app:layout_constraintTop_toTopOf="@id/tvOriginalLanguageB" />
+
+        <TextView
+            android:id="@+id/tvOriginalLanguageB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCount"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="@string/original_language" />
+
+        <TextView
+            android:id="@+id/tvOriginalLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalLanguageB"
+            tools:text="Indonesian"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#c7c7c7"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvOriginalTitleB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvOriginalTitleB"
+            app:layout_constraintTop_toTopOf="@id/tvOriginalTitleB" />
+
+        <TextView
+            android:id="@+id/tvOriginalTitleB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalLanguage"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="@string/original_title" />
+
+        <TextView
+            android:id="@+id/tvOriginalTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitleB"
+            tools:text="Title Original Movie"
+            />
+
+        <TextView
+            android:id="@+id/tvOriginalName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitleB"
+            tools:text="Title Original Movie"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#c7c7c7"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvPopularityPointB"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvPopularityPointB"
+            app:layout_constraintTop_toTopOf="@id/tvPopularityPointB" />
+
+        <TextView
+            android:id="@+id/tvPopularityPointB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitle"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:text="@string/popularity_point" />
+
+        <TextView
+            android:id="@+id/tvPopularityPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif"
+            android:textAlignment="textStart"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPopularityPointB"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="1999"
+            />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

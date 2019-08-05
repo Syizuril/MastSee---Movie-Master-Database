@@ -18,17 +18,19 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
-import id.syizuril.app.mastsee.models.TvShowsResult;
+import id.syizuril.app.mastsee.models.SearchResult;
 
-public class DetailActivityTv extends AppCompatActivity {
+public class DetailActivitySearch extends AppCompatActivity {
+
     public static final String EXTRA_MOVIE = "extra_movie";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_tv);
+        setContentView(R.layout.activity_detail_search);
 
         Toolbar tbBack = findViewById(R.id.tbBack);
         TextView tvTitle = findViewById(R.id.tvTitle);
@@ -38,42 +40,64 @@ public class DetailActivityTv extends AppCompatActivity {
         TextView tvVoteCount = findViewById(R.id.tvCount);
         TextView tvOriginalLanguage = findViewById(R.id.tvOriginalLanguage);
         TextView tvOriginalTitle = findViewById(R.id.tvOriginalTitle);
+        TextView tvOriginalName = findViewById(R.id.tvOriginalName);
         TextView tvPopularityPoint = findViewById(R.id.tvPopularityPoint);
+        TextView tvName = findViewById(R.id.tvName);
+        TextView tvFirstDate = findViewById(R.id.tvFirstDate);
         ImageView imgCover = findViewById(R.id.cover);
         ImageView imgBanner = findViewById(R.id.banner);
         TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
+        TextView tvToolbarName = findViewById(R.id.toolbar_name);
 
-        TvShowsResult tvShowsResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        String title = tvShowsResult.getName();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-        String date = formatter.format(tvShowsResult.getFirstAirDate());
-        Double score = tvShowsResult.getVoteAverage();
-        String overview = tvShowsResult.getOverview();
-        Integer voteCount = tvShowsResult.getVoteCount();
-        String originalLanguage = tvShowsResult.getOriginalLanguage();
-        String originalTitle = tvShowsResult.getOriginalName();
-        Double popularityPoint = tvShowsResult.getPopularity();
+        SearchResult movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        String name = movieResult.getName();
+        String title = movieResult.getTitle();
+        try {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+            String firstDate= formatter.format(movieResult.getFirstAirDate());
+            tvFirstDate.setText(firstDate);
+        } catch (NullPointerException e) {
+            String firstDate= "";
+            tvFirstDate.setText(firstDate);
+        }
+        try {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+            String date = formatter.format(movieResult.getReleaseDate());
+            tvDate.setText(date);
+        } catch (NullPointerException e) {
+            String date = " ";
+            tvDate.setText(date);
+        }
+        Double score = movieResult.getVoteAverage();
+        String overview = movieResult.getOverview();
+        Double voteCount = movieResult.getVoteCount();
+        String originalLanguage = movieResult.getOriginalLanguage();
+        String originalTitle = movieResult.getOriginalTitle();
+        String originalName = movieResult.getOriginalName();
+        Double popularityPoint = movieResult.getPopularity();
 
-        Glide.with(DetailActivityTv.this)
-                .load(tvShowsResult.getPosterPath())
+        Glide.with(DetailActivitySearch.this)
+                .load(movieResult.getPosterPath())
                 .into(imgCover);
 
-        Glide.with(DetailActivityTv.this)
-                .load(tvShowsResult.getBackdropPath())
+        Glide.with(DetailActivitySearch.this)
+                .load(movieResult.getBackdropPath())
                 .into(imgBanner);
         tvTitle.setText(title);
-        tvDate.setText(String.valueOf(date));
-        tvScore.setText(String.valueOf(score));
+        tvName.setText(name);
+
+        tvScore.setText(String.valueOf(new DecimalFormat("##.#").format(score)));
         tvOverview.setText(overview);
         tvVoteCount.setText(String.valueOf(voteCount));
         tvOriginalLanguage.setText(originalLanguage);
         tvOriginalTitle.setText(originalTitle);
+        tvOriginalName.setText(originalName);
         tvPopularityPoint.setText(String.valueOf(popularityPoint));
-
         tvToolbarTitle.setText(title);
+        tvToolbarName.setText(name);
 
         setSupportActionBar(tbBack);
-        if (getSupportActionBar() != null) {
+        if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -94,10 +118,9 @@ public class DetailActivityTv extends AppCompatActivity {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    Toast.makeText(DetailActivityTv.this, query, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivitySearch.this, query, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     return false;
@@ -112,7 +135,7 @@ public class DetailActivityTv extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
-        } else if (item.getItemId() == R.id.change_language) {
+        }else if (item.getItemId() == R.id.change_language){
             Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(mIntent);
         }

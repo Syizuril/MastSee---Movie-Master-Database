@@ -56,7 +56,50 @@
         tools:text="Title Movie Example Long Title " />
 
     <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="62dp"
+        android:fontFamily="sans-serif"
+        android:textColor="#37474f"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:lines="2"
+        android:gravity="center_vertical"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBackCover"
+        app:layout_constraintEnd_toEndOf="@+id/imgCover"
+        app:layout_constraintStart_toStartOf="@+id/imgCover"
+        app:layout_constraintTop_toBottomOf="@+id/imgCover"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="0.5"
+        tools:ignore="SmallSp"
+        tools:text="Title Movie Example Long Title " />
+
+    <TextView
         android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="62dp"
+        android:fontFamily="sans-serif"
+        android:textColor="#a4a4a4"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBackCover"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="SmallSp"
+        tools:text="30 Februari 2019" />
+
+    <TextView
+        android:id="@+id/tvFirstDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
