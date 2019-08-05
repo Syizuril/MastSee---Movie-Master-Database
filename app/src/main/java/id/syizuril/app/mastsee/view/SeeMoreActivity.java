@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.view;
 
 import android.app.SearchManager;
 import android.arch.lifecycle.ViewModelProviders;
@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.adapters.ListPopularMoviesAdapter;
 import id.syizuril.app.mastsee.adapters.ListPopularTvShowsAdapter;
 import id.syizuril.app.mastsee.adapters.ListSearchMoviesAdapter;
@@ -42,11 +43,6 @@ public class SeeMoreActivity extends AppCompatActivity {
     private ArrayList<SearchResult> listSearchMovies = new ArrayList<>();
     private ArrayList<TvShowsResult> popularTvList = new ArrayList<>();
     private ArrayList<TvShowsResult> topTvList = new ArrayList<>();
-    private ListPopularMoviesViewModel mListPopularMoviesViewModel;
-    private ListTopMoviesViewModel mListTopMoviesViewModel;
-    private ListSearchMoviesViewModel mListSearchMoviesViewModel;
-    private ListPopularTvShowsViewModel mListPopularTvShowsViewModel;
-    private ListTopTvShowsViewModel mTopTvShowsViewModel;
     private ListPopularMoviesAdapter mPopularAdapter;
     private ListTopMoviesAdapter mTopAdapter;
     private ListSearchMoviesAdapter mSearchAdapter;
@@ -68,7 +64,7 @@ public class SeeMoreActivity extends AppCompatActivity {
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
         if(category.equals("listPopular")){
             showProgressBar();
-            mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
+            ListPopularMoviesViewModel mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
             mListPopularMoviesViewModel.init();
             mListPopularMoviesViewModel.getMovieResultList().observe(this, popularMovieResponse -> {
                 assert popularMovieResponse != null;
@@ -80,7 +76,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             tvToolbarTitle.setText(R.string.popular);
         }else if(category.equals("listTop")){
             showProgressBar();
-            mListTopMoviesViewModel = ViewModelProviders.of(this).get(ListTopMoviesViewModel.class);
+            ListTopMoviesViewModel mListTopMoviesViewModel = ViewModelProviders.of(this).get(ListTopMoviesViewModel.class);
             mListTopMoviesViewModel.init();
             mListTopMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
                 assert movieResponse != null;
@@ -92,7 +88,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             tvToolbarTitle.setText(R.string.top_movies);
         }else if(category.equals("listPopularTv")){
             showProgressBar();
-            mListPopularTvShowsViewModel = ViewModelProviders.of(this).get(ListPopularTvShowsViewModel.class);
+            ListPopularTvShowsViewModel mListPopularTvShowsViewModel = ViewModelProviders.of(this).get(ListPopularTvShowsViewModel.class);
             mListPopularTvShowsViewModel.init();
             mListPopularTvShowsViewModel.getTvShowsResultList().observe(this, popularTvResponse -> {
                 assert popularTvResponse != null;
@@ -104,7 +100,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             tvToolbarTitle.setText(R.string.popular_tv_shows);
         }else if(category.equals("listTopTv")){
             showProgressBar();
-            mTopTvShowsViewModel = ViewModelProviders.of(this).get(ListTopTvShowsViewModel.class);
+            ListTopTvShowsViewModel mTopTvShowsViewModel = ViewModelProviders.of(this).get(ListTopTvShowsViewModel.class);
             mTopTvShowsViewModel.init();
             mTopTvShowsViewModel.getTvShowsResultList().observe(this, topTvResponse ->{
                 assert topTvResponse != null;
@@ -116,7 +112,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             tvToolbarTitle.setText(R.string.top_tv_shows);
         }else{
             showProgressBar();
-            mListSearchMoviesViewModel = ViewModelProviders.of(this).get(ListSearchMoviesViewModel.class);
+            ListSearchMoviesViewModel mListSearchMoviesViewModel = ViewModelProviders.of(this).get(ListSearchMoviesViewModel.class);
             mListSearchMoviesViewModel.init(category);
             mListSearchMoviesViewModel.getSearchResultList().observe(this, movieResponse -> {
                 List<SearchResult> movieResults = movieResponse.getResults();

@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.view;
 
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -12,13 +12,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.adapters.ListPopularMoviesAdapter;
 import id.syizuril.app.mastsee.adapters.ListTopMoviesAdapter;
 import id.syizuril.app.mastsee.adapters.ListUpcomingMoviesAdapter;
@@ -33,16 +34,15 @@ import id.syizuril.app.mastsee.viewmodels.ListUpcomingMoviesViewModel;
  */
 public class MoviesFragment extends Fragment implements View.OnClickListener {
     private RecyclerView rvUpcomingMovies, rvPopularMovies, rvTopMovies;
+    private TextView tvPopularTitle, tvTopTitle, tvConnectionError, tvSeeMorePopular, tvSeeMoreTop;
     private ArrayList<MovieResult> popularMovieList = new ArrayList<>();
     private ArrayList<MovieResult> topMovieList = new ArrayList<>();
     private ArrayList<MovieResult> upcomingMovieList = new ArrayList<>();
-    private ListPopularMoviesViewModel mListPopularMoviesViewModel;
-    private ListTopMoviesViewModel mListTopMoviesViewModel;
-    private ListUpcomingMoviesViewModel mListUpcomingMoviesViewModel;
     private ListPopularMoviesAdapter mPopularAdapter;
     private ListTopMoviesAdapter mTopAdapter;
     private ListUpcomingMoviesAdapter mUpcomingAdapter;
-    private ProgressBar mProgressBar, mProgressBar2;
+    private ProgressBar mProgressBar;
+    private ImageView mConnectionError;
 
     public MoviesFragment() {
         // Required empty public constructor
@@ -62,10 +62,13 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
         rvUpcomingMovies = view.findViewById(R.id.rv_upcoming_movie);
         rvPopularMovies = view.findViewById(R.id.rv_populer_movie);
         rvTopMovies = view.findViewById(R.id.rv_top_movies);
-        mProgressBar = view.findViewById(R.id.progressBarPopularMovies);
-        mProgressBar2 = view.findViewById(R.id.progressBarTopMovies);
-        TextView tvSeeMorePopular = view.findViewById(R.id.seeMorePopular);
-        TextView tvSeeMoreTop = view.findViewById(R.id.seeMoreTop);
+        mProgressBar = view.findViewById(R.id.progressBarTopMovies);
+        tvPopularTitle = view.findViewById(R.id.popular_movie_title);
+        tvTopTitle = view.findViewById(R.id.top_movies_title);
+        mConnectionError = view.findViewById(R.id.ivConnectionError);
+        tvConnectionError = view.findViewById(R.id.tvConnectionError);
+        tvSeeMorePopular = view.findViewById(R.id.seeMorePopular);
+        tvSeeMoreTop = view.findViewById(R.id.seeMoreTop);
 
         rvPopularMovies.setHasFixedSize(true);
         rvUpcomingMovies.setHasFixedSize(true);
@@ -76,23 +79,26 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
 
         showProgressBar();
 
-        mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
-        mListTopMoviesViewModel = ViewModelProviders.of(this).get(ListTopMoviesViewModel.class);
-        mListUpcomingMoviesViewModel = ViewModelProviders.of(this).get(ListUpcomingMoviesViewModel.class);
+        ListPopularMoviesViewModel mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
+        ListTopMoviesViewModel mListTopMoviesViewModel = ViewModelProviders.of(this).get(ListTopMoviesViewModel.class);
+        ListUpcomingMoviesViewModel mListUpcomingMoviesViewModel = ViewModelProviders.of(this).get(ListUpcomingMoviesViewModel.class);
         mListPopularMoviesViewModel.init();
         mListTopMoviesViewModel.init();
         mListUpcomingMoviesViewModel.init();
         mListPopularMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
+            assert movieResponse != null;
             List<MovieResult> movieResults = movieResponse.getResults();
             popularMovieList.addAll(movieResults);
             mPopularAdapter.notifyDataSetChanged();
         });
         mListTopMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
+            assert movieResponse != null;
             List<MovieResult> movieResults = movieResponse.getResults();
             topMovieList.addAll(movieResults);
             mTopAdapter.notifyDataSetChanged();
         });
         mListUpcomingMoviesViewModel.getMovieResultList().observe(this, movieUpcomingResponse -> {
+            assert movieUpcomingResponse != null;
             List<MovieResult> movieUpcomingResults = movieUpcomingResponse.getResults();
             upcomingMovieList.addAll(movieUpcomingResults);
             mUpcomingAdapter.notifyDataSetChanged();
@@ -100,10 +106,18 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
         });
         mListPopularMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
             if(aBoolean){
-                Toast.makeText(this.getActivity(),"Berhasil",Toast.LENGTH_LONG).show();
+                mConnectionError.setVisibility(View.GONE);
+                tvConnectionError.setVisibility(View.GONE);
             }else{
-                Toast.makeText(this.getActivity(),"Ada sesuatu yang bermasalah, Silahkan Cek kembali koneksi Anda",Toast.LENGTH_LONG).show();
+                hideProgressBar();
+                mConnectionError.setVisibility(View.VISIBLE);
+                tvConnectionError.setVisibility(View.VISIBLE);
+                tvTopTitle.setVisibility(View.GONE);
+                tvPopularTitle.setVisibility(View.GONE);
+                tvSeeMorePopular.setVisibility(View.GONE);
+                tvSeeMoreTop.setVisibility(View.GONE);
             }
+
         });
         showRecyclerList();
     }
@@ -157,11 +171,19 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
 
     private void showProgressBar(){
         mProgressBar.setVisibility(View.VISIBLE);
-        mProgressBar2.setVisibility(View.VISIBLE);
+        tvConnectionError.setVisibility(View.GONE);
+        tvTopTitle.setVisibility(View.GONE);
+        tvPopularTitle.setVisibility(View.GONE);
+        tvSeeMorePopular.setVisibility(View.GONE);
+        tvSeeMoreTop.setVisibility(View.GONE);
+
     }
 
     private void hideProgressBar(){
         mProgressBar.setVisibility(View.GONE);
-        mProgressBar2.setVisibility(View.GONE);
+        tvTopTitle.setVisibility(View.VISIBLE);
+        tvPopularTitle.setVisibility(View.VISIBLE);
+        tvSeeMorePopular.setVisibility(View.VISIBLE);
+        tvSeeMoreTop.setVisibility(View.VISIBLE);
     }
 }

@@ -26,4 +26,5 @@
     <string name="error_text">Opps! Something has wrong !</string>
     <string name="original_title">Original Title</string>
     <string name="popularity_point">Popularity Point</string>
+    <string name="connection_error">Oops! There seems to be a problem, please check your internet connection again.</string>
 </resources>

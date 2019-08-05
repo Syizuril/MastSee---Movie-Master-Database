@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:fillViewport="true"
-    tools:context=".TvShowsFragment">
+    tools:context=".view.TvShowsFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

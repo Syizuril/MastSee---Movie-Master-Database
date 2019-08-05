@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="1"
     android:fillViewport="true"
-    tools:context=".MoviesFragment">
+    tools:context=".view.MoviesFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,7 +26,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/rv_upcoming_movie"/>
+            app:layout_constraintBottom_toTopOf="@id/rv_upcoming_movie"
+            android:visibility="gone"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_upcoming_movie"
@@ -87,16 +88,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/popular_movie_title"
             tools:listitem="@layout/item_row_movies" />
-
-        <ProgressBar
-            android:id="@+id/progressBarPopularMovies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/popular_movie_title"
-            app:layout_constraintBottom_toTopOf="@id/top_movies_title"
-            android:visibility="gone"/>
         
         <TextView
             android:id="@+id/top_movies_title"
@@ -149,8 +140,43 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_movies_title"
+            app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/ivConnectionError"
+            android:layout_width="408dp"
+            android:layout_height="254dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/undraw_server_down_s4lk"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.5"/>
+
+        <TextView
+            android:id="@+id/tvConnectionError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/connection_error"
+            android:textColor="#37474f"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivConnectionError"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1"
             android:visibility="gone"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

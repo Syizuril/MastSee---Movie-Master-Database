@@ -11,12 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailActivitySearch"></activity>
-        <activity android:name=".DetailActivityTv" />
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".SeeMoreActivity" />
+        <activity android:name=".view.DetailActivitySearch"></activity>
+        <activity android:name=".view.DetailActivityTv" />
+        <activity android:name=".view.DetailActivity" />
+        <activity android:name=".view.SeeMoreActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

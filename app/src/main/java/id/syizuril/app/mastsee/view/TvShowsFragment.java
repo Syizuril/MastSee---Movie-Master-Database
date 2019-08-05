@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.view;
 
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.adapters.ListAiringTvShowsAdapter;
 import id.syizuril.app.mastsee.adapters.ListPopularTvShowsAdapter;
 import id.syizuril.app.mastsee.adapters.ListTopTvShowsAdapter;
@@ -35,9 +36,6 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     private ArrayList<TvShowsResult> popularTvShowsList = new ArrayList<>();
     private ArrayList<TvShowsResult> topTvShowsList = new ArrayList<>();
     private ArrayList<TvShowsResult> airingTvShowsList = new ArrayList<>();
-    private ListPopularTvShowsViewModel mListPopularTvShowsViewModel;
-    private ListTopTvShowsViewModel mListTopTvShowsViewModel;
-    private ListAiringTvShowsViewModel mListAiringTvShowsViewModel;
     private ListPopularTvShowsAdapter mPopularTvShows;
     private ListTopTvShowsAdapter mTopTvShows;
     private ListAiringTvShowsAdapter mAiringTvShows;
@@ -75,9 +73,9 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
 
         showProgressBar();
 
-        mListPopularTvShowsViewModel = ViewModelProviders.of(this).get(ListPopularTvShowsViewModel.class);
-        mListTopTvShowsViewModel = ViewModelProviders.of(this).get(ListTopTvShowsViewModel.class);
-        mListAiringTvShowsViewModel = ViewModelProviders.of(this).get(ListAiringTvShowsViewModel.class);
+        ListPopularTvShowsViewModel mListPopularTvShowsViewModel = ViewModelProviders.of(this).get(ListPopularTvShowsViewModel.class);
+        ListTopTvShowsViewModel mListTopTvShowsViewModel = ViewModelProviders.of(this).get(ListTopTvShowsViewModel.class);
+        ListAiringTvShowsViewModel mListAiringTvShowsViewModel = ViewModelProviders.of(this).get(ListAiringTvShowsViewModel.class);
         mListAiringTvShowsViewModel.init();
         mListPopularTvShowsViewModel.init();
         mListTopTvShowsViewModel.init();

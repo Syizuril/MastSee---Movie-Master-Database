@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.view;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 
 import java.text.SimpleDateFormat;
 
+import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
 
 public class DetailActivity extends AppCompatActivity {

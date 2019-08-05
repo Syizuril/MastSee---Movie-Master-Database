@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.view;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
+import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.SearchResult;
 
 public class DetailActivitySearch extends AppCompatActivity {

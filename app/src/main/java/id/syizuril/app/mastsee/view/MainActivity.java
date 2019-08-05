@@ -1,11 +1,10 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.view;
 
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -15,31 +14,29 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import id.syizuril.app.mastsee.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment nav;
-            switch (item.getItemId()) {
-                case R.id.navigation_movies:
-                    nav = new MoviesFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.layout_main, nav, nav.getClass().getSimpleName())
-                            .commit();
-                    return true;
-                case R.id.navigation_tv_shows:
-                    nav = new TvShowsFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.layout_main, nav, nav.getClass().getSimpleName())
-                            .commit();
-                    return true;
-            }
-            return false;
-        }
-    };
+            = item -> {
+                Fragment nav;
+                switch (item.getItemId()) {
+                    case R.id.navigation_movies:
+                        nav = new MoviesFragment();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, nav, nav.getClass().getSimpleName())
+                                .commit();
+                        return true;
+                    case R.id.navigation_tv_shows:
+                        nav = new TvShowsFragment();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, nav, nav.getClass().getSimpleName())
+                                .commit();
+                        return true;
+                }
+                return false;
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
