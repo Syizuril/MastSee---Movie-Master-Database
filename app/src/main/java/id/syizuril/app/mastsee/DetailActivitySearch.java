@@ -14,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -118,8 +117,10 @@ public class DetailActivitySearch extends AppCompatActivity {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    Toast.makeText(DetailActivitySearch.this, query, Toast.LENGTH_SHORT).show();
-                    return true;
+                    Intent moveIntent = new Intent(DetailActivitySearch.this, SeeMoreActivity.class);
+                    moveIntent.putExtra(SeeMoreActivity.EXTRA_CATEGORY,query);
+                    startActivity(moveIntent);
+                    return false;
                 }
                 @Override
                 public boolean onQueryTextChange(String newText) {

@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,8 +149,10 @@ public class SeeMoreActivity extends AppCompatActivity {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    Toast.makeText(SeeMoreActivity.this, query, Toast.LENGTH_SHORT).show();
-                    return true;
+                    Intent moveIntent = new Intent(SeeMoreActivity.this, SeeMoreActivity.class);
+                    moveIntent.putExtra(SeeMoreActivity.EXTRA_CATEGORY,query);
+                    startActivity(moveIntent);
+                    return false;
                 }
                 @Override
                 public boolean onQueryTextChange(String newText) {
