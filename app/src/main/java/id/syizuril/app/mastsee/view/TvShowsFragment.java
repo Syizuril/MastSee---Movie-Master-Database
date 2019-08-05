@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -39,7 +40,9 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
     private ListPopularTvShowsAdapter mPopularTvShows;
     private ListTopTvShowsAdapter mTopTvShows;
     private ListAiringTvShowsAdapter mAiringTvShows;
-    private ProgressBar mProgressBar, mProgressBar2;
+    private ProgressBar mProgressBar;
+    private ImageView mConnectionError;
+    private TextView tvPopularTitle, tvTopTitle, tvConnectionError, tvSeeMorePopular, tvSeeMoreTop;
 
     public TvShowsFragment() {
         // Required empty public constructor
@@ -59,10 +62,13 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         rvAiringTvShow = view.findViewById(R.id.rvAiringTV);
         rvPopularTvShow = view.findViewById(R.id.rvPopularTV);
         rvTopTvShow = view.findViewById(R.id.rvTopTV);
-        mProgressBar = view.findViewById(R.id.progressBarPopularTvShows);
-        mProgressBar2 = view.findViewById(R.id.progressBarTopTvShows);
-        TextView tvSeeMorePopular = view.findViewById(R.id.tvSeeMorePopular);
-        TextView tvSeeMoreTop = view.findViewById(R.id.tvSeeMoreTop);
+        mProgressBar = view.findViewById(R.id.progressBarTopTvShows);
+        tvPopularTitle = view.findViewById(R.id.tvPopularTV);
+        tvTopTitle = view.findViewById(R.id.tvTopTV);
+        mConnectionError = view.findViewById(R.id.ivConnectionError);
+        tvConnectionError = view.findViewById(R.id.tvConnectionError);
+        tvSeeMorePopular = view.findViewById(R.id.tvSeeMorePopular);
+        tvSeeMoreTop = view.findViewById(R.id.tvSeeMoreTop);
 
         rvPopularTvShow.setHasFixedSize(true);
         rvAiringTvShow.setHasFixedSize(true);
@@ -96,7 +102,21 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
             mTopTvShows.notifyDataSetChanged();
             hideProgressBar();
         });
+        mListPopularTvShowsViewModel.getIsConnected().observe(this, aBoolean -> {
+            if(aBoolean){
+                mConnectionError.setVisibility(View.GONE);
+                tvConnectionError.setVisibility(View.GONE);
+            }else{
+                hideProgressBar();
+                mConnectionError.setVisibility(View.VISIBLE);
+                tvConnectionError.setVisibility(View.VISIBLE);
+                tvTopTitle.setVisibility(View.GONE);
+                tvPopularTitle.setVisibility(View.GONE);
+                tvSeeMorePopular.setVisibility(View.GONE);
+                tvSeeMoreTop.setVisibility(View.GONE);
+            }
 
+        });
         showRecyclerList();
     }
 
@@ -150,11 +170,19 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
 
     private void showProgressBar(){
         mProgressBar.setVisibility(View.VISIBLE);
-        mProgressBar2.setVisibility(View.VISIBLE);
+        tvConnectionError.setVisibility(View.GONE);
+        tvTopTitle.setVisibility(View.GONE);
+        tvPopularTitle.setVisibility(View.GONE);
+        tvSeeMorePopular.setVisibility(View.GONE);
+        tvSeeMoreTop.setVisibility(View.GONE);
+
     }
 
     private void hideProgressBar(){
         mProgressBar.setVisibility(View.GONE);
-        mProgressBar2.setVisibility(View.GONE);
+        tvTopTitle.setVisibility(View.VISIBLE);
+        tvPopularTitle.setVisibility(View.VISIBLE);
+        tvSeeMorePopular.setVisibility(View.VISIBLE);
+        tvSeeMoreTop.setVisibility(View.VISIBLE);
     }
 }

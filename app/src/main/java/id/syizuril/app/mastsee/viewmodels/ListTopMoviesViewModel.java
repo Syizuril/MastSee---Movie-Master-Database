@@ -18,7 +18,9 @@ public class ListTopMoviesViewModel extends ViewModel {
         listMoviesRepositories = ListMoviesRepositories.getInstance();
         mutableLiveData = listMoviesRepositories.getMovieResult("movie","top_rated","b2d6f482d73c8f231cd3af7c9085e7a5","en_US",1);
     }
-
+    public LiveData<Boolean> getIsConnected(){
+        return listMoviesRepositories.getIsConnected();
+    }
     public LiveData<MovieResponse> getMovieResultList(){
         return mutableLiveData;
     }

@@ -1,5 +1,6 @@
 package id.syizuril.app.mastsee.repositories;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
@@ -11,6 +12,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListTvShowsRepositories {
+    private MutableLiveData<Boolean> isConnected = new MutableLiveData<>();
     private static ListTvShowsRepositories instance;
     public static ListTvShowsRepositories getInstance(){
         if(instance == null){
@@ -33,16 +35,23 @@ public class ListTvShowsRepositories {
                 if(response.isSuccessful()){
                     tvShowData.setValue(response.body());
                     Log.d("Success", response.message());
+                    isConnected.setValue(true);
                 }else{
                     System.out.println("GAGAL");
+                    isConnected.setValue(false);
                 }
             }
 
             @Override
             public void onFailure(Call<TvShowResponse> call, Throwable t) {
                 Log.d("ERROR ", t.getMessage());
+                isConnected.setValue(false);
             }
         });
         return tvShowData;
+    }
+
+    public LiveData<Boolean> getIsConnected(){
+        return isConnected;
     }
 }

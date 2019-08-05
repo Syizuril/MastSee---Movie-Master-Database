@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,6 +50,8 @@ public class SeeMoreActivity extends AppCompatActivity {
     private ListPopularTvShowsAdapter mPopularTvAdapter;
     private ListTopTvShowsAdapter mTopTvAdapter;
     private ProgressBar mProgressBar;
+    private ImageView mConnectionError;
+    private TextView tvConnectionError,tvToolbarTitle;
     public static final String EXTRA_CATEGORY = "extra_category";
 
     @Override
@@ -56,8 +59,10 @@ public class SeeMoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_more);
         rvSeeMore = findViewById(R.id.rvSeeMoreMovie);
-        TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
+        tvToolbarTitle = findViewById(R.id.toolbar_title);
         mProgressBar = findViewById(R.id.progressBar);
+        mConnectionError = findViewById(R.id.ivConnectionError);
+        tvConnectionError = findViewById(R.id.tvConnectionError);
         rvSeeMore.setHasFixedSize(true);
 
         Toolbar tbBack = findViewById(R.id.tbBack);
@@ -73,6 +78,17 @@ public class SeeMoreActivity extends AppCompatActivity {
                 mPopularAdapter.notifyDataSetChanged();
                 hideProgressBar();
             });
+            mListPopularMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
+                if(aBoolean){
+                    mConnectionError.setVisibility(View.GONE);
+                    tvConnectionError.setVisibility(View.GONE);
+                }else{
+                    hideProgressBar();
+                    mConnectionError.setVisibility(View.VISIBLE);
+                    tvConnectionError.setVisibility(View.VISIBLE);
+                }
+
+            });
             tvToolbarTitle.setText(R.string.popular);
         }else if(category.equals("listTop")){
             showProgressBar();
@@ -84,6 +100,17 @@ public class SeeMoreActivity extends AppCompatActivity {
                 listTopMovies.addAll(movieResults);
                 mTopAdapter.notifyDataSetChanged();
                 hideProgressBar();
+            });
+            mListTopMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
+                if(aBoolean){
+                    mConnectionError.setVisibility(View.GONE);
+                    tvConnectionError.setVisibility(View.GONE);
+                }else{
+                    hideProgressBar();
+                    mConnectionError.setVisibility(View.VISIBLE);
+                    tvConnectionError.setVisibility(View.VISIBLE);
+                }
+
             });
             tvToolbarTitle.setText(R.string.top_movies);
         }else if(category.equals("listPopularTv")){
@@ -97,6 +124,17 @@ public class SeeMoreActivity extends AppCompatActivity {
                 mPopularTvAdapter.notifyDataSetChanged();
                 hideProgressBar();
             });
+            mListPopularTvShowsViewModel.getIsConnected().observe(this, aBoolean -> {
+                if(aBoolean){
+                    mConnectionError.setVisibility(View.GONE);
+                    tvConnectionError.setVisibility(View.GONE);
+                }else{
+                    hideProgressBar();
+                    mConnectionError.setVisibility(View.VISIBLE);
+                    tvConnectionError.setVisibility(View.VISIBLE);
+                }
+
+            });
             tvToolbarTitle.setText(R.string.popular_tv_shows);
         }else if(category.equals("listTopTv")){
             showProgressBar();
@@ -109,6 +147,17 @@ public class SeeMoreActivity extends AppCompatActivity {
                 mTopTvAdapter.notifyDataSetChanged();
                 hideProgressBar();
             });
+            mTopTvShowsViewModel.getIsConnected().observe(this, aBoolean -> {
+                if(aBoolean){
+                    mConnectionError.setVisibility(View.GONE);
+                    tvConnectionError.setVisibility(View.GONE);
+                }else{
+                    hideProgressBar();
+                    mConnectionError.setVisibility(View.VISIBLE);
+                    tvConnectionError.setVisibility(View.VISIBLE);
+                }
+
+            });
             tvToolbarTitle.setText(R.string.top_tv_shows);
         }else{
             showProgressBar();
@@ -119,6 +168,17 @@ public class SeeMoreActivity extends AppCompatActivity {
                 listSearchMovies.addAll(movieResults);
                 mSearchAdapter.notifyDataSetChanged();
                 hideProgressBar();
+            });
+            mListSearchMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
+                if(aBoolean){
+                    mConnectionError.setVisibility(View.GONE);
+                    tvConnectionError.setVisibility(View.GONE);
+                }else{
+                    hideProgressBar();
+                    mConnectionError.setVisibility(View.VISIBLE);
+                    tvConnectionError.setVisibility(View.VISIBLE);
+                }
+
             });
             tvToolbarTitle.setText(category);
         }

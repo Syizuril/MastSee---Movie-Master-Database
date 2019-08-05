@@ -13,7 +13,6 @@ import retrofit2.Response;
 
 public class ListSearchMoviesRepositories {
     private MutableLiveData<Boolean> isConnected = new MutableLiveData<>();
-    public static String status ="success";
     private static ListSearchMoviesRepositories instance;
     public static ListSearchMoviesRepositories getInstance(){
         if(instance == null){
@@ -36,15 +35,15 @@ public class ListSearchMoviesRepositories {
                 if(response.isSuccessful()){
                     movieData.setValue(response.body());
                     Log.d("Success", response.message());
-                    status = "success";
                     isConnected.setValue(true);
+                }else{
+                    isConnected.setValue(false);
                 }
             }
 
             @Override
             public void onFailure(Call<SearchResponse> call, Throwable t) {
                 Log.d("ERROR ", t.getMessage());
-                status = "error";
                 isConnected.setValue(false);
             }
         });

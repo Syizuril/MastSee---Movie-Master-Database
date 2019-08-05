@@ -9,7 +9,6 @@ import id.syizuril.app.mastsee.repositories.ListMoviesRepositories;
 
 public class ListPopularMoviesViewModel extends ViewModel {
     private MutableLiveData<MovieResponse> mutableLiveData;
-    private MutableLiveData<Boolean> isConnected;
     private ListMoviesRepositories listMoviesRepositories;
 
     public void init(){

@@ -12,7 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +26,7 @@ import id.syizuril.app.mastsee.models.MovieResult;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE = "extra_movie";
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,11 @@ public class DetailActivity extends AppCompatActivity {
         TextView tvOriginalLanguage = findViewById(R.id.tvOriginalLanguage);
         TextView tvOriginalTitle = findViewById(R.id.tvOriginalTitle);
         TextView tvPopularityPoint = findViewById(R.id.tvPopularityPoint);
+        mProgressBar = findViewById(R.id.progressBar);
         ImageView imgCover = findViewById(R.id.cover);
         ImageView imgBanner = findViewById(R.id.banner);
         TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
-
+        showProgressBar();
         MovieResult movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
         String title = movieResult.getTitle();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
@@ -69,9 +73,8 @@ public class DetailActivity extends AppCompatActivity {
         tvOriginalLanguage.setText(originalLanguage);
         tvOriginalTitle.setText(originalTitle);
         tvPopularityPoint.setText(String.valueOf(popularityPoint));
-
         tvToolbarTitle.setText(title);
-
+        hideProgressBar();
         setSupportActionBar(tbBack);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -118,5 +121,13 @@ public class DetailActivity extends AppCompatActivity {
             startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showProgressBar(){
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar(){
+        mProgressBar.setVisibility(View.GONE);
     }
 }
