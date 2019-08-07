@@ -20,11 +20,9 @@ import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
 
 public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMoviesAdapter.ListViewHolder> {
-    private Context mContext;
     private List<MovieResult> listPopularMovies;
 
     public ListPopularMoviesAdapter(Context mContext, List<MovieResult> listPopularMovies) {
-        this.mContext = mContext;
         this.listPopularMovies = listPopularMovies;
     }
 

@@ -18,11 +18,9 @@ import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
 
 public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcomingMoviesAdapter.ListViewHolder> {
-    private Context mContext;
     private List<MovieResult> listUpcomingMovies;
 
     public ListUpcomingMoviesAdapter(Context mContext, List<MovieResult> listUpcomingMovies) {
-        this.mContext = mContext;
         this.listUpcomingMovies = listUpcomingMovies;
     }
 

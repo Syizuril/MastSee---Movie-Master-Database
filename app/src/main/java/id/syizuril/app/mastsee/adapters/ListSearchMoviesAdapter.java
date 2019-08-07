@@ -20,11 +20,9 @@ import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.SearchResult;
 
 public class ListSearchMoviesAdapter extends RecyclerView.Adapter<ListSearchMoviesAdapter.ListViewHolder> {
-    private Context mContext;
     private List<SearchResult> listSearchMovies;
 
     public ListSearchMoviesAdapter(Context mContext, List<SearchResult> listSearchMovies) {
-        this.mContext = mContext;
         this.listSearchMovies = listSearchMovies;
     }
 

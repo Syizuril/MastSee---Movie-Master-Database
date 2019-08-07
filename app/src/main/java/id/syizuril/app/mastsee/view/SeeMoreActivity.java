@@ -67,120 +67,126 @@ public class SeeMoreActivity extends AppCompatActivity {
 
         Toolbar tbBack = findViewById(R.id.tbBack);
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
-        if(category.equals("listPopular")){
-            showProgressBar();
-            ListPopularMoviesViewModel mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
-            mListPopularMoviesViewModel.init();
-            mListPopularMoviesViewModel.getMovieResultList().observe(this, popularMovieResponse -> {
-                assert popularMovieResponse != null;
-                List<MovieResult> popularMovieResults = popularMovieResponse.getResults();
-                popularMovieList.addAll(popularMovieResults);
-                mPopularAdapter.notifyDataSetChanged();
-                hideProgressBar();
-            });
-            mListPopularMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
-                if(aBoolean){
-                    mConnectionError.setVisibility(View.GONE);
-                    tvConnectionError.setVisibility(View.GONE);
-                }else{
+        switch (category) {
+            case "listPopular":
+                showProgressBar();
+                ListPopularMoviesViewModel mListPopularMoviesViewModel = ViewModelProviders.of(this).get(ListPopularMoviesViewModel.class);
+                mListPopularMoviesViewModel.init();
+                mListPopularMoviesViewModel.getMovieResultList().observe(this, popularMovieResponse -> {
+                    assert popularMovieResponse != null;
+                    List<MovieResult> popularMovieResults = popularMovieResponse.getResults();
+                    popularMovieList.addAll(popularMovieResults);
+                    mPopularAdapter.notifyDataSetChanged();
                     hideProgressBar();
-                    mConnectionError.setVisibility(View.VISIBLE);
-                    tvConnectionError.setVisibility(View.VISIBLE);
-                }
+                });
+                mListPopularMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        mConnectionError.setVisibility(View.GONE);
+                        tvConnectionError.setVisibility(View.GONE);
+                    } else {
+                        hideProgressBar();
+                        mConnectionError.setVisibility(View.VISIBLE);
+                        tvConnectionError.setVisibility(View.VISIBLE);
+                    }
 
-            });
-            tvToolbarTitle.setText(R.string.popular);
-        }else if(category.equals("listTop")){
-            showProgressBar();
-            ListTopMoviesViewModel mListTopMoviesViewModel = ViewModelProviders.of(this).get(ListTopMoviesViewModel.class);
-            mListTopMoviesViewModel.init();
-            mListTopMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
-                assert movieResponse != null;
-                List<MovieResult> movieResults = movieResponse.getResults();
-                listTopMovies.addAll(movieResults);
-                mTopAdapter.notifyDataSetChanged();
-                hideProgressBar();
-            });
-            mListTopMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
-                if(aBoolean){
-                    mConnectionError.setVisibility(View.GONE);
-                    tvConnectionError.setVisibility(View.GONE);
-                }else{
+                });
+                tvToolbarTitle.setText(R.string.popular);
+                break;
+            case "listTop":
+                showProgressBar();
+                ListTopMoviesViewModel mListTopMoviesViewModel = ViewModelProviders.of(this).get(ListTopMoviesViewModel.class);
+                mListTopMoviesViewModel.init();
+                mListTopMoviesViewModel.getMovieResultList().observe(this, movieResponse -> {
+                    assert movieResponse != null;
+                    List<MovieResult> movieResults = movieResponse.getResults();
+                    listTopMovies.addAll(movieResults);
+                    mTopAdapter.notifyDataSetChanged();
                     hideProgressBar();
-                    mConnectionError.setVisibility(View.VISIBLE);
-                    tvConnectionError.setVisibility(View.VISIBLE);
-                }
+                });
+                mListTopMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        mConnectionError.setVisibility(View.GONE);
+                        tvConnectionError.setVisibility(View.GONE);
+                    } else {
+                        hideProgressBar();
+                        mConnectionError.setVisibility(View.VISIBLE);
+                        tvConnectionError.setVisibility(View.VISIBLE);
+                    }
 
-            });
-            tvToolbarTitle.setText(R.string.top_movies);
-        }else if(category.equals("listPopularTv")){
-            showProgressBar();
-            ListPopularTvShowsViewModel mListPopularTvShowsViewModel = ViewModelProviders.of(this).get(ListPopularTvShowsViewModel.class);
-            mListPopularTvShowsViewModel.init();
-            mListPopularTvShowsViewModel.getTvShowsResultList().observe(this, popularTvResponse -> {
-                assert popularTvResponse != null;
-                List<TvShowsResult> popularTvResults = popularTvResponse.getResults();
-                popularTvList.addAll(popularTvResults);
-                mPopularTvAdapter.notifyDataSetChanged();
-                hideProgressBar();
-            });
-            mListPopularTvShowsViewModel.getIsConnected().observe(this, aBoolean -> {
-                if(aBoolean){
-                    mConnectionError.setVisibility(View.GONE);
-                    tvConnectionError.setVisibility(View.GONE);
-                }else{
+                });
+                tvToolbarTitle.setText(R.string.top_movies);
+                break;
+            case "listPopularTv":
+                showProgressBar();
+                ListPopularTvShowsViewModel mListPopularTvShowsViewModel = ViewModelProviders.of(this).get(ListPopularTvShowsViewModel.class);
+                mListPopularTvShowsViewModel.init();
+                mListPopularTvShowsViewModel.getTvShowsResultList().observe(this, popularTvResponse -> {
+                    assert popularTvResponse != null;
+                    List<TvShowsResult> popularTvResults = popularTvResponse.getResults();
+                    popularTvList.addAll(popularTvResults);
+                    mPopularTvAdapter.notifyDataSetChanged();
                     hideProgressBar();
-                    mConnectionError.setVisibility(View.VISIBLE);
-                    tvConnectionError.setVisibility(View.VISIBLE);
-                }
+                });
+                mListPopularTvShowsViewModel.getIsConnected().observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        mConnectionError.setVisibility(View.GONE);
+                        tvConnectionError.setVisibility(View.GONE);
+                    } else {
+                        hideProgressBar();
+                        mConnectionError.setVisibility(View.VISIBLE);
+                        tvConnectionError.setVisibility(View.VISIBLE);
+                    }
 
-            });
-            tvToolbarTitle.setText(R.string.popular_tv_shows);
-        }else if(category.equals("listTopTv")){
-            showProgressBar();
-            ListTopTvShowsViewModel mTopTvShowsViewModel = ViewModelProviders.of(this).get(ListTopTvShowsViewModel.class);
-            mTopTvShowsViewModel.init();
-            mTopTvShowsViewModel.getTvShowsResultList().observe(this, topTvResponse ->{
-                assert topTvResponse != null;
-                List<TvShowsResult> topTvResults = topTvResponse.getResults();
-                topTvList.addAll(topTvResults);
-                mTopTvAdapter.notifyDataSetChanged();
-                hideProgressBar();
-            });
-            mTopTvShowsViewModel.getIsConnected().observe(this, aBoolean -> {
-                if(aBoolean){
-                    mConnectionError.setVisibility(View.GONE);
-                    tvConnectionError.setVisibility(View.GONE);
-                }else{
+                });
+                tvToolbarTitle.setText(R.string.popular_tv_shows);
+                break;
+            case "listTopTv":
+                showProgressBar();
+                ListTopTvShowsViewModel mTopTvShowsViewModel = ViewModelProviders.of(this).get(ListTopTvShowsViewModel.class);
+                mTopTvShowsViewModel.init();
+                mTopTvShowsViewModel.getTvShowsResultList().observe(this, topTvResponse -> {
+                    assert topTvResponse != null;
+                    List<TvShowsResult> topTvResults = topTvResponse.getResults();
+                    topTvList.addAll(topTvResults);
+                    mTopTvAdapter.notifyDataSetChanged();
                     hideProgressBar();
-                    mConnectionError.setVisibility(View.VISIBLE);
-                    tvConnectionError.setVisibility(View.VISIBLE);
-                }
+                });
+                mTopTvShowsViewModel.getIsConnected().observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        mConnectionError.setVisibility(View.GONE);
+                        tvConnectionError.setVisibility(View.GONE);
+                    } else {
+                        hideProgressBar();
+                        mConnectionError.setVisibility(View.VISIBLE);
+                        tvConnectionError.setVisibility(View.VISIBLE);
+                    }
 
-            });
-            tvToolbarTitle.setText(R.string.top_tv_shows);
-        }else{
-            showProgressBar();
-            ListSearchMoviesViewModel mListSearchMoviesViewModel = ViewModelProviders.of(this).get(ListSearchMoviesViewModel.class);
-            mListSearchMoviesViewModel.init(category);
-            mListSearchMoviesViewModel.getSearchResultList().observe(this, movieResponse -> {
-                List<SearchResult> movieResults = movieResponse.getResults();
-                listSearchMovies.addAll(movieResults);
-                mSearchAdapter.notifyDataSetChanged();
-                hideProgressBar();
-            });
-            mListSearchMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
-                if(aBoolean){
-                    mConnectionError.setVisibility(View.GONE);
-                    tvConnectionError.setVisibility(View.GONE);
-                }else{
+                });
+                tvToolbarTitle.setText(R.string.top_tv_shows);
+                break;
+            default:
+                showProgressBar();
+                ListSearchMoviesViewModel mListSearchMoviesViewModel = ViewModelProviders.of(this).get(ListSearchMoviesViewModel.class);
+                mListSearchMoviesViewModel.init(category);
+                mListSearchMoviesViewModel.getSearchResultList().observe(this, movieResponse -> {
+                    List<SearchResult> movieResults = movieResponse.getResults();
+                    listSearchMovies.addAll(movieResults);
+                    mSearchAdapter.notifyDataSetChanged();
                     hideProgressBar();
-                    mConnectionError.setVisibility(View.VISIBLE);
-                    tvConnectionError.setVisibility(View.VISIBLE);
-                }
+                });
+                mListSearchMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        mConnectionError.setVisibility(View.GONE);
+                        tvConnectionError.setVisibility(View.GONE);
+                    } else {
+                        hideProgressBar();
+                        mConnectionError.setVisibility(View.VISIBLE);
+                        tvConnectionError.setVisibility(View.VISIBLE);
+                    }
 
-            });
-            tvToolbarTitle.setText(category);
+                });
+                tvToolbarTitle.setText(category);
+                break;
         }
         showRecyclerGrid();
         setSupportActionBar(tbBack);
@@ -234,51 +240,57 @@ public class SeeMoreActivity extends AppCompatActivity {
     private void showRecyclerGrid() {
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-        if(category.equals("listPopular")){
-            if(mPopularAdapter == null){
-                mPopularAdapter = new ListPopularMoviesAdapter(this, popularMovieList);
-                rvSeeMore.setLayoutManager(gridLayoutManager);
-                rvSeeMore.setAdapter(mPopularAdapter);
-            }else {
-                mPopularAdapter.notifyDataSetChanged();
-            }
-            mPopularAdapter.setOnItemClickCallback(this::showSelectedMovie);
-        }else if(category.equals("listTop")){
-            if(mTopAdapter == null){
-                mTopAdapter = new ListTopMoviesAdapter(this, listTopMovies);
-                rvSeeMore.setLayoutManager(gridLayoutManager);
-                rvSeeMore.setAdapter(mTopAdapter);
-            }else {
-                mTopAdapter.notifyDataSetChanged();
-            }
-            mTopAdapter.setOnItemClickCallback(this::showSelectedMovie);
-        }else if(category.equals("listPopularTv")){
-            if(mPopularTvAdapter == null){
-                mPopularTvAdapter = new ListPopularTvShowsAdapter(this, popularTvList);
-                rvSeeMore.setLayoutManager(gridLayoutManager);
-                rvSeeMore.setAdapter(mPopularTvAdapter);
-            }else{
-                mPopularTvAdapter.notifyDataSetChanged();
-            }
-            mPopularTvAdapter.setOnItemClickCallback(this::showSelectedTvShows);
-        }else if(category.equals("listTopTv")){
-            if(mTopTvAdapter == null){
-                mTopTvAdapter = new ListTopTvShowsAdapter(this, topTvList);
-                rvSeeMore.setLayoutManager(gridLayoutManager);
-                rvSeeMore.setAdapter(mTopTvAdapter);
-            }else{
-                mTopTvAdapter.notifyDataSetChanged();
-            }
-            mTopTvAdapter.setOnItemClickCallback(this::showSelectedTvShows);
-        }else{
-            if(mSearchAdapter == null){
-                mSearchAdapter = new ListSearchMoviesAdapter(this, listSearchMovies);
-                rvSeeMore.setLayoutManager(gridLayoutManager);
-                rvSeeMore.setAdapter(mSearchAdapter);
-            }else{
-                mSearchAdapter.notifyDataSetChanged();
-            }
-            mSearchAdapter.setOnItemClickCallback(this::showSelectedSearch);
+        switch (category) {
+            case "listPopular":
+                if (mPopularAdapter == null) {
+                    mPopularAdapter = new ListPopularMoviesAdapter(this, popularMovieList);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mPopularAdapter);
+                } else {
+                    mPopularAdapter.notifyDataSetChanged();
+                }
+                mPopularAdapter.setOnItemClickCallback(this::showSelectedMovie);
+                break;
+            case "listTop":
+                if (mTopAdapter == null) {
+                    mTopAdapter = new ListTopMoviesAdapter(this, listTopMovies);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mTopAdapter);
+                } else {
+                    mTopAdapter.notifyDataSetChanged();
+                }
+                mTopAdapter.setOnItemClickCallback(this::showSelectedMovie);
+                break;
+            case "listPopularTv":
+                if (mPopularTvAdapter == null) {
+                    mPopularTvAdapter = new ListPopularTvShowsAdapter(this, popularTvList);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mPopularTvAdapter);
+                } else {
+                    mPopularTvAdapter.notifyDataSetChanged();
+                }
+                mPopularTvAdapter.setOnItemClickCallback(this::showSelectedTvShows);
+                break;
+            case "listTopTv":
+                if (mTopTvAdapter == null) {
+                    mTopTvAdapter = new ListTopTvShowsAdapter(this, topTvList);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mTopTvAdapter);
+                } else {
+                    mTopTvAdapter.notifyDataSetChanged();
+                }
+                mTopTvAdapter.setOnItemClickCallback(this::showSelectedTvShows);
+                break;
+            default:
+                if (mSearchAdapter == null) {
+                    mSearchAdapter = new ListSearchMoviesAdapter(this, listSearchMovies);
+                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    rvSeeMore.setAdapter(mSearchAdapter);
+                } else {
+                    mSearchAdapter.notifyDataSetChanged();
+                }
+                mSearchAdapter.setOnItemClickCallback(this::showSelectedSearch);
+                break;
         }
     }
 

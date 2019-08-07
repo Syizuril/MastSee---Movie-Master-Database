@@ -20,11 +20,9 @@ import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.TvShowsResult;
 
 public class ListPopularTvShowsAdapter extends RecyclerView.Adapter<ListPopularTvShowsAdapter.ListViewHolder> {
-    private Context mContext;
     private List<TvShowsResult> listPopularTvShows;
 
     public ListPopularTvShowsAdapter(Context mContext, List<TvShowsResult> listPopularTvShows) {
-        this.mContext = mContext;
         this.listPopularTvShows = listPopularTvShows;
     }
 

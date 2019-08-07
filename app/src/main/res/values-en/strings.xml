@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MastSee</string>
-    <string name="long_app_name">Master Movie Database</string>
     <string name="title_movies">Movies</string>
     <string name="title_tv_shows">TV Shows</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>
     <string name="search_hint">Enter Movie Title or TV Show</string>
     <string name="change_language">Change Language</string>
@@ -21,7 +19,9 @@
     <string name="popular_tv_shows">Popular Tv Shows</string>
     <string name="top_tv_shows">Top Tv Shows</string>
     <string name="overview">Overview</string>
-    <string name="featured_crew">Featured Crew</string>
-    <string name="runtime">Runtime</string>
-    <string name="genre">Genre</string>
+    <string name="vote_count">Vote Count</string>
+    <string name="original_language">Original Language</string>
+    <string name="original_title">Original Title</string>
+    <string name="popularity_point">Popularity Point</string>
+    <string name="connection_error">Oops! There seems to be a problem, please check your internet connection again.</string>
 </resources>

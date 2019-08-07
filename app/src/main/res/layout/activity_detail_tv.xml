@@ -2,7 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/detailActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -43,7 +42,6 @@
             app:layout_constraintTop_toBottomOf="@id/tbBack" />
 
         <ImageView
-            android:id="@+id/coverBanner"
             android:layout_width="414dp"
             android:layout_height="240dp"
             android:src="@drawable/cover_banner"

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MastSee</string>
-    <string name="long_app_name">Master Movie Database</string>
     <string name="title_movies">Film</string>
     <string name="title_tv_shows">Acara TV</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hai Fragment Kosong</string>
     <string name="search">Cari</string>
     <string name="search_hint">Masukkan Judul Movie atau Tv Show</string>
     <string name="change_language">Ubah Bahasa</string>
@@ -21,7 +19,10 @@
     <string name="popular_tv_shows">Acara TV Populer</string>
     <string name="top_tv_shows">Acara TV Terbaik</string>
     <string name="overview">Ringkasan</string>
-    <string name="featured_crew">Kru Unggulan</string>
-    <string name="runtime">Durasi</string>
-    <string name="genre">Aliran</string>
+    <string name="vote_count">Jumlah Pemilih</string>
+    <string name="original_language">Bahasa Asli</string>
+    <string name="original_title">Judul Asli</string>
+    <string name="popularity_point">Point Popular</string>
+    <string name="connection_error">Ups! Tampaknya ada masalah, silakan periksa kembali koneksi internet Anda.</string>
+
 </resources>
