@@ -50,8 +50,8 @@ public class SeeMoreActivity extends AppCompatActivity {
     private ListPopularTvShowsAdapter mPopularTvAdapter;
     private ListTopTvShowsAdapter mTopTvAdapter;
     private ProgressBar mProgressBar;
-    private ImageView mConnectionError;
-    private TextView tvConnectionError,tvToolbarTitle;
+    private ImageView mConnectionError, mNotFound;
+    private TextView tvConnectionError, tvNotFound;
     public static final String EXTRA_CATEGORY = "extra_category";
 
     @Override
@@ -59,10 +59,12 @@ public class SeeMoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_more);
         rvSeeMore = findViewById(R.id.rvSeeMoreMovie);
-        tvToolbarTitle = findViewById(R.id.toolbar_title);
+        TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
         mProgressBar = findViewById(R.id.progressBar);
         mConnectionError = findViewById(R.id.ivConnectionError);
         tvConnectionError = findViewById(R.id.tvConnectionError);
+        mNotFound = findViewById(R.id.ivNotFound);
+        tvNotFound = findViewById(R.id.tvNotFound);
         rvSeeMore.setHasFixedSize(true);
 
         Toolbar tbBack = findViewById(R.id.tbBack);
@@ -176,14 +178,13 @@ public class SeeMoreActivity extends AppCompatActivity {
                 });
                 mListSearchMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
                     if (aBoolean) {
-                        mConnectionError.setVisibility(View.GONE);
-                        tvConnectionError.setVisibility(View.GONE);
+                        mNotFound.setVisibility(View.GONE);
+                        tvNotFound.setVisibility(View.GONE);
                     } else {
                         hideProgressBar();
-                        mConnectionError.setVisibility(View.VISIBLE);
-                        tvConnectionError.setVisibility(View.VISIBLE);
+                        mNotFound.setVisibility(View.VISIBLE);
+                        tvNotFound.setVisibility(View.VISIBLE);
                     }
-
                 });
                 tvToolbarTitle.setText(category);
                 break;

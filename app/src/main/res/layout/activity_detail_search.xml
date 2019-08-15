@@ -49,7 +49,8 @@
             tools:src="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tbBack" />
+            app:layout_constraintTop_toBottomOf="@id/tbBack"
+            android:contentDescription="@string/banner" />
 
         <ImageView
             android:layout_width="414dp"
@@ -60,7 +61,8 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/banner"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="2.3" />
+            app:layout_constraintVertical_bias="2.3"
+            android:contentDescription="@string/banner_user_score" />
 
         <ImageView
             android:id="@+id/cover"
@@ -74,7 +76,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/banner"
             app:layout_constraintVertical_bias="3.4"
-            app:layout_constraintHorizontal_bias="0.0"/>
+            app:layout_constraintHorizontal_bias="0.0"
+            android:contentDescription="@string/poster_film_tv_shows" />
 
         <TextView
             android:id="@+id/tvScore"

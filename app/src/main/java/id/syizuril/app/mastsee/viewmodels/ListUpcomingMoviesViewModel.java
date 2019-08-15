@@ -9,13 +9,12 @@ import id.syizuril.app.mastsee.repositories.ListMoviesRepositories;
 
 public class ListUpcomingMoviesViewModel extends ViewModel {
     private MutableLiveData<MovieResponse> mutableLiveData;
-    private ListMoviesRepositories listUpcomingMoviesRepositories;
 
     public void init(){
         if(mutableLiveData != null){
             return;
         }
-        listUpcomingMoviesRepositories = ListMoviesRepositories.getInstance();
+        ListMoviesRepositories listUpcomingMoviesRepositories = ListMoviesRepositories.getInstance();
         mutableLiveData = listUpcomingMoviesRepositories.getMovieResult("movie","upcoming","b2d6f482d73c8f231cd3af7c9085e7a5","en_US",1);
     }
     public LiveData<MovieResponse> getMovieResultList(){

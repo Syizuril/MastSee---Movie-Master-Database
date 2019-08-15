@@ -2,6 +2,7 @@ package id.syizuril.app.mastsee.repositories;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import id.syizuril.app.mastsee.models.TvShowResponse;
@@ -23,7 +24,7 @@ public class ListTvShowsRepositories {
 
     private MovieApi movieApi;
 
-    public ListTvShowsRepositories(){
+    private ListTvShowsRepositories(){
         movieApi = RetrofitService.createService(MovieApi.class);
     }
 
@@ -31,7 +32,7 @@ public class ListTvShowsRepositories {
         final MutableLiveData<TvShowResponse> tvShowData = new MutableLiveData<>();
         movieApi.getTvShows(type, category, apiKey, language, page).enqueue(new Callback<TvShowResponse>() {
             @Override
-            public void onResponse(Call<TvShowResponse> call, Response<TvShowResponse> response) {
+            public void onResponse(@NonNull Call<TvShowResponse> call, @NonNull Response<TvShowResponse> response) {
                 if(response.isSuccessful()){
                     tvShowData.setValue(response.body());
                     Log.d("Success", response.message());
@@ -43,7 +44,7 @@ public class ListTvShowsRepositories {
             }
 
             @Override
-            public void onFailure(Call<TvShowResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<TvShowResponse> call, @NonNull Throwable t) {
                 Log.d("ERROR ", t.getMessage());
                 isConnected.setValue(false);
             }

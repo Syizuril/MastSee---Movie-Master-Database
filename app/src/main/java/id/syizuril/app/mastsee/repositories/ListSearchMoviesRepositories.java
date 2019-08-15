@@ -2,6 +2,7 @@ package id.syizuril.app.mastsee.repositories;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import id.syizuril.app.mastsee.models.SearchResponse;
@@ -23,7 +24,7 @@ public class ListSearchMoviesRepositories {
 
     private MovieApi movieApi;
 
-    public ListSearchMoviesRepositories(){
+    private ListSearchMoviesRepositories(){
         movieApi = RetrofitService.createService(MovieApi.class);
     }
 
@@ -31,7 +32,7 @@ public class ListSearchMoviesRepositories {
         final MutableLiveData<SearchResponse> movieData = new MutableLiveData<>();
         movieApi.getSearchMovies(type, category, apiKey, language, query, page, includeAdult).enqueue(new Callback<SearchResponse>() {
             @Override
-            public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+            public void onResponse(@NonNull Call<SearchResponse> call, @NonNull Response<SearchResponse> response) {
                 if(response.isSuccessful()){
                     movieData.setValue(response.body());
                     Log.d("Success", response.message());
@@ -42,7 +43,7 @@ public class ListSearchMoviesRepositories {
             }
 
             @Override
-            public void onFailure(Call<SearchResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<SearchResponse> call, @NonNull Throwable t) {
                 Log.d("ERROR ", t.getMessage());
                 isConnected.setValue(false);
             }

@@ -23,4 +23,8 @@
     <string name="original_title">Original Title</string>
     <string name="popularity_point">Popularity Point</string>
     <string name="connection_error">Oops! There seems to be a problem, please check your internet connection again.</string>
+    <string name="not_found">Oops! The movies and TV Shows you are looking for are playing hide and seek, please search using other keywords to be able to find them.</string>
+    <string name="banner">Banner Backdrop Film/TvShows</string>
+    <string name="banner_user_score">Banner User Score</string>
+    <string name="poster_film_tv_shows">Poster Film/Tv Shows</string>
 </resources>

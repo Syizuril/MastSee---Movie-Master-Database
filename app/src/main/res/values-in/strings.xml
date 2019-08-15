@@ -24,5 +24,8 @@
     <string name="original_title">Judul Asli</string>
     <string name="popularity_point">Point Popular</string>
     <string name="connection_error">Ups! Tampaknya ada masalah, silakan periksa kembali koneksi internet Anda.</string>
-
+    <string name="not_found">Ups ! Film dan Tv Shows yang kamu cari sedang bermain pentak umpet, silahkan cari menggunakan kata kunci lainnya untuk dapat menemukannya.</string>
+    <string name="banner">Banner Backdrop Film/Tv Show</string>
+    <string name="banner_user_score">Banner Score User</string>
+    <string name="poster_film_tv_shows">Poster Film/Tv Show</string>
 </resources>

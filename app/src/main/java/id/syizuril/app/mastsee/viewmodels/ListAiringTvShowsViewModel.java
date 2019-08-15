@@ -9,13 +9,12 @@ import id.syizuril.app.mastsee.repositories.ListTvShowsRepositories;
 
 public class ListAiringTvShowsViewModel extends ViewModel {
     private MutableLiveData<TvShowResponse> mutableLiveData;
-    private ListTvShowsRepositories listTvShowsRepositories;
 
     public void init(){
         if(mutableLiveData != null){
             return;
         }
-        listTvShowsRepositories = ListTvShowsRepositories.getInstance();
+        ListTvShowsRepositories listTvShowsRepositories = ListTvShowsRepositories.getInstance();
         mutableLiveData = listTvShowsRepositories.getTvShowsResult("tv","on_the_air","b2d6f482d73c8f231cd3af7c9085e7a5","en_US",1);
     }
 

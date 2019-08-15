@@ -9,7 +9,6 @@ import id.syizuril.app.mastsee.repositories.ListSearchMoviesRepositories;
 
 public class ListSearchMoviesViewModel extends ViewModel {
     private MutableLiveData<SearchResponse> mutableLiveData;
-    private MutableLiveData<Boolean> isConnected;
     private ListSearchMoviesRepositories listSearchRepositories;
 
     public void init(String query){
