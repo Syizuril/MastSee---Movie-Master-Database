@@ -34,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.layout_main, nav, nav.getClass().getSimpleName())
                                 .commit();
                         return true;
+                    case R.id.navigation_favorite:
+                        nav = new FavoriteFragment();
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, nav, nav.getClass().getSimpleName())
+                                .commit();
+                        return true;
                 }
                 return false;
             };
