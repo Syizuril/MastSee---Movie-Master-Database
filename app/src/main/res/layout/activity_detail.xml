@@ -64,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="@id/banner"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintVertical_bias="0.1"
-            android:src="@drawable/ic_favorite_red_24dp"
+            android:src="@drawable/ic_favorite_gray_24dp"
             android:visibility="gone"/>
 
         <ImageView
@@ -387,6 +387,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tbBack"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.2" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

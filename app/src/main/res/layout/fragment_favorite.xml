@@ -19,15 +19,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
         tools:layout_editor_absoluteY="0dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabLayout"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintVertical_bias="1"
+        />
 
 </android.support.constraint.ConstraintLayout>

@@ -10,43 +10,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/deleteAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:clickable="true"
+            android:text="@string/delete_all_favorite"
+            android:fontFamily="sans-serif"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvMovie"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/deleteAll"
             tools:layout_editor_absoluteY="0dp"
             tools:listitem="@layout/item_row_movies" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="parent"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/ivConnectionError"
-            android:layout_width="408dp"
-            android:layout_height="254dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/undraw_server_down_s4lk"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            android:contentDescription="@string/connection_error" />
 
         <ImageView
             android:id="@+id/ivNotFound"
@@ -55,34 +45,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/undraw_not_found_60pq"
+            android:src="@drawable/undraw_no_data_qbuo"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            android:contentDescription="@string/not_found" />
-
-        <TextView
-            android:id="@+id/tvConnectionError"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/connection_error"
-            android:textColor="#37474f"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivConnectionError"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0"
-            android:visibility="gone"/>
+            android:contentDescription="@string/you_haven_t_added_anything_to_the_favorites_list_yet_let_s_start_adding_movies_and_tv_shows_that_you_like" />
 
         <TextView
             android:id="@+id/tvNotFound"
@@ -92,7 +62,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="sans-serif"
-            android:text="@string/not_found"
+            android:text="@string/you_haven_t_added_anything_to_the_favorites_list_yet_let_s_start_adding_movies_and_tv_shows_that_you_like"
             android:textColor="#37474f"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -101,7 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivNotFound"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0"
+            app:layout_constraintVertical_bias="0.2"
             android:visibility="gone"/>
     </android.support.constraint.ConstraintLayout>
 

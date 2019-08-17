@@ -28,7 +28,13 @@
     <string name="banner_user_score">Banner User Score</string>
     <string name="poster_film_tv_shows">Poster Film/Tv Shows</string>
     <string name="favorite">Favorite</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete_all_favorite">Delete All Favorite</string>
+    <string name="are_you_sure">Are you sure you want to delete all favorite lists?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="favorite_deleted">All your favorite lists have been deleted</string>
+    <string name="favorited"> you have added in Favorite List</string>
+    <string name="unfavorited"> you have deleted the Favorite List</string>
+    <string name="you_haven_t_added_anything_to_the_favorites_list_yet_let_s_start_adding_movies_and_tv_shows_that_you_like">You haven\'t added anything to the Favorites list yet. Let\'s start adding Movies and Tv Shows that you like.</string>
 </resources>

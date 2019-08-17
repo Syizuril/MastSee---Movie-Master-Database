@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -240,12 +241,11 @@ public class SeeMoreActivity extends AppCompatActivity {
 
     private void showRecyclerGrid() {
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
-        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         switch (category) {
             case "listPopular":
                 if (mPopularAdapter == null) {
                     mPopularAdapter = new ListPopularMoviesAdapter(this, popularMovieList);
-                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    setLayoutManager();
                     rvSeeMore.setAdapter(mPopularAdapter);
                 } else {
                     mPopularAdapter.notifyDataSetChanged();
@@ -255,7 +255,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             case "listTop":
                 if (mTopAdapter == null) {
                     mTopAdapter = new ListTopMoviesAdapter(this, listTopMovies);
-                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    setLayoutManager();
                     rvSeeMore.setAdapter(mTopAdapter);
                 } else {
                     mTopAdapter.notifyDataSetChanged();
@@ -265,7 +265,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             case "listPopularTv":
                 if (mPopularTvAdapter == null) {
                     mPopularTvAdapter = new ListPopularTvShowsAdapter(this, popularTvList);
-                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    setLayoutManager();
                     rvSeeMore.setAdapter(mPopularTvAdapter);
                 } else {
                     mPopularTvAdapter.notifyDataSetChanged();
@@ -275,7 +275,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             case "listTopTv":
                 if (mTopTvAdapter == null) {
                     mTopTvAdapter = new ListTopTvShowsAdapter(this, topTvList);
-                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    setLayoutManager();
                     rvSeeMore.setAdapter(mTopTvAdapter);
                 } else {
                     mTopTvAdapter.notifyDataSetChanged();
@@ -285,7 +285,7 @@ public class SeeMoreActivity extends AppCompatActivity {
             default:
                 if (mSearchAdapter == null) {
                     mSearchAdapter = new ListSearchMoviesAdapter(this, listSearchMovies);
-                    rvSeeMore.setLayoutManager(gridLayoutManager);
+                    setLayoutManager();
                     rvSeeMore.setAdapter(mSearchAdapter);
                 } else {
                     mSearchAdapter.notifyDataSetChanged();
@@ -319,5 +319,16 @@ public class SeeMoreActivity extends AppCompatActivity {
 
     private void hideProgressBar(){
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    private void setLayoutManager(){
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, 5);
+            rvSeeMore.setLayoutManager(gridLayoutManager);
+        } else {
+            RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+            rvSeeMore.setLayoutManager(gridLayoutManager);
+        }
     }
 }

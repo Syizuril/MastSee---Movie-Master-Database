@@ -5,8 +5,10 @@ import android.app.SearchManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -20,8 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
@@ -29,6 +36,7 @@ import id.syizuril.app.mastsee.viewmodels.MovieFavoriteViewModel;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String EXTRA_MOVIE = "extra_movie";
+    public static final String EXTRA_FAVORIT = "extra_favorit";
     private ProgressBar mProgressBar;
     private MovieFavoriteViewModel movieFavoriteViewModel;
     private ImageView imgFavorite, imgUnfavorite;
@@ -57,7 +65,91 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
         showProgressBar();
 
+        movieFavoriteViewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
+
         movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        String favorit = getIntent().getStringExtra(EXTRA_FAVORIT);
+
+        if(favorit != null){
+            Glide.with(DetailActivity.this)
+                    .load(movieResult.getPosterPathAlt())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+                    })
+                    .into(imgCover);
+
+            Glide.with(DetailActivity.this)
+                    .load(movieResult.getBackdropPathAlt())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+                    })
+                    .into(imgBanner);
+        }else{
+            Glide.with(DetailActivity.this)
+                    .load(movieResult.getPosterPath())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+                    })
+                    .into(imgCover);
+
+            Glide.with(DetailActivity.this)
+                    .load(movieResult.getBackdropPath())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+                    })
+                    .into(imgBanner);
+        }
+
+        Integer id = movieResult.getId();
+        movieFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
+            List<MovieResult> movieById = movieId;
+            assert movieById != null;
+            if(movieById.isEmpty()){
+                favorite();
+            }else{
+                unfavorite();
+            }
+        });
         String title = movieResult.getTitle();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
         String date = formatter.format(movieResult.getReleaseDate());
@@ -67,14 +159,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         String originalLanguage = movieResult.getOriginalLanguage();
         String originalTitle = movieResult.getOriginalTitle();
         Double popularityPoint = movieResult.getPopularity();
-
-        Glide.with(DetailActivity.this)
-                .load(movieResult.getPosterPath())
-                .into(imgCover);
-
-        Glide.with(DetailActivity.this)
-                .load(movieResult.getBackdropPath())
-                .into(imgBanner);
 
         tvTitle.setText(title);
         tvDate.setText(String.valueOf(date));
@@ -86,8 +170,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         tvPopularityPoint.setText(String.valueOf(popularityPoint));
         tvToolbarTitle.setText(title);
         hideProgressBar();
-
-        movieFavoriteViewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
 
         setSupportActionBar(tbBack);
         if(getSupportActionBar() != null){
@@ -150,17 +232,27 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()){
             case R.id.ivUnfavorite:
                 movieFavoriteViewModel.insert(movieResult);
-                imgUnfavorite.setVisibility(View.GONE);
-                imgFavorite.setVisibility(View.VISIBLE);
-                Toast.makeText(this, movieResult.getTitle() + " Telah Anda Favoritkan", Toast.LENGTH_SHORT).show();
+                unfavorite();
+                Toast.makeText(this, movieResult.getTitle() + getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ivFavorite:
-                imgFavorite.setVisibility(View.GONE);
-                imgUnfavorite.setVisibility(View.VISIBLE);
+                favorite();
+                movieFavoriteViewModel.delete(movieResult);
+                Toast.makeText(this, movieResult.getTitle() + getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
+                break;
         }
+    }
+
+    private void favorite(){
+        imgFavorite.setVisibility(View.GONE);
+        imgUnfavorite.setVisibility(View.VISIBLE);
+    }
+
+    private void unfavorite(){
+        imgUnfavorite.setVisibility(View.GONE);
+        imgFavorite.setVisibility(View.VISIBLE);
     }
 }

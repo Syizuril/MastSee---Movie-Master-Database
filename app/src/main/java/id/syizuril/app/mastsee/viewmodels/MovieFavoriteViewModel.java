@@ -13,6 +13,8 @@ import id.syizuril.app.mastsee.repositories.MoviesFavoriteRepository;
 public class MovieFavoriteViewModel extends AndroidViewModel {
     private MoviesFavoriteRepository repository;
     private LiveData<List<MovieResult>> allMovies;
+    private LiveData<List<MovieResult>> moviesById;
+    private Integer id;
 
     public MovieFavoriteViewModel(@NonNull Application application) {
         super(application);
@@ -38,5 +40,10 @@ public class MovieFavoriteViewModel extends AndroidViewModel {
 
     public LiveData<List<MovieResult>> getAllMovies(){
         return allMovies;
+    }
+
+    public LiveData<List<MovieResult>> getMoviesById(Integer id){
+        moviesById = repository.getAllMoviesById(id);
+        return moviesById;
     }
 }

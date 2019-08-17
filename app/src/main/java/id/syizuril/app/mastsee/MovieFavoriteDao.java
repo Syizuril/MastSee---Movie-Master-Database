@@ -29,6 +29,6 @@ public interface MovieFavoriteDao {
     @Query("SELECT * FROM movie_table")
     LiveData<List<MovieResult>> getAllMoviesFavorite();
 
-//    @Query("SELECT * FROM movie_table WHERE id LIKE :value")
-//    LiveData<List<MovieResult>> getAllMoviesFavoriteById(String value);
+    @Query("SELECT * FROM movie_table WHERE id LIKE :value")
+    LiveData<List<MovieResult>> getAllMoviesFavoriteById(Integer value);
 }

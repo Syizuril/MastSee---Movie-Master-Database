@@ -14,6 +14,7 @@ public class MoviesFavoriteRepository {
     private MovieFavoriteDao movieFavoriteDao;
     private LiveData<List<MovieResult>> allMovies;
     private LiveData<List<MovieResult>> allMoviesById;
+    private Integer id;
 
     public MoviesFavoriteRepository(Application application){
         FavoriteDatabase database = FavoriteDatabase.getInstance(application);
@@ -39,6 +40,11 @@ public class MoviesFavoriteRepository {
 
     public LiveData<List<MovieResult>> getAllMovies(){
         return allMovies;
+    }
+
+    public LiveData<List<MovieResult>> getAllMoviesById(Integer id){
+        allMoviesById = movieFavoriteDao.getAllMoviesFavoriteById(id);
+        return allMoviesById;
     }
 
     private static class InsertNoteAsyncTask extends AsyncTask<MovieResult, Void, Void>{
