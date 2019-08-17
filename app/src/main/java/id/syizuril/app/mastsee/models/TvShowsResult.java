@@ -164,10 +164,21 @@ public class TvShowsResult implements Parcelable {
         dest.writeString(this.posterPath);
     }
 
-    public TvShowsResult() {
+    public TvShowsResult(String originalName, String name, Double popularity, Integer voteCount, Date firstAirDate, String backdropPath, String originalLanguage, Integer id, Double voteAverage, String overview, String posterPath) {
+        this.originalName = originalName;
+        this.name = name;
+        this.popularity = popularity;
+        this.voteCount = voteCount;
+        this.firstAirDate = firstAirDate;
+        this.backdropPath = backdropPath;
+        this.originalLanguage = originalLanguage;
+        this.id = id;
+        this.voteAverage = voteAverage;
+        this.overview = overview;
+        this.posterPath = posterPath;
     }
 
-    protected TvShowsResult(Parcel in) {
+    public TvShowsResult(Parcel in) {
         this.originalName = in.readString();
         this.name = in.readString();
         this.popularity = (Double) in.readValue(Double.class.getClassLoader());

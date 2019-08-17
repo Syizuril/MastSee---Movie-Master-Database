@@ -2,30 +2,52 @@ package id.syizuril.app.mastsee.view;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import id.syizuril.app.mastsee.R;
+import id.syizuril.app.mastsee.models.MovieResult;
 import id.syizuril.app.mastsee.models.SearchResult;
+import id.syizuril.app.mastsee.models.TvShowsResult;
+import id.syizuril.app.mastsee.viewmodels.MovieFavoriteViewModel;
+import id.syizuril.app.mastsee.viewmodels.TvShowsFavoriteViewModel;
 
-public class DetailActivitySearch extends AppCompatActivity {
+public class DetailActivitySearch extends AppCompatActivity implements View.OnClickListener{
 
     public static final String EXTRA_MOVIE = "extra_movie";
+    public static final String EXTRA_FAVORIT = "extra_favorit";
+    private ProgressBar mProgressBar;
+    private MovieFavoriteViewModel movieFavoriteViewModel;
+    private TvShowsFavoriteViewModel tvShowsFavoriteViewModel;
+    private ImageView imgFavorite, imgUnfavorite;
+    private SearchResult movieResult;
+    private String mediaType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,54 +69,147 @@ public class DetailActivitySearch extends AppCompatActivity {
         ImageView imgCover = findViewById(R.id.cover);
         ImageView imgBanner = findViewById(R.id.banner);
         TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
-        TextView tvToolbarName = findViewById(R.id.toolbar_name);
+        imgFavorite = findViewById(R.id.ivFavorite);
+        imgUnfavorite = findViewById(R.id.ivUnfavorite);
+        mProgressBar = findViewById(R.id.progressBar);
+        showProgressBar();
 
-        SearchResult movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        String name = movieResult.getName();
-        String title = movieResult.getTitle();
-        try {
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-            String firstDate= formatter.format(movieResult.getFirstAirDate());
-            tvFirstDate.setText(firstDate);
-        } catch (NullPointerException e) {
-            String firstDate= "";
-            tvFirstDate.setText(firstDate);
+        movieFavoriteViewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
+        tvShowsFavoriteViewModel = ViewModelProviders.of(this).get(TvShowsFavoriteViewModel.class);
+
+        movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        String favorit = getIntent().getStringExtra(EXTRA_FAVORIT);
+        Integer id = movieResult.getId();
+        if(favorit != null){
+            Glide.with(DetailActivitySearch.this)
+                    .load(movieResult.getPosterPathAlt())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+                    })
+                    .into(imgCover);
+
+            Glide.with(DetailActivitySearch.this)
+                    .load(movieResult.getBackdropPathAlt())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+                    })
+                    .into(imgBanner);
+        }else{
+            Glide.with(DetailActivitySearch.this)
+                    .load(movieResult.getPosterPath())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+                    })
+                    .into(imgCover);
+
+            Glide.with(DetailActivitySearch.this)
+                    .load(movieResult.getBackdropPath())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            hideProgressBar();
+                            return false;
+                        }
+                    })
+                    .into(imgBanner);
         }
-        try {
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-            String date = formatter.format(movieResult.getReleaseDate());
-            tvDate.setText(date);
-        } catch (NullPointerException e) {
-            String date = " ";
-            tvDate.setText(date);
+        mediaType = movieResult.getMediaType();
+        if(mediaType.equals("movie")){
+            movieFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
+                List<MovieResult> movieById = movieId;
+                assert movieById != null;
+                if(movieById.isEmpty()){
+                    favorite();
+                }else{
+                    unfavorite();
+                }
+            });
+            try {
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+                String date = formatter.format(movieResult.getReleaseDate());
+                tvDate.setText(date);
+            } catch (NullPointerException e) {
+                String date = " ";
+                tvDate.setText(date);
+            }
+            String title = movieResult.getTitle();
+            String originalTitle = movieResult.getOriginalTitle();
+
+            tvTitle.setText(title);
+            tvOriginalTitle.setText(originalTitle);
+            tvToolbarTitle.setText(title);
+        }else if(mediaType.equals("tv")){
+            tvShowsFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
+                List<TvShowsResult> movieById = movieId;
+                assert movieById != null;
+                if(movieById.isEmpty()){
+                    favorite();
+                }else{
+                    unfavorite();
+                }
+            });
+            try {
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+                String firstDate= formatter.format(movieResult.getFirstAirDate());
+                tvFirstDate.setText(firstDate);
+            } catch (NullPointerException e) {
+                String firstDate= "";
+                tvFirstDate.setText(firstDate);
+            }
+            String name = movieResult.getName();
+            String originalName = movieResult.getOriginalName();
+
+            tvName.setText(name);
+            tvOriginalName.setText(originalName);
+            tvToolbarTitle.setText(name);
         }
         Double score = movieResult.getVoteAverage();
         String overview = movieResult.getOverview();
-        Double voteCount = movieResult.getVoteCount();
+        Integer voteCount = movieResult.getVoteCount();
         String originalLanguage = movieResult.getOriginalLanguage();
-        String originalTitle = movieResult.getOriginalTitle();
-        String originalName = movieResult.getOriginalName();
         Double popularityPoint = movieResult.getPopularity();
 
-        Glide.with(DetailActivitySearch.this)
-                .load(movieResult.getPosterPath())
-                .into(imgCover);
-
-        Glide.with(DetailActivitySearch.this)
-                .load(movieResult.getBackdropPath())
-                .into(imgBanner);
-        tvTitle.setText(title);
-        tvName.setText(name);
-
-        tvScore.setText(String.valueOf(new DecimalFormat("##.#").format(score)));
+        tvScore.setText(String.valueOf(score));
         tvOverview.setText(overview);
         tvVoteCount.setText(String.valueOf(voteCount));
         tvOriginalLanguage.setText(originalLanguage);
-        tvOriginalTitle.setText(originalTitle);
-        tvOriginalName.setText(originalName);
         tvPopularityPoint.setText(String.valueOf(popularityPoint));
-        tvToolbarTitle.setText(title);
-        tvToolbarName.setText(name);
 
         setSupportActionBar(tbBack);
         if(getSupportActionBar() != null){
@@ -102,6 +217,9 @@ public class DetailActivitySearch extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        imgUnfavorite.setOnClickListener(this);
+        imgFavorite.setOnClickListener(this);
     }
 
     @Override
@@ -142,5 +260,78 @@ public class DetailActivitySearch extends AppCompatActivity {
             startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(mediaType.equals("movie")){
+            Integer voteCount = movieResult.getVoteCount();
+            Integer id = movieResult.getId();
+            Double voteAvg = movieResult.getVoteAverage();
+            String title = movieResult.getTitle();
+            Double popularityPoint = movieResult.getPopularity();
+            String posterPath = movieResult.getPosterPathAlt();
+            String originalLang = movieResult.getOriginalLanguage();
+            String originalTitle = movieResult.getOriginalTitle();
+            String backdropPath = movieResult.getBackdropPathAlt();
+            String overview = movieResult.getOverview();
+            Date releaseDate = movieResult.getReleaseDate();
+            MovieResult movieResult = new MovieResult(voteCount, id, voteAvg, title, popularityPoint, posterPath, originalLang, originalTitle, backdropPath, overview, releaseDate);
+            switch (v.getId()){
+                case R.id.ivUnfavorite:
+                    movieFavoriteViewModel.insert(movieResult);
+                    unfavorite();
+                    Toast.makeText(this, movieResult.getTitle() + getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.ivFavorite:
+                    favorite();
+                    movieFavoriteViewModel.delete(movieResult);
+                    Toast.makeText(this, movieResult.getTitle() + getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }else if(mediaType.equals("tv")){
+            Integer voteCount = movieResult.getVoteCount();
+            Integer id = movieResult.getId();
+            Double voteAvg = movieResult.getVoteAverage();
+            String name = movieResult.getName();
+            Double popularityPoint = movieResult.getPopularity();
+            String posterPath = movieResult.getPosterPathAlt();
+            String originalLang = movieResult.getOriginalLanguage();
+            String originalName = movieResult.getOriginalName();
+            String backdropPath = movieResult.getBackdropPathAlt();
+            String overview = movieResult.getOverview();
+            Date releaseDate = movieResult.getFirstAirDate();
+            TvShowsResult tvShowsResult = new TvShowsResult(originalName, name, popularityPoint, voteCount, releaseDate, backdropPath, originalLang, id, voteAvg, overview, posterPath);
+            switch (v.getId()){
+                case R.id.ivUnfavorite:
+                    tvShowsFavoriteViewModel.insert(tvShowsResult);
+                    unfavorite();
+                    Toast.makeText(this, tvShowsResult.getName() + getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.ivFavorite:
+                    favorite();
+                    tvShowsFavoriteViewModel.delete(tvShowsResult);
+                    Toast.makeText(this, tvShowsResult.getName() + getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
+
+    private void showProgressBar(){
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressBar(){
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    private void favorite(){
+        imgFavorite.setVisibility(View.GONE);
+        imgUnfavorite.setVisibility(View.VISIBLE);
+    }
+
+    private void unfavorite(){
+        imgUnfavorite.setVisibility(View.GONE);
+        imgFavorite.setVisibility(View.VISIBLE);
     }
 }

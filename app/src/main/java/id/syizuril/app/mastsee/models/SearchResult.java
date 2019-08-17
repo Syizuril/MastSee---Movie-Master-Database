@@ -16,7 +16,7 @@ public class SearchResult implements Parcelable {
     private String originalName;
     @SerializedName("id")
     @Expose
-    private Double id;
+    private Integer id;
     @SerializedName("media_type")
     @Expose
     private String mediaType;
@@ -25,7 +25,7 @@ public class SearchResult implements Parcelable {
     private String name;
     @SerializedName("vote_count")
     @Expose
-    private Double voteCount;
+    private Integer voteCount;
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
@@ -77,11 +77,11 @@ public class SearchResult implements Parcelable {
         this.originalName = originalName;
     }
 
-    public Double getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Double id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -102,11 +102,11 @@ public class SearchResult implements Parcelable {
         this.name = name;
     }
 
-    public Double getVoteCount() {
+    public Integer getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(Double voteCount) {
+    public void setVoteCount(Integer voteCount) {
         this.voteCount = voteCount;
     }
 
@@ -120,6 +120,10 @@ public class SearchResult implements Parcelable {
 
     public String getPosterPath() {
         return "https://image.tmdb.org/t/p/w600_and_h900_bestv2/"+posterPath;
+    }
+
+    public String getPosterPathAlt() {
+        return posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -161,6 +165,10 @@ public class SearchResult implements Parcelable {
 
     public String getBackdropPath() {
         return "https://image.tmdb.org/t/p/w533_and_h300_bestv2/"+backdropPath;
+    }
+
+    public String getBackdropPathAlt() {
+        return backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
@@ -258,10 +266,10 @@ public class SearchResult implements Parcelable {
 
     protected SearchResult(Parcel in) {
         this.originalName = in.readString();
-        this.id = (Double) in.readValue(Double.class.getClassLoader());
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.mediaType = in.readString();
         this.name = in.readString();
-        this.voteCount = (Double) in.readValue(Double.class.getClassLoader());
+        this.voteCount = (Integer) in.readValue(Integer.class.getClassLoader());
         this.voteAverage = (Double) in.readValue(Double.class.getClassLoader());
         this.posterPath = in.readString();
         long tmpFirstAirDate = in.readLong();
