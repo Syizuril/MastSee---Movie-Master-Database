@@ -1,21 +1,23 @@
 package id.syizuril.app.mastsee.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+@Entity(tableName = "movie_table")
 public class MovieResult implements Parcelable {
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private Integer id;
     @SerializedName("vote_average")
     @Expose
@@ -35,9 +37,6 @@ public class MovieResult implements Parcelable {
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Integer> genreIds = null;
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
@@ -92,6 +91,10 @@ public class MovieResult implements Parcelable {
         return "https://image.tmdb.org/t/p/w600_and_h900_bestv2/"+posterPath;
     }
 
+    public String getPosterPathAlt() {
+        return posterPath;
+    }
+
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
@@ -112,16 +115,12 @@ public class MovieResult implements Parcelable {
         this.originalTitle = originalTitle;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
-
     public String getBackdropPath() {
         return "https://image.tmdb.org/t/p/w533_and_h300_bestv2/"+backdropPath;
+    }
+
+    public String getBackdropPathAlt(){
+        return backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
@@ -159,7 +158,6 @@ public class MovieResult implements Parcelable {
         dest.writeString(this.posterPath);
         dest.writeString(this.originalLanguage);
         dest.writeString(this.originalTitle);
-        dest.writeList(this.genreIds);
         dest.writeString(this.backdropPath);
         dest.writeString(this.overview);
         dest.writeLong(this.releaseDate != null ? this.releaseDate.getTime() : -1);
@@ -174,8 +172,6 @@ public class MovieResult implements Parcelable {
         this.posterPath = in.readString();
         this.originalLanguage = in.readString();
         this.originalTitle = in.readString();
-        this.genreIds = new ArrayList<Integer>();
-        in.readList(this.genreIds, Integer.class.getClassLoader());
         this.backdropPath = in.readString();
         this.overview = in.readString();
         long tmpReleaseDate = in.readLong();
@@ -193,4 +189,18 @@ public class MovieResult implements Parcelable {
             return new MovieResult[size];
         }
     };
+
+    public MovieResult(Integer voteCount, Integer id, Double voteAverage, String title, Double popularity, String posterPath, String originalLanguage, String originalTitle, String backdropPath, String overview, Date releaseDate) {
+        this.voteCount = voteCount;
+        this.id = id;
+        this.voteAverage = voteAverage;
+        this.title = title;
+        this.popularity = popularity;
+        this.posterPath = posterPath;
+        this.originalLanguage = originalLanguage;
+        this.originalTitle = originalTitle;
+        this.backdropPath = backdropPath;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+    }
 }

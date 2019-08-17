@@ -1,5 +1,7 @@
 package id.syizuril.app.mastsee.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity(tableName = "tvshows_table")
 public class TvShowsResult implements Parcelable {
 
     @SerializedName("original_name")
@@ -41,6 +44,7 @@ public class TvShowsResult implements Parcelable {
     private String originalLanguage;
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private Integer id;
     @SerializedName("vote_average")
     @Expose

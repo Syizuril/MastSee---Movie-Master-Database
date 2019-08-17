@@ -2,6 +2,7 @@ package id.syizuril.app.mastsee.view;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -23,10 +25,15 @@ import java.text.SimpleDateFormat;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
+import id.syizuril.app.mastsee.viewmodels.MovieFavoriteViewModel;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String EXTRA_MOVIE = "extra_movie";
     private ProgressBar mProgressBar;
+    private MovieFavoriteViewModel movieFavoriteViewModel;
+    private ImageView imgFavorite, imgUnfavorite;
+    private TextView tvTitle;
+    private MovieResult movieResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         Toolbar tbBack = findViewById(R.id.tbBack);
-        TextView tvTitle = findViewById(R.id.tvTitle);
+        tvTitle = findViewById(R.id.tvTitle);
         TextView tvDate = findViewById(R.id.tvDate);
         TextView tvScore = findViewById(R.id.tvScore);
         TextView tvOverview = findViewById(R.id.tvOverview);
@@ -45,9 +52,12 @@ public class DetailActivity extends AppCompatActivity {
         mProgressBar = findViewById(R.id.progressBar);
         ImageView imgCover = findViewById(R.id.cover);
         ImageView imgBanner = findViewById(R.id.banner);
+        imgFavorite = findViewById(R.id.ivFavorite);
+        imgUnfavorite = findViewById(R.id.ivUnfavorite);
         TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
         showProgressBar();
-        MovieResult movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
+
+        movieResult = getIntent().getParcelableExtra(EXTRA_MOVIE);
         String title = movieResult.getTitle();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
         String date = formatter.format(movieResult.getReleaseDate());
@@ -65,6 +75,7 @@ public class DetailActivity extends AppCompatActivity {
         Glide.with(DetailActivity.this)
                 .load(movieResult.getBackdropPath())
                 .into(imgBanner);
+
         tvTitle.setText(title);
         tvDate.setText(String.valueOf(date));
         tvScore.setText(String.valueOf(score));
@@ -75,12 +86,18 @@ public class DetailActivity extends AppCompatActivity {
         tvPopularityPoint.setText(String.valueOf(popularityPoint));
         tvToolbarTitle.setText(title);
         hideProgressBar();
+
+        movieFavoriteViewModel = ViewModelProviders.of(this).get(MovieFavoriteViewModel.class);
+
         setSupportActionBar(tbBack);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        imgUnfavorite.setOnClickListener(this);
+        imgFavorite.setOnClickListener(this);
     }
 
     @Override
@@ -129,5 +146,21 @@ public class DetailActivity extends AppCompatActivity {
 
     private void hideProgressBar(){
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.ivUnfavorite:
+                movieFavoriteViewModel.insert(movieResult);
+                imgUnfavorite.setVisibility(View.GONE);
+                imgFavorite.setVisibility(View.VISIBLE);
+                Toast.makeText(this, movieResult.getTitle() + " Telah Anda Favoritkan", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ivFavorite:
+                imgFavorite.setVisibility(View.GONE);
+                imgUnfavorite.setVisibility(View.VISIBLE);
+        }
     }
 }

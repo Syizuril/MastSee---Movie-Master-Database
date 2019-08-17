@@ -1,7 +1,6 @@
 package id.syizuril.app.mastsee.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,17 +13,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
 
-public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMoviesAdapter.ListViewHolder> {
-    private List<MovieResult> listPopularMovies;
-
-    public ListPopularMoviesAdapter(Context mContext, List<MovieResult> listPopularMovies) {
-        this.listPopularMovies = listPopularMovies;
-    }
+public class MovieFavoriteAdapter extends RecyclerView.Adapter<MovieFavoriteAdapter.MovieHolder> {
+    private List<MovieResult> listMovies = new ArrayList<>();
 
     private OnItemClickCallback onItemClickCallback;
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
@@ -34,39 +30,40 @@ public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMo
 
     @NonNull
     @Override
-    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public MovieHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_row_movies, viewGroup, false);
-        return new ListViewHolder(view);
+        return new MovieHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
-        MovieResult popularMovies = listPopularMovies.get(position);
+    public void onBindViewHolder(@NonNull final MovieHolder holder, int position) {
+        MovieResult movies = listMovies.get(position);
         Glide.with(holder.itemView.getContext())
-                .load(popularMovies.getPosterPath())
+                .load(movies.getPosterPathAlt())
                 .apply(new RequestOptions().override(500,750))
                 .into(holder.imgCover);
-        holder.tvTitle.setText(popularMovies.getTitle());
+        holder.tvTitle.setText(movies.getTitle());
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-        String date = formatter.format(popularMovies.getReleaseDate());
+        String date = formatter.format(movies.getReleaseDate());
         holder.tvDate.setText(date);
-        holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listPopularMovies.get(holder.getAdapterPosition())));
+        holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listMovies.get(holder.getAdapterPosition())));
     }
 
     @Override
     public int getItemCount() {
-        return listPopularMovies.size();
+        return listMovies.size();
     }
 
     public void setMovies(List<MovieResult> movieResult){
-        this.listPopularMovies = movieResult;
+        this.listMovies = movieResult;
+        notifyDataSetChanged();
     }
 
-    class ListViewHolder extends RecyclerView.ViewHolder {
+    class MovieHolder extends RecyclerView.ViewHolder {
         ImageView imgCover, imgBanner;
         TextView tvTitle,tvDate, tvScore, tvOverview, tvVoteCount, tvOriginalLanguage, tvOriginalTitle, tvPopularityPoint;
 
-        ListViewHolder(@NonNull View itemView) {
+        MovieHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDate = itemView.findViewById(R.id.tvDate);

@@ -14,9 +14,11 @@
         <activity android:name=".view.DetailActivitySearch"></activity>
         <activity android:name=".view.DetailActivityTv" />
         <activity android:name=".view.DetailActivity" />
-        <activity android:name=".view.SeeMoreActivity" />
+        <activity android:name=".view.SeeMoreActivity"
+            android:parentActivityName=".view.MainActivity"/>
         <activity
             android:name=".view.MainActivity"
+            android:launchMode="singleTop"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
