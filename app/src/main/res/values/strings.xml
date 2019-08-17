@@ -28,6 +28,7 @@
     <string name="banner_user_score">Banner User Score</string>
     <string name="poster_film_tv_shows">Poster Film/Tv Shows</string>
     <string name="favorite">Favorite</string>
+    <string name="unfavorite">Unfavorite</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete_all_favorite">Delete All Favorite</string>
     <string name="are_you_sure">Are you sure you want to delete all favorite lists?</string>

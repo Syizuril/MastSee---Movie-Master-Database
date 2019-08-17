@@ -8,9 +8,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity(tableName = "tvshows_table")
 public class TvShowsResult implements Parcelable {
@@ -18,18 +16,12 @@ public class TvShowsResult implements Parcelable {
     @SerializedName("original_name")
     @Expose
     private String originalName;
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Integer> genreIds = null;
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("popularity")
     @Expose
     private Double popularity;
-    @SerializedName("origin_country")
-    @Expose
-    private List<String> originCountry = null;
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
@@ -64,14 +56,6 @@ public class TvShowsResult implements Parcelable {
         this.originalName = originalName;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
-
     public String getName() {
         return name;
     }
@@ -86,14 +70,6 @@ public class TvShowsResult implements Parcelable {
 
     public void setPopularity(Double popularity) {
         this.popularity = popularity;
-    }
-
-    public List<String> getOriginCountry() {
-        return originCountry;
-    }
-
-    public void setOriginCountry(List<String> originCountry) {
-        this.originCountry = originCountry;
     }
 
     public Integer getVoteCount() {
@@ -114,6 +90,10 @@ public class TvShowsResult implements Parcelable {
 
     public String getBackdropPath() {
         return "https://image.tmdb.org/t/p/w533_and_h300_bestv2/"+backdropPath;
+    }
+
+    public String getBackdropPathAlt() {
+        return backdropPath;
     }
 
     public void setBackdropPath(String backdropPath) {
@@ -156,6 +136,10 @@ public class TvShowsResult implements Parcelable {
         return "https://image.tmdb.org/t/p/w600_and_h900_bestv2/"+posterPath;
     }
 
+    public String getPosterPathAlt() {
+        return posterPath;
+    }
+
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
@@ -168,10 +152,8 @@ public class TvShowsResult implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.originalName);
-        dest.writeList(this.genreIds);
         dest.writeString(this.name);
         dest.writeValue(this.popularity);
-        dest.writeStringList(this.originCountry);
         dest.writeValue(this.voteCount);
         dest.writeLong(this.firstAirDate != null ? this.firstAirDate.getTime() : -1);
         dest.writeString(this.backdropPath);
@@ -187,11 +169,8 @@ public class TvShowsResult implements Parcelable {
 
     protected TvShowsResult(Parcel in) {
         this.originalName = in.readString();
-        this.genreIds = new ArrayList<Integer>();
-        in.readList(this.genreIds, Integer.class.getClassLoader());
         this.name = in.readString();
         this.popularity = (Double) in.readValue(Double.class.getClassLoader());
-        this.originCountry = in.createStringArrayList();
         this.voteCount = (Integer) in.readValue(Integer.class.getClassLoader());
         long tmpFirstAirDate = in.readLong();
         this.firstAirDate = tmpFirstAirDate == -1 ? null : new Date(tmpFirstAirDate);
