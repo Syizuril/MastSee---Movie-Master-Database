@@ -3,7 +3,6 @@ package id.syizuril.app.mastsee.view;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,7 +32,6 @@ import id.syizuril.app.mastsee.viewmodels.MovieFavoriteViewModel;
  */
 public class MovieFavoriteFragment extends Fragment implements View.OnClickListener{
     private MovieFavoriteViewModel movieFavoriteViewModel;
-    private ArrayList<MovieResult> movieList = new ArrayList<>();
     private RecyclerView rvMovies;
     private TextView tvDeleteAll, tvNoData;
     private ImageView imgNoData;
@@ -45,7 +42,7 @@ public class MovieFavoriteFragment extends Fragment implements View.OnClickListe
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie_favorite, container, false);
@@ -117,19 +114,11 @@ public class MovieFavoriteFragment extends Fragment implements View.OnClickListe
         alertDialogBuilder
                 .setMessage(dialogMessage)
                 .setCancelable(false)
-                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        movieFavoriteViewModel.deleteAllMovies();
-                        Toast.makeText(getContext(), getResources().getString(R.string.favorite_deleted), Toast.LENGTH_SHORT).show();
-                    }
+                .setPositiveButton(getResources().getString(R.string.yes), (dialog, which) -> {
+                    movieFavoriteViewModel.deleteAllMovies();
+                    Toast.makeText(getContext(), getResources().getString(R.string.favorite_deleted), Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                .setNegativeButton(getResources().getString(R.string.no), (dialog, which) -> dialog.cancel());
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }

@@ -28,7 +28,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.Date;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.TvShowsResult;
@@ -40,7 +40,6 @@ public class DetailActivityTv extends AppCompatActivity implements View.OnClickL
     private ProgressBar mProgressBar;
     private TvShowsFavoriteViewModel tvShowsFavoriteViewModel;
     private ImageView imgFavorite, imgUnfavorite;
-    private TextView tvTitle;
     private TvShowsResult tvShowsResult;
 
     @Override
@@ -49,7 +48,7 @@ public class DetailActivityTv extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_detail_tv);
 
         Toolbar tbBack = findViewById(R.id.tbBack);
-        tvTitle = findViewById(R.id.tvTitle);
+        TextView tvTitle = findViewById(R.id.tvTitle);
         TextView tvDate = findViewById(R.id.tvDate);
         TextView tvScore = findViewById(R.id.tvScore);
         TextView tvOverview = findViewById(R.id.tvOverview);
@@ -140,9 +139,8 @@ public class DetailActivityTv extends AppCompatActivity implements View.OnClickL
 
         Integer id = tvShowsResult.getId();
         tvShowsFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
-            List<TvShowsResult> movieById = movieId;
-            assert movieById != null;
-            if(movieById.isEmpty()){
+            assert movieId != null;
+            if(movieId.isEmpty()){
                 favorite();
             }else{
                 unfavorite();
@@ -223,16 +221,28 @@ public class DetailActivityTv extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        Integer voteCount = tvShowsResult.getVoteCount();
+        Integer id = tvShowsResult.getId();
+        Double voteAvg = tvShowsResult.getVoteAverage();
+        String name = tvShowsResult.getName();
+        Double popularityPoint = tvShowsResult.getPopularity();
+        String posterPath = tvShowsResult.getPosterPathAlt().replace("https://image.tmdb.org/t/p/w600_and_h900_bestv2//","/");
+        String originalLang = tvShowsResult.getOriginalLanguage();
+        String originalName = tvShowsResult.getOriginalName();
+        String backdropPath = tvShowsResult.getBackdropPathAlt().replace("https://image.tmdb.org/t/p/w533_and_h300_bestv2//","/");
+        String overview = tvShowsResult.getOverview();
+        Date releaseDate = tvShowsResult.getFirstAirDate();
+        TvShowsResult tvShowsResult = new TvShowsResult(originalName, name, popularityPoint, voteCount, releaseDate, backdropPath, originalLang, id, voteAvg, overview, posterPath);
         switch (v.getId()){
             case R.id.ivUnfavorite:
                 tvShowsFavoriteViewModel.insert(tvShowsResult);
                 unfavorite();
-                Toast.makeText(this, tvShowsResult.getName() + getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, tvShowsResult.getName() +" "+ getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ivFavorite:
                 favorite();
                 tvShowsFavoriteViewModel.delete(tvShowsResult);
-                Toast.makeText(this, tvShowsResult.getName() + getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, tvShowsResult.getName() +" "+ getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
                 break;
         }
     }

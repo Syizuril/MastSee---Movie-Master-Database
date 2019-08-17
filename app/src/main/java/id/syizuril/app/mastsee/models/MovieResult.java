@@ -51,10 +51,6 @@ public class MovieResult implements Parcelable {
         return voteCount;
     }
 
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -65,10 +61,6 @@ public class MovieResult implements Parcelable {
 
     public Double getVoteAverage() {
         return voteAverage;
-    }
-
-    public void setVoteAverage(Double voteAverage) {
-        this.voteAverage = voteAverage;
     }
 
     public String getTitle() {
@@ -83,10 +75,6 @@ public class MovieResult implements Parcelable {
         return popularity;
     }
 
-    public void setPopularity(Double popularity) {
-        this.popularity = popularity;
-    }
-
     public String getPosterPath() {
         return "https://image.tmdb.org/t/p/w600_and_h900_bestv2/"+posterPath;
     }
@@ -95,24 +83,12 @@ public class MovieResult implements Parcelable {
         return posterPath;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
     public String getOriginalLanguage() {
         return originalLanguage;
     }
 
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
     public String getOriginalTitle() {
         return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
     }
 
     public String getBackdropPath() {
@@ -121,10 +97,6 @@ public class MovieResult implements Parcelable {
 
     public String getBackdropPathAlt(){
         return backdropPath;
-    }
-
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
     }
 
     public String getOverview() {
@@ -137,10 +109,6 @@ public class MovieResult implements Parcelable {
 
     public Date getReleaseDate() {
         return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
     }
 
     @Override

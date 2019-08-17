@@ -18,9 +18,6 @@ import id.syizuril.app.mastsee.adapters.TabAdapter;
  * A simple {@link Fragment} subclass.
  */
 public class FavoriteFragment extends Fragment {
-    private TabAdapter adapter;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     public FavoriteFragment() {
         // Required empty public constructor
@@ -28,7 +25,7 @@ public class FavoriteFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favorite, container, false);
@@ -37,10 +34,10 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
 
-        adapter = new TabAdapter(getChildFragmentManager());
+        TabAdapter adapter = new TabAdapter(getChildFragmentManager());
         adapter.addFragment(new MovieFavoriteFragment(), getResources().getString(R.string.title_movies));
         adapter.addFragment(new TvShowsFavoriteFragment(), getResources().getString(R.string.title_tv_shows));
 

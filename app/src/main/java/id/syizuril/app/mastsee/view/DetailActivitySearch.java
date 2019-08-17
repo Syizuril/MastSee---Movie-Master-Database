@@ -29,7 +29,6 @@ import com.bumptech.glide.request.target.Target;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
@@ -152,9 +151,8 @@ public class DetailActivitySearch extends AppCompatActivity implements View.OnCl
         mediaType = movieResult.getMediaType();
         if(mediaType.equals("movie")){
             movieFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
-                List<MovieResult> movieById = movieId;
-                assert movieById != null;
-                if(movieById.isEmpty()){
+                assert movieId != null;
+                if(movieId.isEmpty()){
                     favorite();
                 }else{
                     unfavorite();
@@ -176,9 +174,8 @@ public class DetailActivitySearch extends AppCompatActivity implements View.OnCl
             tvToolbarTitle.setText(title);
         }else if(mediaType.equals("tv")){
             tvShowsFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
-                List<TvShowsResult> movieById = movieId;
-                assert movieById != null;
-                if(movieById.isEmpty()){
+                assert movieId != null;
+                if(movieId.isEmpty()){
                     favorite();
                 }else{
                     unfavorite();
@@ -270,10 +267,10 @@ public class DetailActivitySearch extends AppCompatActivity implements View.OnCl
             Double voteAvg = movieResult.getVoteAverage();
             String title = movieResult.getTitle();
             Double popularityPoint = movieResult.getPopularity();
-            String posterPath = movieResult.getPosterPathAlt();
+            String posterPath = movieResult.getPosterPathAlt().replace("https://image.tmdb.org/t/p/w600_and_h900_bestv2//","/");
             String originalLang = movieResult.getOriginalLanguage();
             String originalTitle = movieResult.getOriginalTitle();
-            String backdropPath = movieResult.getBackdropPathAlt();
+            String backdropPath = movieResult.getBackdropPathAlt().replace("https://image.tmdb.org/t/p/w533_and_h300_bestv2//","/");
             String overview = movieResult.getOverview();
             Date releaseDate = movieResult.getReleaseDate();
             MovieResult movieResult = new MovieResult(voteCount, id, voteAvg, title, popularityPoint, posterPath, originalLang, originalTitle, backdropPath, overview, releaseDate);
@@ -281,12 +278,12 @@ public class DetailActivitySearch extends AppCompatActivity implements View.OnCl
                 case R.id.ivUnfavorite:
                     movieFavoriteViewModel.insert(movieResult);
                     unfavorite();
-                    Toast.makeText(this, movieResult.getTitle() + getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, movieResult.getTitle() +" "+ getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.ivFavorite:
                     favorite();
                     movieFavoriteViewModel.delete(movieResult);
-                    Toast.makeText(this, movieResult.getTitle() + getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, movieResult.getTitle() +" "+ getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
                     break;
             }
         }else if(mediaType.equals("tv")){
@@ -295,10 +292,10 @@ public class DetailActivitySearch extends AppCompatActivity implements View.OnCl
             Double voteAvg = movieResult.getVoteAverage();
             String name = movieResult.getName();
             Double popularityPoint = movieResult.getPopularity();
-            String posterPath = movieResult.getPosterPathAlt();
+            String posterPath = movieResult.getPosterPathAlt().replace("https://image.tmdb.org/t/p/w600_and_h900_bestv2//","/");
             String originalLang = movieResult.getOriginalLanguage();
             String originalName = movieResult.getOriginalName();
-            String backdropPath = movieResult.getBackdropPathAlt();
+            String backdropPath = movieResult.getBackdropPathAlt().replace("https://image.tmdb.org/t/p/w533_and_h300_bestv2//","/");
             String overview = movieResult.getOverview();
             Date releaseDate = movieResult.getFirstAirDate();
             TvShowsResult tvShowsResult = new TvShowsResult(originalName, name, popularityPoint, voteCount, releaseDate, backdropPath, originalLang, id, voteAvg, overview, posterPath);
@@ -306,12 +303,12 @@ public class DetailActivitySearch extends AppCompatActivity implements View.OnCl
                 case R.id.ivUnfavorite:
                     tvShowsFavoriteViewModel.insert(tvShowsResult);
                     unfavorite();
-                    Toast.makeText(this, tvShowsResult.getName() + getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, tvShowsResult.getName() +" "+ getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.ivFavorite:
                     favorite();
                     tvShowsFavoriteViewModel.delete(tvShowsResult);
-                    Toast.makeText(this, tvShowsResult.getName() + getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, tvShowsResult.getName() +" "+ getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
                     break;
             }
         }

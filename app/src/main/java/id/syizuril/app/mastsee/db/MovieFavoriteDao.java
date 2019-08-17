@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

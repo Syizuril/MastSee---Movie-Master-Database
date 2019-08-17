@@ -6,9 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class SearchResult implements Parcelable {
     @SerializedName("original_name")
@@ -38,9 +36,6 @@ public class SearchResult implements Parcelable {
     @SerializedName("popularity")
     @Expose
     private Double popularity;
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Double> genreIds = null;
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
@@ -50,31 +45,18 @@ public class SearchResult implements Parcelable {
     @SerializedName("overview")
     @Expose
     private String overview;
-    @SerializedName("origin_country")
-    @Expose
-    private List<String> originCountry = null;
-    @SerializedName("video")
-    @Expose
-    private Boolean video;
     @SerializedName("title")
     @Expose
     private String title;
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
-    @SerializedName("adult")
-    @Expose
-    private Boolean adult;
     @SerializedName("release_date")
     @Expose
     private Date releaseDate;
 
     public String getOriginalName() {
         return originalName;
-    }
-
-    public void setOriginalName(String originalName) {
-        this.originalName = originalName;
     }
 
     public Integer getId() {
@@ -87,10 +69,6 @@ public class SearchResult implements Parcelable {
 
     public String getMediaType() {
         return mediaType;
-    }
-
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
     }
 
     public String getName() {
@@ -106,16 +84,8 @@ public class SearchResult implements Parcelable {
         return voteCount;
     }
 
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
-    }
-
     public Double getVoteAverage() {
         return voteAverage;
-    }
-
-    public void setVoteAverage(Double voteAverage) {
-        this.voteAverage = voteAverage;
     }
 
     public String getPosterPath() {
@@ -126,41 +96,16 @@ public class SearchResult implements Parcelable {
         return posterPath;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
     public Date getFirstAirDate() {
         return firstAirDate;
-    }
-
-    public void setFirstAirDate(Date firstAirDate) {
-        if(releaseDate != null)
-        this.firstAirDate = firstAirDate;
     }
 
     public Double getPopularity() {
         return popularity;
     }
 
-    public void setPopularity(Double popularity) {
-        this.popularity = popularity;
-    }
-
-    public List<Double> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Double> genreIds) {
-        this.genreIds = genreIds;
-    }
-
     public String getOriginalLanguage() {
         return originalLanguage;
-    }
-
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
     }
 
     public String getBackdropPath() {
@@ -171,32 +116,12 @@ public class SearchResult implements Parcelable {
         return backdropPath;
     }
 
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
     public String getOverview() {
         return overview;
     }
 
     public void setOverview(String overview) {
         this.overview = overview;
-    }
-
-    public List<String> getOriginCountry() {
-        return originCountry;
-    }
-
-    public void setOriginCountry(List<String> originCountry) {
-        this.originCountry = originCountry;
-    }
-
-    public Boolean getVideo() {
-        return video;
-    }
-
-    public void setVideo(Boolean video) {
-        this.video = video;
     }
 
     public String getTitle() {
@@ -212,25 +137,8 @@ public class SearchResult implements Parcelable {
         return originalTitle;
     }
 
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public Boolean getAdult() {
-        return adult;
-    }
-
-    public void setAdult(Boolean adult) {
-        this.adult = adult;
-    }
-
     public Date getReleaseDate() {
         return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        if(releaseDate != null)
-        this.releaseDate = releaseDate;
     }
 
     @Override
@@ -249,22 +157,15 @@ public class SearchResult implements Parcelable {
         dest.writeString(this.posterPath);
         dest.writeLong(this.firstAirDate != null ? this.firstAirDate.getTime() : -1);
         dest.writeValue(this.popularity);
-        dest.writeList(this.genreIds);
         dest.writeString(this.originalLanguage);
         dest.writeString(this.backdropPath);
         dest.writeString(this.overview);
-        dest.writeStringList(this.originCountry);
-        dest.writeValue(this.video);
         dest.writeString(this.title);
         dest.writeString(this.originalTitle);
-        dest.writeValue(this.adult);
         dest.writeLong(this.releaseDate != null ? this.releaseDate.getTime() : -1);
     }
 
-    public SearchResult() {
-    }
-
-    protected SearchResult(Parcel in) {
+    private SearchResult(Parcel in) {
         this.originalName = in.readString();
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.mediaType = in.readString();
@@ -275,16 +176,11 @@ public class SearchResult implements Parcelable {
         long tmpFirstAirDate = in.readLong();
         this.firstAirDate = tmpFirstAirDate == -1 ? null : new Date(tmpFirstAirDate);
         this.popularity = (Double) in.readValue(Double.class.getClassLoader());
-        this.genreIds = new ArrayList<Double>();
-        in.readList(this.genreIds, Double.class.getClassLoader());
         this.originalLanguage = in.readString();
         this.backdropPath = in.readString();
         this.overview = in.readString();
-        this.originCountry = in.createStringArrayList();
-        this.video = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.title = in.readString();
         this.originalTitle = in.readString();
-        this.adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
         long tmpReleaseDate = in.readLong();
         this.releaseDate = tmpReleaseDate == -1 ? null : new Date(tmpReleaseDate);
     }

@@ -32,6 +32,18 @@
                 />
         </android.support.v7.widget.Toolbar>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tbBack"
+            app:layout_constraintBottom_toBottomOf="@id/banner"
+            app:layout_constraintVertical_bias="0.5" />
+
         <ImageView
             android:id="@+id/banner"
             android:layout_width="414dp"
@@ -378,17 +390,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="1999"
             />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tbBack"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.2" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

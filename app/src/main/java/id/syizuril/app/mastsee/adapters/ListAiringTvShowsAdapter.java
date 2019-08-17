@@ -1,6 +1,5 @@
 package id.syizuril.app.mastsee.adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +19,7 @@ import id.syizuril.app.mastsee.models.TvShowsResult;
 public class ListAiringTvShowsAdapter extends RecyclerView.Adapter<ListAiringTvShowsAdapter.ListViewHolder> {
     private List<TvShowsResult> listAiringTvShows;
 
-    public ListAiringTvShowsAdapter(Context mContext, List<TvShowsResult> listAiringTvShows) {
+    public ListAiringTvShowsAdapter(List<TvShowsResult> listAiringTvShows) {
         this.listAiringTvShows = listAiringTvShows;
     }
 

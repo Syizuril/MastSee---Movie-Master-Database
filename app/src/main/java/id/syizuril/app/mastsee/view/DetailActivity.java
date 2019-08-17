@@ -28,7 +28,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.Date;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
@@ -40,7 +40,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private ProgressBar mProgressBar;
     private MovieFavoriteViewModel movieFavoriteViewModel;
     private ImageView imgFavorite, imgUnfavorite;
-    private TextView tvTitle;
     private MovieResult movieResult;
 
     @Override
@@ -49,7 +48,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_detail);
 
         Toolbar tbBack = findViewById(R.id.tbBack);
-        tvTitle = findViewById(R.id.tvTitle);
+        TextView tvTitle = findViewById(R.id.tvTitle);
         TextView tvDate = findViewById(R.id.tvDate);
         TextView tvScore = findViewById(R.id.tvScore);
         TextView tvOverview = findViewById(R.id.tvOverview);
@@ -142,9 +141,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         Integer id = movieResult.getId();
         movieFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
-            List<MovieResult> movieById = movieId;
-            assert movieById != null;
-            if(movieById.isEmpty()){
+            assert movieId != null;
+            if(movieId.isEmpty()){
                 favorite();
             }else{
                 unfavorite();
@@ -232,16 +230,28 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        Integer voteCount = movieResult.getVoteCount();
+        Integer id = movieResult.getId();
+        Double voteAvg = movieResult.getVoteAverage();
+        String title = movieResult.getTitle();
+        Double popularityPoint = movieResult.getPopularity();
+        String posterPath = movieResult.getPosterPathAlt().replace("https://image.tmdb.org/t/p/w600_and_h900_bestv2//","/");
+        String originalLang = movieResult.getOriginalLanguage();
+        String originalTitle = movieResult.getOriginalTitle();
+        String backdropPath = movieResult.getBackdropPathAlt().replace("https://image.tmdb.org/t/p/w533_and_h300_bestv2//","/");
+        String overview = movieResult.getOverview();
+        Date releaseDate = movieResult.getReleaseDate();
+        MovieResult movieResult = new MovieResult(voteCount, id, voteAvg, title, popularityPoint, posterPath, originalLang, originalTitle, backdropPath, overview, releaseDate);
         switch (v.getId()){
             case R.id.ivUnfavorite:
                 movieFavoriteViewModel.insert(movieResult);
                 unfavorite();
-                Toast.makeText(this, movieResult.getTitle() + getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, movieResult.getTitle() +" "+getResources().getString(R.string.favorited), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ivFavorite:
                 favorite();
                 movieFavoriteViewModel.delete(movieResult);
-                Toast.makeText(this, movieResult.getTitle() + getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, movieResult.getTitle() +" "+ getResources().getString(R.string.unfavorited), Toast.LENGTH_SHORT).show();
                 break;
         }
     }

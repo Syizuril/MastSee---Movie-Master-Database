@@ -1,7 +1,6 @@
 package id.syizuril.app.mastsee.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import id.syizuril.app.mastsee.models.SearchResult;
 public class ListSearchMoviesAdapter extends RecyclerView.Adapter<ListSearchMoviesAdapter.ListViewHolder> {
     private List<SearchResult> listSearchMovies;
 
-    public ListSearchMoviesAdapter(Context mContext, List<SearchResult> listSearchMovies) {
+    public ListSearchMoviesAdapter(List<SearchResult> listSearchMovies) {
         this.listSearchMovies = listSearchMovies;
     }
 

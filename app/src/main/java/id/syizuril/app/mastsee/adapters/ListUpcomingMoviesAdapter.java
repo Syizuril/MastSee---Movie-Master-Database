@@ -1,6 +1,5 @@
 package id.syizuril.app.mastsee.adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +19,7 @@ import id.syizuril.app.mastsee.models.MovieResult;
 public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcomingMoviesAdapter.ListViewHolder> {
     private List<MovieResult> listUpcomingMovies;
 
-    public ListUpcomingMoviesAdapter(Context mContext, List<MovieResult> listUpcomingMovies) {
+    public ListUpcomingMoviesAdapter(List<MovieResult> listUpcomingMovies) {
         this.listUpcomingMovies = listUpcomingMovies;
     }
 

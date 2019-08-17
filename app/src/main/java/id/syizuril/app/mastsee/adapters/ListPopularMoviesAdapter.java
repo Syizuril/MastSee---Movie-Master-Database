@@ -1,7 +1,6 @@
 package id.syizuril.app.mastsee.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import id.syizuril.app.mastsee.models.MovieResult;
 public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMoviesAdapter.ListViewHolder> {
     private List<MovieResult> listPopularMovies;
 
-    public ListPopularMoviesAdapter(Context mContext, List<MovieResult> listPopularMovies) {
+    public ListPopularMoviesAdapter(List<MovieResult> listPopularMovies) {
         this.listPopularMovies = listPopularMovies;
     }
 

@@ -6,15 +6,13 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
-import id.syizuril.app.mastsee.FavoriteDatabase;
-import id.syizuril.app.mastsee.MovieFavoriteDao;
+import id.syizuril.app.mastsee.db.FavoriteDatabase;
+import id.syizuril.app.mastsee.db.MovieFavoriteDao;
 import id.syizuril.app.mastsee.models.MovieResult;
 
 public class MoviesFavoriteRepository {
     private MovieFavoriteDao movieFavoriteDao;
     private LiveData<List<MovieResult>> allMovies;
-    private LiveData<List<MovieResult>> allMoviesById;
-    private Integer id;
 
     public MoviesFavoriteRepository(Application application){
         FavoriteDatabase database = FavoriteDatabase.getInstance(application);
@@ -24,10 +22,6 @@ public class MoviesFavoriteRepository {
 
     public void insert(MovieResult movieResult){
         new InsertNoteAsyncTask(movieFavoriteDao).execute(movieResult);
-    }
-
-    public void update(MovieResult movieResult){
-        new UpdateNoteAsyncTask(movieFavoriteDao).execute(movieResult);
     }
 
     public void delete(MovieResult movieResult){
@@ -43,8 +37,7 @@ public class MoviesFavoriteRepository {
     }
 
     public LiveData<List<MovieResult>> getAllMoviesById(Integer id){
-        allMoviesById = movieFavoriteDao.getAllMoviesFavoriteById(id);
-        return allMoviesById;
+        return movieFavoriteDao.getAllMoviesFavoriteById(id);
     }
 
     private static class InsertNoteAsyncTask extends AsyncTask<MovieResult, Void, Void>{

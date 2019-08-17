@@ -6,15 +6,13 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
-import id.syizuril.app.mastsee.FavoriteDatabase;
-import id.syizuril.app.mastsee.TvShowFavoriteDao;
+import id.syizuril.app.mastsee.db.FavoriteDatabase;
+import id.syizuril.app.mastsee.db.TvShowFavoriteDao;
 import id.syizuril.app.mastsee.models.TvShowsResult;
 
 public class TvShowsFavoriteRepository {
     private TvShowFavoriteDao tvShowFavoriteDao;
     private LiveData<List<TvShowsResult>> allTvShows;
-    private LiveData<List<TvShowsResult>> allTvShowsById;
-    private Integer id;
 
     public TvShowsFavoriteRepository(Application application){
         FavoriteDatabase database = FavoriteDatabase.getInstance(application);
@@ -24,10 +22,6 @@ public class TvShowsFavoriteRepository {
 
     public void insert(TvShowsResult movieResult){
         new InsertNoteAsyncTask(tvShowFavoriteDao).execute(movieResult);
-    }
-
-    public void update(TvShowsResult movieResult){
-        new UpdateNoteAsyncTask(tvShowFavoriteDao).execute(movieResult);
     }
 
     public void delete(TvShowsResult movieResult){
@@ -43,8 +37,7 @@ public class TvShowsFavoriteRepository {
     }
 
     public LiveData<List<TvShowsResult>> getAllMoviesById(Integer id){
-        allTvShowsById = tvShowFavoriteDao.getAllMoviesFavoriteById(id);
-        return allTvShowsById;
+        return tvShowFavoriteDao.getAllMoviesFavoriteById(id);
     }
 
     private static class InsertNoteAsyncTask extends AsyncTask<TvShowsResult, Void, Void>{

@@ -13,8 +13,6 @@ import id.syizuril.app.mastsee.repositories.TvShowsFavoriteRepository;
 public class TvShowsFavoriteViewModel extends AndroidViewModel {
     private TvShowsFavoriteRepository repository;
     private LiveData<List<TvShowsResult>> allTvShows;
-    private LiveData<List<TvShowsResult>> tvShowsById;
-    private Integer id;
 
     public TvShowsFavoriteViewModel(@NonNull Application application) {
         super(application);
@@ -24,10 +22,6 @@ public class TvShowsFavoriteViewModel extends AndroidViewModel {
 
     public void insert(TvShowsResult tvShowsResult){
         repository.insert(tvShowsResult);
-    }
-
-    public void update(TvShowsResult tvShowsResult){
-        repository.update(tvShowsResult);
     }
 
     public void delete(TvShowsResult tvShowsResult){
@@ -43,7 +37,6 @@ public class TvShowsFavoriteViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<TvShowsResult>> getMoviesById(Integer id){
-        tvShowsById = repository.getAllMoviesById(id);
-        return tvShowsById;
+        return repository.getAllMoviesById(id);
     }
 }

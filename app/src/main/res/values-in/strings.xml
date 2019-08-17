@@ -24,8 +24,18 @@
     <string name="original_title">Judul Asli</string>
     <string name="popularity_point">Point Popular</string>
     <string name="connection_error">Ups! Tampaknya ada masalah, silakan periksa kembali koneksi internet Anda.</string>
-    <string name="not_found">Ups ! Film dan Tv Shows yang kamu cari sedang bermain pentak umpet, silahkan cari menggunakan kata kunci lainnya untuk dapat menemukannya.</string>
+    <string name="not_found">Ups ! Film dan Tv Shows yang kamu cari sedang bermain pentak umpet, silahkan cari kata kunci lainnya untuk dapat menemukannya dan pastikan terkoneksi dengan internet.</string>
     <string name="banner">Banner Backdrop Film/Tv Show</string>
     <string name="banner_user_score">Banner Score User</string>
     <string name="poster_film_tv_shows">Poster Film/Tv Show</string>
+    <string name="favorite">Favorit</string>
+    <string name="unfavorite">Tidak Favorit</string>
+    <string name="delete_all_favorite">Hapus Semua Favorit</string>
+    <string name="are_you_sure">Anda yakin ingin menghapus semua daftar favorit?</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="favorite_deleted">Semua daftar favorit Anda telah dihapus</string>
+    <string name="favorited">telah Anda tambahkan dalam Daftar Favorit</string>
+    <string name="unfavorited">telah Anda hapuskan dari Daftar Favorit</string>
+    <string name="you_haven_t_added_anything_to_the_favorites_list_yet_let_s_start_adding_movies_and_tv_shows_that_you_like">Anda belum menambahkan apa pun ke daftar Favorit. Ayo mulai menambahkan Film dan Acara TV yang Anda suka.</string>
 </resources>

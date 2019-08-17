@@ -104,41 +104,27 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
             mUpcomingAdapter.notifyDataSetChanged();
             hideProgressBar();
         });
-        mListPopularMoviesViewModel.getIsConnected().observe(this, aBoolean -> {
-            if(aBoolean){
-                mConnectionError.setVisibility(View.GONE);
-                tvConnectionError.setVisibility(View.GONE);
-            }else{
-                hideProgressBar();
-                mConnectionError.setVisibility(View.VISIBLE);
-                tvConnectionError.setVisibility(View.VISIBLE);
-                tvTopTitle.setVisibility(View.GONE);
-                tvPopularTitle.setVisibility(View.GONE);
-                tvSeeMorePopular.setVisibility(View.GONE);
-                tvSeeMoreTop.setVisibility(View.GONE);
-            }
-
-        });
+        mListPopularMoviesViewModel.getIsConnected().observe(this, this::onChanged);
         showRecyclerList();
     }
 
     private void showRecyclerList(){
         if(mPopularAdapter == null){
-            mPopularAdapter = new ListPopularMoviesAdapter(this.getActivity(), popularMovieList);
+            mPopularAdapter = new ListPopularMoviesAdapter(popularMovieList);
             rvPopularMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL,false));
             rvPopularMovies.setAdapter(mPopularAdapter);
         }else {
             mPopularAdapter.notifyDataSetChanged();
         }
         if(mTopAdapter == null){
-            mTopAdapter = new ListTopMoviesAdapter(this.getActivity(), topMovieList);
+            mTopAdapter = new ListTopMoviesAdapter(topMovieList);
             rvTopMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL,false));
             rvTopMovies.setAdapter(mTopAdapter);
         }else{
             mTopAdapter.notifyDataSetChanged();
         }
         if(mUpcomingAdapter == null){
-            mUpcomingAdapter = new ListUpcomingMoviesAdapter(this.getActivity(), upcomingMovieList);
+            mUpcomingAdapter = new ListUpcomingMoviesAdapter(upcomingMovieList);
             rvUpcomingMovies.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL,false));
             rvUpcomingMovies.setAdapter(mUpcomingAdapter);
         }
@@ -185,5 +171,20 @@ public class MoviesFragment extends Fragment implements View.OnClickListener {
         tvPopularTitle.setVisibility(View.VISIBLE);
         tvSeeMorePopular.setVisibility(View.VISIBLE);
         tvSeeMoreTop.setVisibility(View.VISIBLE);
+    }
+
+    private void onChanged(Boolean aBoolean) {
+        if (aBoolean) {
+            mConnectionError.setVisibility(View.GONE);
+            tvConnectionError.setVisibility(View.GONE);
+        } else {
+            hideProgressBar();
+            mConnectionError.setVisibility(View.VISIBLE);
+            tvConnectionError.setVisibility(View.VISIBLE);
+            tvTopTitle.setVisibility(View.GONE);
+            tvPopularTitle.setVisibility(View.GONE);
+            tvSeeMorePopular.setVisibility(View.GONE);
+            tvSeeMoreTop.setVisibility(View.GONE);
+        }
     }
 }

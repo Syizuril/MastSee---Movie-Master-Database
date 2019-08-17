@@ -52,10 +52,6 @@ public class TvShowsResult implements Parcelable {
         return originalName;
     }
 
-    public void setOriginalName(String originalName) {
-        this.originalName = originalName;
-    }
-
     public String getName() {
         return name;
     }
@@ -68,24 +64,12 @@ public class TvShowsResult implements Parcelable {
         return popularity;
     }
 
-    public void setPopularity(Double popularity) {
-        this.popularity = popularity;
-    }
-
     public Integer getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
-    }
-
     public Date getFirstAirDate() {
         return firstAirDate;
-    }
-
-    public void setFirstAirDate(Date firstAirDate) {
-        this.firstAirDate = firstAirDate;
     }
 
     public String getBackdropPath() {
@@ -96,16 +80,8 @@ public class TvShowsResult implements Parcelable {
         return backdropPath;
     }
 
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
     public String getOriginalLanguage() {
         return originalLanguage;
-    }
-
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
     }
 
     public Integer getId() {
@@ -118,10 +94,6 @@ public class TvShowsResult implements Parcelable {
 
     public Double getVoteAverage() {
         return voteAverage;
-    }
-
-    public void setVoteAverage(Double voteAverage) {
-        this.voteAverage = voteAverage;
     }
 
     public String getOverview() {
@@ -138,10 +110,6 @@ public class TvShowsResult implements Parcelable {
 
     public String getPosterPathAlt() {
         return posterPath;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
     }
 
     @Override

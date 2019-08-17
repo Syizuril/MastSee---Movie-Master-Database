@@ -86,6 +86,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         mListPopularTvShowsViewModel.init();
         mListTopTvShowsViewModel.init();
         mListAiringTvShowsViewModel.getTvShowsResultList().observe(this, airingTvShowResponse ->{
+            assert airingTvShowResponse != null;
             List<TvShowsResult> airingTvShowResult = airingTvShowResponse.getResults();
             airingTvShowsList.addAll(airingTvShowResult);
             mAiringTvShows.notifyDataSetChanged();
@@ -97,46 +98,33 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
             mPopularTvShows.notifyDataSetChanged();
         });
         mListTopTvShowsViewModel.getTvShowsResultList().observe(this, topTvShowResponse -> {
+            assert topTvShowResponse != null;
             List<TvShowsResult> topTvShowsResults = topTvShowResponse.getResults();
             topTvShowsList.addAll(topTvShowsResults);
             mTopTvShows.notifyDataSetChanged();
             hideProgressBar();
         });
-        mListPopularTvShowsViewModel.getIsConnected().observe(this, aBoolean -> {
-            if(aBoolean){
-                mConnectionError.setVisibility(View.GONE);
-                tvConnectionError.setVisibility(View.GONE);
-            }else{
-                hideProgressBar();
-                mConnectionError.setVisibility(View.VISIBLE);
-                tvConnectionError.setVisibility(View.VISIBLE);
-                tvTopTitle.setVisibility(View.GONE);
-                tvPopularTitle.setVisibility(View.GONE);
-                tvSeeMorePopular.setVisibility(View.GONE);
-                tvSeeMoreTop.setVisibility(View.GONE);
-            }
-
-        });
+        mListPopularTvShowsViewModel.getIsConnected().observe(this, this::onChanged);
         showRecyclerList();
     }
 
     private void showRecyclerList(){
         if(mPopularTvShows == null){
-            mPopularTvShows = new ListPopularTvShowsAdapter(this.getActivity(), popularTvShowsList);
+            mPopularTvShows = new ListPopularTvShowsAdapter(popularTvShowsList);
             rvPopularTvShow.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL,false));
             rvPopularTvShow.setAdapter(mPopularTvShows);
         }else {
             mPopularTvShows.notifyDataSetChanged();
         }
         if(mTopTvShows == null){
-            mTopTvShows = new ListTopTvShowsAdapter(this.getActivity(), topTvShowsList);
+            mTopTvShows = new ListTopTvShowsAdapter(topTvShowsList);
             rvTopTvShow.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL,false));
             rvTopTvShow.setAdapter(mTopTvShows);
         }else{
             mTopTvShows.notifyDataSetChanged();
         }
         if(mAiringTvShows == null){
-            mAiringTvShows = new ListAiringTvShowsAdapter(this.getActivity(), airingTvShowsList);
+            mAiringTvShows = new ListAiringTvShowsAdapter(airingTvShowsList);
             rvAiringTvShow.setLayoutManager(new LinearLayoutManager(this.getActivity(),LinearLayoutManager.HORIZONTAL,false));
             rvAiringTvShow.setAdapter(mAiringTvShows);
         }else{
@@ -184,5 +172,20 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         tvPopularTitle.setVisibility(View.VISIBLE);
         tvSeeMorePopular.setVisibility(View.VISIBLE);
         tvSeeMoreTop.setVisibility(View.VISIBLE);
+    }
+
+    private void onChanged(Boolean aBoolean) {
+        if (aBoolean) {
+            mConnectionError.setVisibility(View.GONE);
+            tvConnectionError.setVisibility(View.GONE);
+        } else {
+            hideProgressBar();
+            mConnectionError.setVisibility(View.VISIBLE);
+            tvConnectionError.setVisibility(View.VISIBLE);
+            tvTopTitle.setVisibility(View.GONE);
+            tvPopularTitle.setVisibility(View.GONE);
+            tvSeeMorePopular.setVisibility(View.GONE);
+            tvSeeMoreTop.setVisibility(View.GONE);
+        }
     }
 }

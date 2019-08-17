@@ -24,8 +24,18 @@
     <string name="original_title">Original Title</string>
     <string name="popularity_point">Popularity Point</string>
     <string name="connection_error">Oops! There seems to be a problem, please check your internet connection again.</string>
-    <string name="not_found">Oops! The movies and TV Shows you are looking for are playing hide and seek, please search using other keywords to be able to find them.</string>
+    <string name="not_found">Oops! The movies and TV Shows you are looking for are playing hide and seek, please search using other keywords to be able to find them and make sure connected to internet.</string>
     <string name="banner">Banner Backdrop Film/TvShows</string>
     <string name="banner_user_score">Banner User Score</string>
     <string name="poster_film_tv_shows">Poster Film/Tv Shows</string>
+    <string name="favorite">Favorite</string>
+    <string name="unfavorite">Unfavorite</string>
+    <string name="delete_all_favorite">Delete All Favorite</string>
+    <string name="are_you_sure">Are you sure you want to delete all favorite lists?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="favorite_deleted">All your favorite lists have been deleted</string>
+    <string name="favorited">you have added in Favorite List</string>
+    <string name="unfavorited">you have deleted the Favorite List</string>
+    <string name="you_haven_t_added_anything_to_the_favorites_list_yet_let_s_start_adding_movies_and_tv_shows_that_you_like">You haven\'t added anything to the Favorites list yet. Let\'s start adding Movies and Tv Shows that you like.</string>
 </resources>

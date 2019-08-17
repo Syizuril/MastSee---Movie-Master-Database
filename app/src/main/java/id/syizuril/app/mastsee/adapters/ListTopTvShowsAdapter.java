@@ -1,7 +1,6 @@
 package id.syizuril.app.mastsee.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import id.syizuril.app.mastsee.models.TvShowsResult;
 public class ListTopTvShowsAdapter extends RecyclerView.Adapter<ListTopTvShowsAdapter.ListViewHolder> {
     private List<TvShowsResult> listTopTvShows;
 
-    public ListTopTvShowsAdapter(Context mContext, List<TvShowsResult> listTopTvShows) {
+    public ListTopTvShowsAdapter(List<TvShowsResult> listTopTvShows) {
         this.listTopTvShows = listTopTvShows;
     }
 
