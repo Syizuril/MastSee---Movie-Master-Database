@@ -6,17 +6,17 @@ import android.arch.lifecycle.ViewModel;
 
 import id.syizuril.app.mastsee.BuildConfig;
 import id.syizuril.app.mastsee.models.SearchResponse;
-import id.syizuril.app.mastsee.repositories.ListSearchMoviesRepositories;
+import id.syizuril.app.mastsee.repositories.ListMoviesRepository;
 
 public class ListSearchMoviesViewModel extends ViewModel {
     private MutableLiveData<SearchResponse> mutableLiveData;
-    private ListSearchMoviesRepositories listSearchRepositories;
+    private ListMoviesRepository listSearchRepositories;
 
     public void init(String query){
         if(mutableLiveData != null){
             return;
         }
-        listSearchRepositories = ListSearchMoviesRepositories.getInstance();
+        listSearchRepositories = ListMoviesRepository.getInstance();
         mutableLiveData = listSearchRepositories.getSearchMovieResult("search","multi", BuildConfig.TMDB_API_KEY,"en_US",query,1,false);
     }
 

@@ -6,17 +6,17 @@ import android.arch.lifecycle.ViewModel;
 
 import id.syizuril.app.mastsee.BuildConfig;
 import id.syizuril.app.mastsee.models.TvShowResponse;
-import id.syizuril.app.mastsee.repositories.ListTvShowsRepositories;
+import id.syizuril.app.mastsee.repositories.ListMoviesRepository;
 
 public class ListPopularTvShowsViewModel extends ViewModel {
     private MutableLiveData<TvShowResponse> mutableLiveData;
-    private ListTvShowsRepositories listTvShowsRepositories;
+    private ListMoviesRepository listTvShowsRepositories;
 
     public void init(){
         if(mutableLiveData != null){
             return;
         }
-        listTvShowsRepositories = ListTvShowsRepositories.getInstance();
+        listTvShowsRepositories = ListMoviesRepository.getInstance();
         mutableLiveData = listTvShowsRepositories.getTvShowsResult("tv","popular", BuildConfig.TMDB_API_KEY,"en_US",1);
     }
     public LiveData<Boolean> getIsConnected(){

@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel;
 
 import id.syizuril.app.mastsee.BuildConfig;
 import id.syizuril.app.mastsee.models.MovieResponse;
-import id.syizuril.app.mastsee.repositories.ListMoviesRepositories;
+import id.syizuril.app.mastsee.repositories.ListMoviesRepository;
 
 public class ListUpcomingMoviesViewModel extends ViewModel {
     private MutableLiveData<MovieResponse> mutableLiveData;
@@ -15,7 +15,7 @@ public class ListUpcomingMoviesViewModel extends ViewModel {
         if(mutableLiveData != null){
             return;
         }
-        ListMoviesRepositories listUpcomingMoviesRepositories = ListMoviesRepositories.getInstance();
+        ListMoviesRepository listUpcomingMoviesRepositories = ListMoviesRepository.getInstance();
         mutableLiveData = listUpcomingMoviesRepositories.getMovieResult("movie","upcoming", BuildConfig.TMDB_API_KEY,"en_US",1);
     }
     public LiveData<MovieResponse> getMovieResultList(){

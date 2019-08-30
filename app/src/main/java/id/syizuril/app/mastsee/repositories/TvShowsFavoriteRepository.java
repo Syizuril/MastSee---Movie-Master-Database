@@ -54,20 +54,6 @@ public class TvShowsFavoriteRepository {
         }
     }
 
-    private static class UpdateNoteAsyncTask extends AsyncTask<TvShowsResult, Void, Void>{
-        private TvShowFavoriteDao tvShowFavoriteDao;
-
-        private UpdateNoteAsyncTask(TvShowFavoriteDao tvShowFavoriteDao){
-            this.tvShowFavoriteDao = tvShowFavoriteDao;
-        }
-
-        @Override
-        protected Void doInBackground(TvShowsResult... tvShowResults) {
-            tvShowFavoriteDao.update(tvShowResults[0]);
-            return null;
-        }
-    }
-
     private static class DeleteNoteAsyncTask extends AsyncTask<TvShowsResult, Void, Void>{
         private TvShowFavoriteDao tvShowFavoriteDao;
 

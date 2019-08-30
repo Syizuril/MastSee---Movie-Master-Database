@@ -54,20 +54,6 @@ public class MoviesFavoriteRepository {
         }
     }
 
-    private static class UpdateNoteAsyncTask extends AsyncTask<MovieResult, Void, Void>{
-        private MovieFavoriteDao movieFavoriteDao;
-
-        private UpdateNoteAsyncTask(MovieFavoriteDao movieFavoriteDao){
-            this.movieFavoriteDao = movieFavoriteDao;
-        }
-
-        @Override
-        protected Void doInBackground(MovieResult... movieResults) {
-            movieFavoriteDao.update(movieResults[0]);
-            return null;
-        }
-    }
-
     private static class DeleteNoteAsyncTask extends AsyncTask<MovieResult, Void, Void>{
         private MovieFavoriteDao movieFavoriteDao;
 
