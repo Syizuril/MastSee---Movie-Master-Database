@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import id.syizuril.app.mastsee.BuildConfig;
 import id.syizuril.app.mastsee.models.TvShowResponse;
 import id.syizuril.app.mastsee.repositories.ListTvShowsRepositories;
 
@@ -16,7 +17,7 @@ public class ListPopularTvShowsViewModel extends ViewModel {
             return;
         }
         listTvShowsRepositories = ListTvShowsRepositories.getInstance();
-        mutableLiveData = listTvShowsRepositories.getTvShowsResult("tv","popular","b2d6f482d73c8f231cd3af7c9085e7a5","en_US",1);
+        mutableLiveData = listTvShowsRepositories.getTvShowsResult("tv","popular", BuildConfig.TMDB_API_KEY,"en_US",1);
     }
     public LiveData<Boolean> getIsConnected(){
         return listTvShowsRepositories.getIsConnected();

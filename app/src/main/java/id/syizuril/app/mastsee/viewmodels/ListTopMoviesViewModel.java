@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import id.syizuril.app.mastsee.BuildConfig;
 import id.syizuril.app.mastsee.models.MovieResponse;
 import id.syizuril.app.mastsee.repositories.ListMoviesRepositories;
 
@@ -16,7 +17,7 @@ public class ListTopMoviesViewModel extends ViewModel {
             return;
         }
         listMoviesRepositories = ListMoviesRepositories.getInstance();
-        mutableLiveData = listMoviesRepositories.getMovieResult("movie","top_rated","b2d6f482d73c8f231cd3af7c9085e7a5","en_US",1);
+        mutableLiveData = listMoviesRepositories.getMovieResult("movie","top_rated", BuildConfig.TMDB_API_KEY,"en_US",1);
     }
     public LiveData<Boolean> getIsConnected(){
         return listMoviesRepositories.getIsConnected();
