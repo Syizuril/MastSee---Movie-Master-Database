@@ -46,9 +46,14 @@ public class ListPopularMoviesAdapter extends RecyclerView.Adapter<ListPopularMo
                 .apply(new RequestOptions().override(500,750))
                 .into(holder.imgCover);
         holder.tvTitle.setText(popularMovies.getTitle());
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-        String date = formatter.format(popularMovies.getReleaseDate());
-        holder.tvDate.setText(date);
+        try {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+            String date = formatter.format(popularMovies.getReleaseDate());
+            holder.tvDate.setText(date);
+        } catch (NullPointerException e) {
+            String date = "";
+            holder.tvDate.setText(date);
+        }
         holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listPopularMovies.get(holder.getAdapterPosition())));
     }
 

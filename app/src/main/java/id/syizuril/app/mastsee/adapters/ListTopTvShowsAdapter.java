@@ -46,9 +46,14 @@ public class ListTopTvShowsAdapter extends RecyclerView.Adapter<ListTopTvShowsAd
                 .apply(new RequestOptions().override(500,750))
                 .into(holder.imgCover);
         holder.tvTitle.setText(tvShows.getName());
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-        String date = formatter.format(tvShows.getFirstAirDate());
-        holder.tvDate.setText(date);
+        try {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
+            String date = formatter.format(tvShows.getFirstAirDate());
+            holder.tvDate.setText(date);
+        } catch (NullPointerException e) {
+            String date = "";
+            holder.tvDate.setText(date);
+        }
         holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listTopTvShows.get(holder.getAdapterPosition())));
     }
 

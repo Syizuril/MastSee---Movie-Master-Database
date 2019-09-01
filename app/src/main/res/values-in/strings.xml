@@ -6,7 +6,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="search">Cari</string>
-    <string name="search_hint">Masukkan Judul Movie atau Tv Show</string>
+    <string name="search_hint_movie">Masukkan Judul Film</string>
+    <string name="search_hint_tv">Masukkan Judul Tv Shows</string>
     <string name="change_language">Ubah Bahasa</string>
     <string name="mastsee">MastSee</string>
     <string name="image_banner_upcoming_movies">Gambar banner Film yang akan datang</string>

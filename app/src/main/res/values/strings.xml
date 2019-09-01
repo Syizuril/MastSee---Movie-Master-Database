@@ -5,7 +5,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="search">Search</string>
-    <string name="search_hint">Enter Movie Title or TV Show</string>
+    <string name="search_hint_movie">Enter Movie Title</string>
+    <string name="search_hint_tv">Enter Tv Shows Title</string>
     <string name="change_language">Change Language</string>
     <string name="mastsee">MastSee</string>
     <string name="image_banner_upcoming_movies">Image banner upcoming movies</string>

@@ -16,12 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import id.syizuril.app.mastsee.R;
-import id.syizuril.app.mastsee.models.SearchResult;
+import id.syizuril.app.mastsee.models.MovieResult;
 
 public class ListSearchMoviesAdapter extends RecyclerView.Adapter<ListSearchMoviesAdapter.ListViewHolder> {
-    private List<SearchResult> listSearchMovies;
+    private List<MovieResult> listSearchMovies;
 
-    public ListSearchMoviesAdapter(List<SearchResult> listSearchMovies) {
+    public ListSearchMoviesAdapter(List<MovieResult> listSearchMovies) {
         this.listSearchMovies = listSearchMovies;
     }
 
@@ -41,40 +41,20 @@ public class ListSearchMoviesAdapter extends RecyclerView.Adapter<ListSearchMovi
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
-        SearchResult searchMovies = listSearchMovies.get(position);
+        MovieResult popularMovies = listSearchMovies.get(position);
         Glide.with(holder.itemView.getContext())
-                .load(searchMovies.getPosterPath())
+                .load(popularMovies.getPosterPath())
                 .apply(new RequestOptions().override(500,750))
                 .into(holder.imgCover);
-
-        try {
-            holder.tvName.setText(searchMovies.getName());
-        } catch (NullPointerException e) {
-            holder.tvName.setText("");
-        }
-        try {
-            holder.tvTitle.setText(searchMovies.getTitle());
-        } catch (NullPointerException e) {
-            holder.tvTitle.setText("");
-        }
-
+        holder.tvTitle.setText(popularMovies.getTitle());
         try {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-            String firstDate = formatter.format(searchMovies.getFirstAirDate());
-            holder.tvFirstDate.setText(firstDate);
-        } catch (NullPointerException e) {
-            String firstDate = "";
-            holder.tvFirstDate.setText(firstDate);
-        }
-        try {
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy");
-            String date = formatter.format(searchMovies.getReleaseDate());
+            String date = formatter.format(popularMovies.getReleaseDate());
             holder.tvDate.setText(date);
         } catch (NullPointerException e) {
             String date = "";
             holder.tvDate.setText(date);
         }
-
         holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listSearchMovies.get(holder.getAdapterPosition())));
     }
 
@@ -105,6 +85,6 @@ public class ListSearchMoviesAdapter extends RecyclerView.Adapter<ListSearchMovi
     }
 
     public interface OnItemClickCallback {
-        void onItemClicked(SearchResult data);
+        void onItemClicked(MovieResult data);
     }
 }

@@ -30,11 +30,11 @@ import id.syizuril.app.mastsee.adapters.ListSearchMoviesAdapter;
 import id.syizuril.app.mastsee.adapters.ListTopMoviesAdapter;
 import id.syizuril.app.mastsee.adapters.ListTopTvShowsAdapter;
 import id.syizuril.app.mastsee.models.MovieResult;
-import id.syizuril.app.mastsee.models.SearchResult;
 import id.syizuril.app.mastsee.models.TvShowsResult;
 import id.syizuril.app.mastsee.viewmodels.ListPopularMoviesViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListPopularTvShowsViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListSearchMoviesViewModel;
+import id.syizuril.app.mastsee.viewmodels.ListSearchTvShowViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListTopMoviesViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListTopTvShowsViewModel;
 
@@ -42,7 +42,8 @@ public class SeeMoreActivity extends AppCompatActivity {
     private RecyclerView rvSeeMore;
     private ArrayList<MovieResult> popularMovieList = new ArrayList<>();
     private ArrayList<MovieResult> listTopMovies = new ArrayList<>();
-    private ArrayList<SearchResult> listSearchMovies = new ArrayList<>();
+    private ArrayList<MovieResult> listSearchMovies = new ArrayList<>();
+    private ArrayList<TvShowsResult> listSearchTvShows = new ArrayList<>();
     private ArrayList<TvShowsResult> popularTvList = new ArrayList<>();
     private ArrayList<TvShowsResult> topTvList = new ArrayList<>();
     private ListPopularMoviesAdapter mPopularAdapter;
@@ -54,6 +55,7 @@ public class SeeMoreActivity extends AppCompatActivity {
     private ImageView mConnectionError, mNotFound;
     private TextView tvConnectionError, tvNotFound;
     public static final String EXTRA_CATEGORY = "extra_category";
+    public static final String EXTRA_SEARCH = "extra_search";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class SeeMoreActivity extends AppCompatActivity {
 
         Toolbar tbBack = findViewById(R.id.tbBack);
         String category = getIntent().getStringExtra(EXTRA_CATEGORY);
+        String search = getIntent().getStringExtra(EXTRA_SEARCH);
         switch (category) {
             case "listPopular":
                 showProgressBar();
@@ -127,19 +130,33 @@ public class SeeMoreActivity extends AppCompatActivity {
                 mTopTvShowsViewModel.getIsConnected().observe(this, this::onChanged4);
                 tvToolbarTitle.setText(R.string.top_tv_shows);
                 break;
-            default:
+            case "searchMovie":
                 showProgressBar();
                 ListSearchMoviesViewModel mListSearchMoviesViewModel = ViewModelProviders.of(this).get(ListSearchMoviesViewModel.class);
-                mListSearchMoviesViewModel.init(category);
+                mListSearchMoviesViewModel.init(search);
                 mListSearchMoviesViewModel.getSearchResultList().observe(this, movieResponse -> {
                     assert movieResponse != null;
-                    List<SearchResult> movieResults = movieResponse.getResults();
+                    List<MovieResult> movieResults = movieResponse.getResults();
                     listSearchMovies.addAll(movieResults);
                     mSearchAdapter.notifyDataSetChanged();
                     hideProgressBar();
                 });
                 mListSearchMoviesViewModel.getIsConnected().observe(this, this::onChanged5);
-                tvToolbarTitle.setText(category);
+                tvToolbarTitle.setText(search);
+                break;
+            case "searchTv":
+                showProgressBar();
+                ListSearchTvShowViewModel mListSearchTvViewModel = ViewModelProviders.of(this).get(ListSearchTvShowViewModel.class);
+                mListSearchTvViewModel.init(search);
+                mListSearchTvViewModel.getSearchResultList().observe(this, tvShowResponse -> {
+                    assert tvShowResponse != null;
+                    List<TvShowsResult> tvShowsResults = tvShowResponse.getResults();
+                    listSearchTvShows.addAll(tvShowsResults);
+                    mTopTvAdapter.notifyDataSetChanged();
+                    hideProgressBar();
+                });
+                mListSearchTvViewModel.getIsConnected().observe(this, this::onChanged6);
+                tvToolbarTitle.setText(search);
                 break;
         }
         showRecyclerGrid();
@@ -157,24 +174,47 @@ public class SeeMoreActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_bar, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
-        if (searchManager != null) {
-            SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setQueryHint(getResources().getString(R.string.search_hint));
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    Intent moveIntent = new Intent(SeeMoreActivity.this, SeeMoreActivity.class);
-                    moveIntent.putExtra(SeeMoreActivity.EXTRA_CATEGORY,query);
-                    startActivity(moveIntent);
-                    return false;
-                }
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    return false;
-                }
-            });
+        String category = getIntent().getStringExtra(EXTRA_CATEGORY);
+        if(category.equals("searchMovie")){
+            if (searchManager != null) {
+                SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
+                searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+                searchView.setQueryHint(getResources().getString(R.string.search_hint_movie));
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        Intent moveIntent = new Intent(SeeMoreActivity.this, SeeMoreActivity.class);
+                        moveIntent.putExtra(SeeMoreActivity.EXTRA_SEARCH,query);
+                        moveIntent.putExtra(SeeMoreActivity.EXTRA_CATEGORY,"searchMovie");
+                        startActivity(moveIntent);
+                        return false;
+                    }
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return false;
+                    }
+                });
+            }
+        }else if(category.equals("searchTv")){
+            if (searchManager != null) {
+                SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
+                searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+                searchView.setQueryHint(getResources().getString(R.string.search_hint_tv));
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        Intent moveIntent = new Intent(SeeMoreActivity.this, SeeMoreActivity.class);
+                        moveIntent.putExtra(SeeMoreActivity.EXTRA_SEARCH,query);
+                        moveIntent.putExtra(SeeMoreActivity.EXTRA_CATEGORY,"searchTv");
+                        startActivity(moveIntent);
+                        return false;
+                    }
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return false;
+                    }
+                });
+            }
         }
         return true;
     }
@@ -234,7 +274,7 @@ public class SeeMoreActivity extends AppCompatActivity {
                 }
                 mTopTvAdapter.setOnItemClickCallback(this::showSelectedTvShows);
                 break;
-            default:
+            case "searchMovie":
                 if (mSearchAdapter == null) {
                     mSearchAdapter = new ListSearchMoviesAdapter(listSearchMovies);
                     setLayoutManager();
@@ -242,7 +282,17 @@ public class SeeMoreActivity extends AppCompatActivity {
                 } else {
                     mSearchAdapter.notifyDataSetChanged();
                 }
-                mSearchAdapter.setOnItemClickCallback(this::showSelectedSearch);
+                mSearchAdapter.setOnItemClickCallback(this::showSelectedMovie);
+                break;
+            case "searchTv":
+                if (mTopTvAdapter == null) {
+                    mTopTvAdapter = new ListTopTvShowsAdapter(listSearchTvShows);
+                    setLayoutManager();
+                    rvSeeMore.setAdapter(mTopTvAdapter);
+                } else {
+                    mTopTvAdapter.notifyDataSetChanged();
+                }
+                mTopTvAdapter.setOnItemClickCallback(this::showSelectedTvShows);
                 break;
         }
     }
@@ -256,12 +306,6 @@ public class SeeMoreActivity extends AppCompatActivity {
     private void showSelectedTvShows(TvShowsResult tvShowsResult){
         Intent sendMovieTV = new Intent(this, DetailActivityTv.class);
         sendMovieTV.putExtra(DetailActivityTv.EXTRA_MOVIE, tvShowsResult);
-        startActivity(sendMovieTV);
-    }
-
-    private void showSelectedSearch(SearchResult searchResult){
-        Intent sendMovieTV = new Intent(this, DetailActivitySearch.class);
-        sendMovieTV.putExtra(DetailActivitySearch.EXTRA_MOVIE, searchResult);
         startActivity(sendMovieTV);
     }
 
@@ -329,6 +373,17 @@ public class SeeMoreActivity extends AppCompatActivity {
     }
 
     private void onChanged5(Boolean aBoolean) {
+        if (aBoolean) {
+            mNotFound.setVisibility(View.GONE);
+            tvNotFound.setVisibility(View.GONE);
+        } else {
+            hideProgressBar();
+            mNotFound.setVisibility(View.VISIBLE);
+            tvNotFound.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void onChanged6(Boolean aBoolean) {
         if (aBoolean) {
             mNotFound.setVisibility(View.GONE);
             tvNotFound.setVisibility(View.GONE);

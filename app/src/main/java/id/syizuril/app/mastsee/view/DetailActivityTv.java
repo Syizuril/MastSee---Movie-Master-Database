@@ -1,16 +1,13 @@
 package id.syizuril.app.mastsee.view;
 
 import android.annotation.SuppressLint;
-import android.app.SearchManager;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -183,27 +180,8 @@ public class DetailActivityTv extends AppCompatActivity implements View.OnClickL
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_bar, menu);
 
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
-        if (searchManager != null) {
-            SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setQueryHint(getResources().getString(R.string.search_hint));
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    Intent moveIntent = new Intent(DetailActivityTv.this, SeeMoreActivity.class);
-                    moveIntent.putExtra(SeeMoreActivity.EXTRA_CATEGORY,query);
-                    startActivity(moveIntent);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    return false;
-                }
-            });
-        }
+        MenuItem search = menu.findItem(R.id.search);
+        search.setVisible(false);
         return true;
     }
 

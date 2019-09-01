@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import id.syizuril.app.mastsee.models.MovieResponse;
-import id.syizuril.app.mastsee.models.SearchResponse;
 import id.syizuril.app.mastsee.models.TvShowResponse;
 import id.syizuril.app.mastsee.requests.MovieApi;
 import id.syizuril.app.mastsee.requests.RetrofitService;
@@ -63,7 +62,6 @@ public class ListMoviesRepository {
                     Log.d("Success", response.message());
                     isConnected.setValue(true);
                 }else{
-                    System.out.println("GAGAL");
                     isConnected.setValue(false);
                 }
             }
@@ -77,27 +75,58 @@ public class ListMoviesRepository {
         return tvShowData;
     }
 
-    public MutableLiveData<SearchResponse> getSearchMovieResult(String type, String category, String apiKey, String language, String query, int page, boolean includeAdult){
-        final MutableLiveData<SearchResponse> movieData = new MutableLiveData<>();
-        movieApi.getSearchMovies(type, category, apiKey, language, query, page, includeAdult).enqueue(new Callback<SearchResponse>() {
+    public MutableLiveData<MovieResponse> getSearchMovieResult(String type, String category, String apiKey, String language, String query){
+        final MutableLiveData<MovieResponse> movieData = new MutableLiveData<>();
+        movieApi.getSearchMovies(type, category, apiKey, language, query).enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(@NonNull Call<SearchResponse> call, @NonNull Response<SearchResponse> response) {
+            public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                 if(response.isSuccessful()){
+                    if(response.body().getResults().isEmpty()){
+                        isConnected.setValue(false);
+                    }else{
                     movieData.setValue(response.body());
                     Log.d("Success", response.message());
                     isConnected.setValue(true);
+                    }
                 }else{
                     isConnected.setValue(false);
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<SearchResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<MovieResponse> call, @NonNull Throwable t) {
                 Log.d("ERROR ", t.getMessage());
                 isConnected.setValue(false);
             }
         });
         return movieData;
+    }
+
+    public MutableLiveData<TvShowResponse> getSearchTvShowsResult(String type, String category, String apiKey, String language, String query){
+        final MutableLiveData<TvShowResponse> tvData = new MutableLiveData<>();
+        movieApi.getSearchTvShows(type, category, apiKey, language, query).enqueue(new Callback<TvShowResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TvShowResponse> call, @NonNull Response<TvShowResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getResults().isEmpty()){
+                        isConnected.setValue(false);
+                    }else{
+                        tvData.setValue(response.body());
+                        Log.d("Success", response.message());
+                        isConnected.setValue(true);
+                    }
+                }else{
+                    isConnected.setValue(false);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TvShowResponse> call, @NonNull Throwable t) {
+                Log.d("ERROR ", t.getMessage());
+                isConnected.setValue(false);
+            }
+        });
+        return tvData;
     }
 
     public LiveData<Boolean> getIsConnected(){

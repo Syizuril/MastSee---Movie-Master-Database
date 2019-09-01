@@ -5,11 +5,11 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import id.syizuril.app.mastsee.BuildConfig;
-import id.syizuril.app.mastsee.models.MovieResponse;
+import id.syizuril.app.mastsee.models.TvShowResponse;
 import id.syizuril.app.mastsee.repositories.ListMoviesRepository;
 
-public class ListSearchMoviesViewModel extends ViewModel {
-    private MutableLiveData<MovieResponse> mutableLiveData;
+public class ListSearchTvShowViewModel extends ViewModel {
+    private MutableLiveData<TvShowResponse> mutableLiveData;
     private ListMoviesRepository listSearchRepositories;
 
     public void init(String query){
@@ -17,14 +17,14 @@ public class ListSearchMoviesViewModel extends ViewModel {
             return;
         }
         listSearchRepositories = ListMoviesRepository.getInstance();
-        mutableLiveData = listSearchRepositories.getSearchMovieResult("search","movie", BuildConfig.TMDB_API_KEY,"en-US",query);
+        mutableLiveData = listSearchRepositories.getSearchTvShowsResult("search","tv", BuildConfig.TMDB_API_KEY,"en-US",query);
     }
 
     public LiveData<Boolean> getIsConnected(){
         return listSearchRepositories.getIsConnected();
     }
 
-    public LiveData<MovieResponse> getSearchResultList(){
+    public LiveData<TvShowResponse> getSearchResultList(){
         return mutableLiveData;
     }
 }
