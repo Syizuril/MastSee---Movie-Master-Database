@@ -80,6 +80,15 @@ public class MovieResult implements Parcelable {
     public MovieResult() {
     }
 
+    @Ignore
+    public MovieResult(Integer voteCount, Long id, String title, String posterPath, String backdropPath) {
+        this.voteCount = voteCount;
+        this.id = id;
+        this.title = title;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
+    }
+
     public static MovieResult fromContentValues(ContentValues values){
         final MovieResult movieResult = new MovieResult();
         if(values.containsKey(COLUMN_ID)){

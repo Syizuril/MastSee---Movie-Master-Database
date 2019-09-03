@@ -38,4 +38,9 @@
     <string name="favorited">you have added in Favorite List</string>
     <string name="unfavorited">you have deleted the Favorite List</string>
     <string name="you_haven_t_added_anything_to_the_favorites_list_yet_let_s_start_adding_movies_and_tv_shows_that_you_like">You haven\'t added anything to the Favorites list yet. Let\'s start adding Movies and Tv Shows that you like.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="no_data">Favorite List Not Found</string>
+    <string name="favorite_movie_list">Favorite Movie List</string>
+
 </resources>

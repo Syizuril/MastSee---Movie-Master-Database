@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.syizuril.app.mastsee">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <permission android:name="id.syizuril.app.mastsee.provider.READ_MOVIE"/>
-    <permission android:name="id.syizuril.app.mastsee.provider.READ_TV"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,13 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.DetailActivityTv" />
+
         <activity android:name=".view.DetailActivity" />
-        <activity android:name=".view.SeeMoreActivity"
-            android:parentActivityName=".view.MainActivity"/>
+        <activity
+            android:name=".view.SeeMoreActivity"
+            android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.MainActivity"
-            android:launchMode="singleTop"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,12 +29,29 @@
             android:name=".provider.MovieContentProvider"
             android:authorities="id.syizuril.app.mastsee.provider.MovieContentProvider"
             android:exported="true"
-            android:permission="id.syizuril.app.mastsee.provider.READ_MOVIE"/>
+            android:permission="id.syizuril.app.mastsee.provider.READ_MOVIE" />
+
         <provider
-            android:authorities="id.syizuril.app.mastsee.provider.TvContentProvider"
             android:name=".provider.TvContentProvider"
+            android:authorities="id.syizuril.app.mastsee.provider.TvContentProvider"
             android:exported="true"
-            android:permission="id.syizuril.app.mastsee.provider.READ_TV"/>
+            android:permission="id.syizuril.app.mastsee.provider.READ_TV" />
+        <receiver android:name=".MovieFavoriteWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/movie_favorite_widget_info" />
+        </receiver>
+        <service android:name=".StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
+
+    <permission android:name="id.syizuril.app.mastsee.provider.READ_TV" />
+    <permission android:name="id.syizuril.app.mastsee.provider.READ_MOVIE" />
+    <uses-permission android:name="id.syizuril.app.mastsee.provider.READ_MOVIE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

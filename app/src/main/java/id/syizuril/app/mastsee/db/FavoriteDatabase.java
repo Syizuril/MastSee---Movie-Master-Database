@@ -29,6 +29,7 @@ public abstract class FavoriteDatabase extends RoomDatabase {
                     FavoriteDatabase.class, "movie_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
+                    .allowMainThreadQueries()
                     .build();
         }
         return instance;
