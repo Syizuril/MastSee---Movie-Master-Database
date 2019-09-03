@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import id.syizuril.app.mastsee.R;
+import id.syizuril.app.mastsee.SettingReminderActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.change_language){
             Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
+        } else if(item.getItemId() == R.id.setting_reminder){
+            Intent mIntent = new Intent(this, SettingReminderActivity.class);
             startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);

@@ -43,5 +43,17 @@
     <string name="no_data">Favorite List Not Found</string>
     <string name="favorite_movie_list">Favorite Movie List</string>
     <string name="tv_favorite_list">Tv Favorite List</string>
-
+    <string name="content_title_reminder">Well .. sure do not want a check today?</string>
+    <string name="content_text_reminder">Come on, open it again here, get information related to the latest movies and tv shows today.</string>
+    <string name="sub_text_reminder">Daily Reminder</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="key_daily">daily</string>
+    <string name="key_release">release</string>
+    <string name="key_love">love</string>
+    <string name="setting_reminder">Setting Reminder</string>
+    <string name="summary_off_reminder">Don\'t miss any new movie releases every 8 o\'clock in the morning.</string>
+    <string name="summary_on_reminder">Reminder is active, new movie notifications will be reminded every 8 o\'clock in the morning.</string>
+    <string name="summary_off_daily">Afraid to forget to check a movie? Activate to remind you every 7 o\'clock in the morning.</string>
+    <string name="summary_on_daily">You will be reminded to stay tune every 7 o\'clock in the morning.</string>
 </resources>
