@@ -11,14 +11,16 @@ import android.support.annotation.NonNull;
 import id.syizuril.app.mastsee.models.MovieResult;
 import id.syizuril.app.mastsee.models.TvShowsResult;
 
-@Database(entities = {MovieResult.class, TvShowsResult.class}, version = 1, exportSchema = false)
+@Database(entities = {MovieResult.class, TvShowsResult.class}, version = 2, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class FavoriteDatabase extends RoomDatabase {
 
     private static FavoriteDatabase instance;
 
+    @SuppressWarnings("WeakerAccess")
     public abstract MovieFavoriteDao movieFavoriteDao();
 
+    @SuppressWarnings("WeakerAccess")
     public abstract TvShowFavoriteDao tvShowFavoriteDao();
 
     public static synchronized FavoriteDatabase getInstance(Context context){

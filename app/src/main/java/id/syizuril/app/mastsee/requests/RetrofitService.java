@@ -1,5 +1,7 @@
 package id.syizuril.app.mastsee.requests;
 
+import android.annotation.SuppressLint;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -19,6 +21,7 @@ public class RetrofitService {
     private static String BASE_URL = "https://api.themoviedb.org";
     private static Gson gson = new GsonBuilder()
             .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                @SuppressLint("SimpleDateFormat")
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 @Override
                 public Date deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

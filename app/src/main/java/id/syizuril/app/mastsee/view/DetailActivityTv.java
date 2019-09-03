@@ -134,7 +134,7 @@ public class DetailActivityTv extends AppCompatActivity implements View.OnClickL
                     .into(imgBanner);
         }
 
-        Integer id = tvShowsResult.getId();
+        Long id = tvShowsResult.getId();
         tvShowsFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
             assert movieId != null;
             if(movieId.isEmpty()){
@@ -200,7 +200,7 @@ public class DetailActivityTv extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         Integer voteCount = tvShowsResult.getVoteCount();
-        Integer id = tvShowsResult.getId();
+        Long id = tvShowsResult.getId();
         Double voteAvg = tvShowsResult.getVoteAverage();
         String name = tvShowsResult.getName();
         Double popularityPoint = tvShowsResult.getPopularity();

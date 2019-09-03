@@ -1,52 +1,123 @@
 package id.syizuril.app.mastsee.models;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.BaseColumns;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-@Entity(tableName = "tvshows_table")
+@Entity(tableName = TvShowsResult.TABLE_NAME)
 public class TvShowsResult implements Parcelable {
+    public static final String TABLE_NAME = "tvshows_table";
+    public static final String COLUMN_ID = BaseColumns._ID;
+    public static final String COLUMN_VOTE_COUNT = "vote_count";
+    public static final String COLUMN_VOTE_AVERAGE = "vote_average";
+    public static final String COLUMN_TILE = "title";
+    public static final String COLUMN_POPULARITY = "popularity";
+    public static final String COLUMN_POSTER = "poster";
+    public static final String COLUMN_ORI_LANG = "ori_lang";
+    public static final String COLUMN_ORI_TITLE = "ori_title";
+    public static final String COLUMN_BACKDROP = "backdrop";
+    public static final String COLUMN_OVERVIEW = "overview";
+    public static final String COLUMN_RELEASE = "release_date";
 
     @SerializedName("original_name")
     @Expose
+    @ColumnInfo(name = COLUMN_ORI_TITLE)
     private String originalName;
     @SerializedName("name")
     @Expose
+    @ColumnInfo(name = COLUMN_TILE)
     private String name;
     @SerializedName("popularity")
     @Expose
+    @ColumnInfo(name = COLUMN_POPULARITY)
     private Double popularity;
     @SerializedName("vote_count")
     @Expose
+    @ColumnInfo(name = COLUMN_VOTE_COUNT)
     private Integer voteCount;
     @SerializedName("first_air_date")
     @Expose
+    @ColumnInfo(name = COLUMN_RELEASE)
     private Date firstAirDate;
     @SerializedName("backdrop_path")
     @Expose
+    @ColumnInfo(name = COLUMN_BACKDROP)
     private String backdropPath;
     @SerializedName("original_language")
     @Expose
+    @ColumnInfo(name = COLUMN_ORI_LANG)
     private String originalLanguage;
     @SerializedName("id")
     @Expose
     @PrimaryKey
-    private Integer id;
+    @ColumnInfo(index = true, name = COLUMN_ID)
+    private Long id;
     @SerializedName("vote_average")
     @Expose
+    @ColumnInfo(name = COLUMN_VOTE_AVERAGE)
     private Double voteAverage;
     @SerializedName("overview")
     @Expose
+    @ColumnInfo(name = COLUMN_OVERVIEW)
     private String overview;
     @SerializedName("poster_path")
     @Expose
+    @ColumnInfo(name = COLUMN_POSTER)
     private String posterPath;
+
+    @Ignore
+    public TvShowsResult() {
+
+    }
+
+    public static TvShowsResult fromContentValues(ContentValues values){
+        final TvShowsResult tvResult = new TvShowsResult();
+        if(values.containsKey(COLUMN_ID)){
+            tvResult.id = values.getAsLong(COLUMN_ID);
+        }
+        if(values.containsKey(COLUMN_VOTE_COUNT)){
+            tvResult.voteCount = values.getAsInteger(COLUMN_VOTE_COUNT);
+        }
+        if(values.containsKey(COLUMN_VOTE_AVERAGE)){
+            tvResult.voteAverage = values.getAsDouble(COLUMN_VOTE_AVERAGE);
+        }
+        if(values.containsKey(COLUMN_TILE)){
+            tvResult.name = values.getAsString(COLUMN_TILE);
+        }
+        if(values.containsKey(COLUMN_POPULARITY)){
+            tvResult.popularity = values.getAsDouble(COLUMN_POPULARITY);
+        }
+        if(values.containsKey(COLUMN_POSTER)){
+            tvResult.posterPath = values.getAsString(COLUMN_POSTER);
+        }
+        if(values.containsKey(COLUMN_ORI_LANG)){
+            tvResult.originalLanguage = values.getAsString(COLUMN_ORI_LANG);
+        }
+        if(values.containsKey(COLUMN_ORI_TITLE)){
+            tvResult.originalName = values.getAsString(COLUMN_ORI_TITLE);
+        }
+        if(values.containsKey(COLUMN_BACKDROP)){
+            tvResult.backdropPath = values.getAsString(COLUMN_BACKDROP);
+        }
+        if(values.containsKey(COLUMN_OVERVIEW)){
+            tvResult.overview = values.getAsString(COLUMN_OVERVIEW);
+        }
+        if(values.containsKey(COLUMN_RELEASE)){
+            tvResult.firstAirDate = (Date) values.get(COLUMN_RELEASE);
+        }
+        return tvResult;
+    }
+
 
     public String getOriginalName() {
         return originalName;
@@ -84,11 +155,11 @@ public class TvShowsResult implements Parcelable {
         return originalLanguage;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -132,7 +203,7 @@ public class TvShowsResult implements Parcelable {
         dest.writeString(this.posterPath);
     }
 
-    public TvShowsResult(String originalName, String name, Double popularity, Integer voteCount, Date firstAirDate, String backdropPath, String originalLanguage, Integer id, Double voteAverage, String overview, String posterPath) {
+    public TvShowsResult(String originalName, String name, Double popularity, Integer voteCount, Date firstAirDate, String backdropPath, String originalLanguage, Long id, Double voteAverage, String overview, String posterPath) {
         this.originalName = originalName;
         this.name = name;
         this.popularity = popularity;
@@ -155,7 +226,7 @@ public class TvShowsResult implements Parcelable {
         this.firstAirDate = tmpFirstAirDate == -1 ? null : new Date(tmpFirstAirDate);
         this.backdropPath = in.readString();
         this.originalLanguage = in.readString();
-        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
         this.voteAverage = (Double) in.readValue(Double.class.getClassLoader());
         this.overview = in.readString();
         this.posterPath = in.readString();

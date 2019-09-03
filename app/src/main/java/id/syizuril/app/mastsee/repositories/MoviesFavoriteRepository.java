@@ -36,7 +36,7 @@ public class MoviesFavoriteRepository {
         return allMovies;
     }
 
-    public LiveData<List<MovieResult>> getAllMoviesById(Integer id){
+    public LiveData<List<MovieResult>> getAllMoviesById(Long id){
         return movieFavoriteDao.getAllMoviesFavoriteById(id);
     }
 

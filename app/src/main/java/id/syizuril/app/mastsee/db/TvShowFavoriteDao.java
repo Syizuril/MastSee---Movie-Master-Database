@@ -5,7 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
+import android.database.Cursor;
 
 import java.util.List;
 
@@ -17,8 +17,11 @@ public interface TvShowFavoriteDao {
     @Insert
     void insert(TvShowsResult tvShowsResult);
 
-    @Update
-    void update(TvShowsResult tvShowsResult);
+    @Insert
+    long insertMovie(TvShowsResult tvShowsResult);
+
+    @Insert
+    long[] insertAll(TvShowsResult[] tvShowsResults);
 
     @Delete
     void delete(TvShowsResult tvShowsResult);
@@ -26,9 +29,18 @@ public interface TvShowFavoriteDao {
     @Query("DELETE FROM tvshows_table")
     void deleteAllMoviesFavorite();
 
-    @Query("SELECT * FROM tvshows_table")
+    @Query("SELECT * FROM " + TvShowsResult.TABLE_NAME)
     LiveData<List<TvShowsResult>> getAllMoviesFavorite();
 
-    @Query("SELECT * FROM tvshows_table WHERE id LIKE :value")
-    LiveData<List<TvShowsResult>> getAllMoviesFavoriteById(Integer value);
+    @Query("SELECT * FROM " + TvShowsResult.TABLE_NAME)
+    Cursor selectAll();
+
+    @Query("SELECT * FROM " + TvShowsResult.TABLE_NAME + " WHERE "+ TvShowsResult.COLUMN_ID + " = :id")
+    Cursor selectById(long id);
+
+    @Query("SELECT * FROM tvshows_table WHERE _id LIKE :value")
+    LiveData<List<TvShowsResult>> getAllMoviesFavoriteById(Long value);
+
+    @Query("DELETE FROM " + TvShowsResult.TABLE_NAME + " WHERE " + TvShowsResult.COLUMN_ID +" = :id")
+    int deleteById(long id);
 }

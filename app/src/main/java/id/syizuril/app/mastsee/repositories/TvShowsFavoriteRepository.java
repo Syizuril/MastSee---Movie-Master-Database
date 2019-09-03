@@ -36,7 +36,7 @@ public class TvShowsFavoriteRepository {
         return allTvShows;
     }
 
-    public LiveData<List<TvShowsResult>> getAllMoviesById(Integer id){
+    public LiveData<List<TvShowsResult>> getAllMoviesById(Long id){
         return tvShowFavoriteDao.getAllMoviesFavoriteById(id);
     }
 

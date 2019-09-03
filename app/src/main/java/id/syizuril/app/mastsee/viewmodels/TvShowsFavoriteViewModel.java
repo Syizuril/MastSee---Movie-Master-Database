@@ -36,7 +36,7 @@ public class TvShowsFavoriteViewModel extends AndroidViewModel {
         return allTvShows;
     }
 
-    public LiveData<List<TvShowsResult>> getMoviesById(Integer id){
+    public LiveData<List<TvShowsResult>> getMoviesById(Long id){
         return repository.getAllMoviesById(id);
     }
 }

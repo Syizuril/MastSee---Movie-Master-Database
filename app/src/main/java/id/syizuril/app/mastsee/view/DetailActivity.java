@@ -136,7 +136,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     .into(imgBanner);
         }
 
-        Integer id = movieResult.getId();
+        Long id = movieResult.getId();
         movieFavoriteViewModel.getMoviesById(id).observe(this, movieId -> {
             assert movieId != null;
             if(movieId.isEmpty()){
@@ -210,14 +210,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         Integer voteCount = movieResult.getVoteCount();
-        Integer id = movieResult.getId();
+        Long id = movieResult.getId();
         Double voteAvg = movieResult.getVoteAverage();
         String title = movieResult.getTitle();
         Double popularityPoint = movieResult.getPopularity();
-        String posterPath = movieResult.getPosterPathAlt().replace("https://image.tmdb.org/t/p/w600_and_h900_bestv2//","/");
+        String posterPath = movieResult.getPosterPath();
         String originalLang = movieResult.getOriginalLanguage();
         String originalTitle = movieResult.getOriginalTitle();
-        String backdropPath = movieResult.getBackdropPathAlt().replace("https://image.tmdb.org/t/p/w533_and_h300_bestv2//","/");
+        String backdropPath = movieResult.getBackdropPath();
         String overview = movieResult.getOverview();
         Date releaseDate = movieResult.getReleaseDate();
         MovieResult movieResult = new MovieResult(voteCount, id, voteAvg, title, popularityPoint, posterPath, originalLang, originalTitle, backdropPath, overview, releaseDate);
