@@ -36,6 +36,16 @@
             android:authorities="id.syizuril.app.mastsee.provider.TvContentProvider"
             android:exported="true"
             android:permission="id.syizuril.app.mastsee.provider.READ_TV" />
+        <receiver android:name=".TvFavoriteWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/tv_favorite_widget_info" />
+        </receiver>
+
         <receiver android:name=".MovieFavoriteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -45,13 +55,19 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/movie_favorite_widget_info" />
         </receiver>
-        <service android:name=".StackWidgetService"
+
+        <service
+            android:name=".StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <service android:name=".TvStackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
+    <permission android:name="id.syizuril.app.mastsee.provider.READ_MOVIE" />
 
     <permission android:name="id.syizuril.app.mastsee.provider.READ_TV" />
-    <permission android:name="id.syizuril.app.mastsee.provider.READ_MOVIE" />
-    <uses-permission android:name="id.syizuril.app.mastsee.provider.READ_MOVIE"/>
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="id.syizuril.app.mastsee.provider.READ_MOVIE" />
 
 </manifest>

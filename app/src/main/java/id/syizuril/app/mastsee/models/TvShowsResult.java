@@ -80,6 +80,14 @@ public class TvShowsResult implements Parcelable {
 
     }
 
+    @Ignore
+    public TvShowsResult(Long id, String title, String posterPath, String backdropPath) {
+        this.name = title;
+        this.backdropPath = backdropPath;
+        this.id = id;
+        this.posterPath = posterPath;
+    }
+
     public static TvShowsResult fromContentValues(ContentValues values){
         final TvShowsResult tvResult = new TvShowsResult();
         if(values.containsKey(COLUMN_ID)){
