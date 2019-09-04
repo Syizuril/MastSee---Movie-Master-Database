@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.view;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,8 +8,13 @@ import android.widget.Toast;
 
 import java.util.Objects;
 
+import id.syizuril.app.mastsee.services.DailyReleaseReceiver;
+import id.syizuril.app.mastsee.services.DailyReminderReceiver;
+import id.syizuril.app.mastsee.R;
+
 public class SettingReminderFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private String DAILY, RELEASE, LOVE;
+    private String DAILY;
+    private String RELEASE;
     private SwitchPreferenceCompat dailyPreference, releasePreferences;
     private DailyReminderReceiver dailyReminderReceiver;
     private DailyReleaseReceiver dailyReleaseReceiver;
@@ -49,10 +54,10 @@ public class SettingReminderFragment extends PreferenceFragmentCompat implements
 
             if(isActive){
                 dailyReminderReceiver.setDailyReminder(Objects.requireNonNull(getActivity()));
-                Toast.makeText(getActivity(), "Reminder Berhasil Diaktifkan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.reminder_activated), Toast.LENGTH_SHORT).show();
             }else {
-                dailyReminderReceiver.cancelDailyReminder(getActivity());
-                Toast.makeText(getActivity(), "Reminder Berhasil Dinonaktifkan", Toast.LENGTH_SHORT).show();
+                dailyReminderReceiver.cancelDailyReminder(Objects.requireNonNull(getActivity()));
+                Toast.makeText(getActivity(), getResources().getString(R.string.reminder_deactivated), Toast.LENGTH_SHORT).show();
             }
         }
         if(key.equals(RELEASE)){
@@ -61,10 +66,10 @@ public class SettingReminderFragment extends PreferenceFragmentCompat implements
 
             if(isActive){
                 dailyReleaseReceiver.setDailyReminder(Objects.requireNonNull(getActivity()));
-                Toast.makeText(getActivity(), "Reminder Berhasil Diaktifkan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.reminder_activated), Toast.LENGTH_SHORT).show();
             }else {
-                dailyReleaseReceiver.cancelDailyReminder(getActivity());
-                Toast.makeText(getActivity(), "Reminder Berhasil Dinonaktifkan", Toast.LENGTH_SHORT).show();
+                dailyReleaseReceiver.cancelDailyReminder(Objects.requireNonNull(getActivity()));
+                Toast.makeText(getActivity(), getResources().getString(R.string.reminder_deactivated), Toast.LENGTH_SHORT).show();
             }
         }
     }

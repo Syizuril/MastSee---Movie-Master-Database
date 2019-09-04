@@ -19,15 +19,15 @@ public class MovieResult implements Parcelable {
     public static final String TABLE_NAME = "movie_table";
     public static final String COLUMN_ID = BaseColumns._ID;
     public static final String COLUMN_VOTE_COUNT = "vote_count";
-    public static final String COLUMN_VOTE_AVERAGE = "vote_average";
+    private static final String COLUMN_VOTE_AVERAGE = "vote_average";
     public static final String COLUMN_TILE = "title";
-    public static final String COLUMN_POPULARITY = "popularity";
+    private static final String COLUMN_POPULARITY = "popularity";
     public static final String COLUMN_POSTER = "poster";
-    public static final String COLUMN_ORI_LANG = "ori_lang";
-    public static final String COLUMN_ORI_TITLE = "ori_title";
+    private static final String COLUMN_ORI_LANG = "ori_lang";
+    private static final String COLUMN_ORI_TITLE = "ori_title";
     public static final String COLUMN_BACKDROP = "backdrop";
-    public static final String COLUMN_OVERVIEW = "overview";
-    public static final String COLUMN_RELEASE = "release_date";
+    private static final String COLUMN_OVERVIEW = "overview";
+    private static final String COLUMN_RELEASE = "release_date";
 
 
     @SerializedName("vote_count")

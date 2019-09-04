@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.widgets;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,15 +15,16 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.syizuril.app.mastsee.models.MovieResult;
-import id.syizuril.app.mastsee.provider.MovieContentProvider;
+import id.syizuril.app.mastsee.R;
+import id.syizuril.app.mastsee.models.TvShowsResult;
+import id.syizuril.app.mastsee.provider.TvContentProvider;
 
-public class MovieStackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-    private List<MovieResult> mWidgetItems = new ArrayList<>();
+public class TvStackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+    private List<TvShowsResult> mWidgetItems = new ArrayList<>();
     private Cursor cursor;
     private final Context mContext;
 
-    public MovieStackRemoteViewsFactory(Context mContext) {
+    public TvStackRemoteViewsFactory(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -39,14 +40,14 @@ public class MovieStackRemoteViewsFactory implements RemoteViewsService.RemoteVi
         }
 
         final long identityToken = Binder.clearCallingIdentity();
-        cursor = mContext.getContentResolver().query(MovieContentProvider.URI_MOVIE,null, null, null, null);
+        cursor = mContext.getContentResolver().query(TvContentProvider.URI_TV,null, null, null, null);
+        assert cursor != null;
         while (cursor.moveToNext()) {
-            Integer voteCount = cursor.getInt(cursor.getColumnIndexOrThrow(MovieResult.COLUMN_VOTE_COUNT));
-            Long id = cursor.getLong(cursor.getColumnIndexOrThrow(MovieResult.COLUMN_ID));
-            String title = cursor.getString(cursor.getColumnIndexOrThrow(MovieResult.COLUMN_TILE));
-            String posterPath = cursor.getString(cursor.getColumnIndexOrThrow(MovieResult.COLUMN_POSTER));
-            String backdropPath = cursor.getString(cursor.getColumnIndexOrThrow(MovieResult.COLUMN_BACKDROP));
-            mWidgetItems.add(new MovieResult(voteCount, id, title, posterPath, backdropPath));
+            Long id = cursor.getLong(cursor.getColumnIndexOrThrow(TvShowsResult.COLUMN_ID));
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(TvShowsResult.COLUMN_TILE));
+            String posterPath = cursor.getString(cursor.getColumnIndexOrThrow(TvShowsResult.COLUMN_POSTER));
+            String backdropPath = cursor.getString(cursor.getColumnIndexOrThrow(TvShowsResult.COLUMN_BACKDROP));
+            mWidgetItems.add(new TvShowsResult(id, title, posterPath, backdropPath));
         }
         Binder.restoreCallingIdentity(identityToken);
     }
@@ -62,11 +63,11 @@ public class MovieStackRemoteViewsFactory implements RemoteViewsService.RemoteVi
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.movie_widget_item);
+        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.tv_widget_item);
         try {
             Bitmap bitmap = Glide.with(mContext)
                     .asBitmap()
-                    .load(mWidgetItems.get(position).backdropPath)
+                    .load(mWidgetItems.get(position).getBackdropPathAlt())
                     .apply(new RequestOptions().fitCenter())
                     .submit(512,512)
                     .get();
@@ -76,7 +77,7 @@ public class MovieStackRemoteViewsFactory implements RemoteViewsService.RemoteVi
         }
 
         Bundle extras = new Bundle();
-        extras.putInt(MovieFavoriteWidget.EXTRA_ITEM, position);
+        extras.putInt(TvFavoriteWidget.EXTRA_ITEM, position);
         Intent fillInIntent = new Intent();
         fillInIntent.putExtras(extras);
         rv.setOnClickFillInIntent(R.id.imageView, fillInIntent);

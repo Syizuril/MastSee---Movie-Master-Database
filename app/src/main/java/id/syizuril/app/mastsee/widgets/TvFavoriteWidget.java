@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.widgets;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+
+import id.syizuril.app.mastsee.R;
+import id.syizuril.app.mastsee.services.TvStackWidgetService;
 
 /**
  * Implementation of App Widget functionality.
@@ -24,7 +27,7 @@ public class TvFavoriteWidget extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.tv_favorite_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.tv_favorite_widget);
         views.setRemoteAdapter(R.id.stack_view, intent);
         views.setEmptyView(R.id.stack_view, R.id.empty_view);
 

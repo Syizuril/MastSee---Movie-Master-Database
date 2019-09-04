@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingReminderActivity"></activity>
+        <activity android:name=".view.SettingReminderActivity"></activity>
         <activity android:name=".view.DetailActivityTv" />
         <activity android:name=".view.DetailActivity" />
         <activity
@@ -37,7 +37,7 @@
             android:exported="true"
             android:permission="id.syizuril.app.mastsee.provider.READ_TV" />
 
-        <receiver android:name=".TvFavoriteWidget">
+        <receiver android:name=".widgets.TvFavoriteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -46,7 +46,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/tv_favorite_widget_info" />
         </receiver>
-        <receiver android:name=".MovieFavoriteWidget">
+        <receiver android:name=".widgets.MovieFavoriteWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -56,19 +56,19 @@
                 android:resource="@xml/movie_favorite_widget_info" />
         </receiver>
 
-        <receiver android:name=".DailyReminderReceiver"
+        <receiver android:name=".services.DailyReminderReceiver"
             android:enabled="true"
             android:exported="true"/>
 
-        <receiver android:name=".DailyReleaseReceiver"
+        <receiver android:name=".services.DailyReleaseReceiver"
             android:enabled="true"
             android:exported="true"/>
 
         <service
-            android:name=".StackWidgetService"
+            android:name=".services.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
-            android:name=".TvStackWidgetService"
+            android:name=".services.TvStackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
     <permission android:name="id.syizuril.app.mastsee.provider.READ_TV" />

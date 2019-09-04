@@ -1,4 +1,4 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.services;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.Calendar;
 
+import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.view.MainActivity;
 
 public class DailyReminderReceiver extends BroadcastReceiver {
@@ -75,8 +76,8 @@ public class DailyReminderReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, DailyReminderReceiver.class);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 5);
-        calendar.set(Calendar.MINUTE, 35);
+        calendar.set(Calendar.HOUR_OF_DAY, 7);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, DAILY_REMINDER_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);

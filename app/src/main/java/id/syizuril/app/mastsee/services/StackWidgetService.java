@@ -1,7 +1,9 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.services;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;
+
+import id.syizuril.app.mastsee.widgets.MovieStackRemoteViewsFactory;
 
 public class StackWidgetService extends RemoteViewsService {
     @Override

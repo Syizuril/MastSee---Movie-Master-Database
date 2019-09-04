@@ -39,4 +39,24 @@
     <string name="favorited">telah Anda tambahkan dalam Daftar Favorit</string>
     <string name="unfavorited">telah Anda hapuskan dari Daftar Favorit</string>
     <string name="you_haven_t_added_anything_to_the_favorites_list_yet_let_s_start_adding_movies_and_tv_shows_that_you_like">Anda belum menambahkan apa pun ke daftar Favorit. Ayo mulai menambahkan Film dan Acara TV yang Anda suka.</string>
+    <string name="no_data">Daftar Favorit Tidak Ditemukan</string>
+    <string name="favorite_movie_list">Daftar Favorit Movie</string>
+    <string name="tv_favorite_list">Daftar Tv Shows Favorit</string>
+    <string name="content_title_reminder">Yakin.. Gak mau cek hari ini?</string>
+    <string name="content_title_release_reminder">Mau cek film baru hari ini ?</string>
+    <string name="content_text_reminder">Ayo, buka lagi di sini, dapatkan informasi terkait film dan acara tv terbaru hari ini.</string>
+    <string name="sub_text_reminder">Pengingat Harian</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="release_reminder">Pengingat Rilis</string>
+    <string name="has_been_release_today">telah dirilis hari ini. Coba lihatlah !</string>
+    <string name="key_daily">daily</string>
+    <string name="key_release">release</string>
+    <string name="setting_reminder">Pengaturan Pengingat</string>
+    <string name="summary_off_reminder">Jangan lewatkan film baru yang dirilis setiap jam 8 pagi.</string>
+    <string name="summary_on_reminder">Pengingat aktif, pemberitahuan film baru akan diingatkan setiap jam 8 pagi.</string>
+    <string name="summary_off_daily">Takut lupa menonton film? Aktifkan untuk mengingatkan Anda setiap jam 7 pagi.</string>
+    <string name="summary_on_daily">Anda akan diingatkan untuk tetap stay tune setiap jam 7 pagi.</string>
+    <string name="no_movies_today">Tidak ada rilis film hari ini.</string>
+    <string name="reminder_activated">Pengingat telah diaktifkan</string>
+    <string name="reminder_deactivated">Pengingat telah dinonaktifkan</string>
 </resources>

@@ -190,8 +190,11 @@ public class DetailActivityTv extends AppCompatActivity implements View.OnClickL
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
-        } else if (item.getItemId() == R.id.change_language) {
+        }else if (item.getItemId() == R.id.change_language){
             Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
+        }else if(item.getItemId() == R.id.setting_reminder){
+            Intent mIntent = new Intent(this, SettingReminderActivity.class);
             startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);

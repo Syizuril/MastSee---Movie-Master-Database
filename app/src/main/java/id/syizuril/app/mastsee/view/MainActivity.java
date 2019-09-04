@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import id.syizuril.app.mastsee.R;
-import id.syizuril.app.mastsee.SettingReminderActivity;
 
 public class MainActivity extends AppCompatActivity {
 

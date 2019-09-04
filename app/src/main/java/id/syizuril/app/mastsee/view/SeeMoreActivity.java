@@ -227,6 +227,9 @@ public class SeeMoreActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.change_language){
             Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(mIntent);
+        }else if(item.getItemId() == R.id.setting_reminder){
+            Intent mIntent = new Intent(this, SettingReminderActivity.class);
+            startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);
     }

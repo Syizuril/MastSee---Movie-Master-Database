@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.adapters.ListAiringTvShowsAdapter;
@@ -200,7 +201,7 @@ public class TvShowsFragment extends Fragment implements View.OnClickListener{
         inflater.inflate(R.menu.menu_bar, menu);
         super.onCreateOptionsMenu(menu,inflater);
 
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
 
         if (searchManager != null) {
             SearchView searchView = (SearchView) (menu.findItem(R.id.search)).getActionView();

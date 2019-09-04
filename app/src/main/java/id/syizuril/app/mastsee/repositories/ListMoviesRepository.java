@@ -81,6 +81,7 @@ public class ListMoviesRepository {
             @Override
             public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                 if(response.isSuccessful()){
+                    assert response.body() != null;
                     if(response.body().getResults().isEmpty()){
                         isConnected.setValue(false);
                     }else{
@@ -108,6 +109,7 @@ public class ListMoviesRepository {
             @Override
             public void onResponse(@NonNull Call<TvShowResponse> call, @NonNull Response<TvShowResponse> response) {
                 if(response.isSuccessful()){
+                    assert response.body() != null;
                     if(response.body().getResults().isEmpty()){
                         isConnected.setValue(false);
                     }else{

@@ -82,6 +82,7 @@ public class TvContentProvider extends ContentProvider {
                 if(context == null){
                     return null;
                 }
+                assert values != null;
                 final long id = FavoriteDatabase.getInstance(context).tvShowFavoriteDao().insertMovie(TvShowsResult.fromContentValues(values));
                 context.getContentResolver().notifyChange(uri, null);
                 return ContentUris.withAppendedId(uri, id);

@@ -39,4 +39,24 @@
     <string name="favorited">you have added in Favorite List</string>
     <string name="unfavorited">you have deleted the Favorite List</string>
     <string name="you_haven_t_added_anything_to_the_favorites_list_yet_let_s_start_adding_movies_and_tv_shows_that_you_like">You haven\'t added anything to the Favorites list yet. Let\'s start adding Movies and Tv Shows that you like.</string>
+    <string name="no_data">Favorite List Not Found</string>
+    <string name="favorite_movie_list">Favorite Movie List</string>
+    <string name="tv_favorite_list">Tv Favorite List</string>
+    <string name="content_title_reminder">Well .. sure do not want a check today?</string>
+    <string name="content_title_release_reminder">Want to check new movie today ?</string>
+    <string name="content_text_reminder">Come on, open it again here, get information related to the latest movies and tv shows today.</string>
+    <string name="sub_text_reminder">Daily Reminder</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="has_been_release_today">has been released today. Check it out !</string>
+    <string name="key_daily">daily</string>
+    <string name="key_release">release</string>
+    <string name="setting_reminder">Setting Reminder</string>
+    <string name="summary_off_reminder">Don\'t miss any new movie releases every 8 o\'clock in the morning.</string>
+    <string name="summary_on_reminder">Reminder is active, new movie notifications will be reminded every 8 o\'clock in the morning.</string>
+    <string name="summary_off_daily">Afraid to forget to check a movie? Activate to remind you every 7 o\'clock in the morning.</string>
+    <string name="summary_on_daily">You will be reminded to stay tune every 7 o\'clock in the morning.</string>
+    <string name="no_movies_today">There is no movie release today.</string>
+    <string name="reminder_activated">Reminder has been activated</string>
+    <string name="reminder_deactivated">Reminder has been deactivated</string>
 </resources>

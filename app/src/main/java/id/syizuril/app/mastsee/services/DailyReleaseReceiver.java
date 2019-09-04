@@ -1,5 +1,6 @@
-package id.syizuril.app.mastsee;
+package id.syizuril.app.mastsee.services;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -14,6 +15,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -21,7 +23,6 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import id.syizuril.app.mastsee.BuildConfig;
+import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResponse;
 import id.syizuril.app.mastsee.models.MovieResult;
 import id.syizuril.app.mastsee.requests.MovieApi;
@@ -50,13 +53,13 @@ public class DailyReleaseReceiver extends BroadcastReceiver {
 
     private void getMovieReleaseToday(final Context context){
         Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final String today = dateFormat.format(date);
         MovieApi movieApi = RetrofitService.getMovieApi();
-        Call<MovieResponse> call = movieApi.getMovieRelease("discover","movie",BuildConfig.TMDB_API_KEY, today, today);
+        Call<MovieResponse> call = movieApi.getMovieRelease("discover","movie", BuildConfig.TMDB_API_KEY, today, today);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
                 if(response.isSuccessful() && response.body()!=null){
                     movieResults = response.body().getResults();
                     showAlarmNotification(context);
@@ -64,8 +67,8 @@ public class DailyReleaseReceiver extends BroadcastReceiver {
             }
 
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+            public void onFailure(@NonNull Call<MovieResponse> call, @NonNull Throwable t) {
+                Log.d("ERROR ", t.getMessage());
             }
         });
     }
@@ -80,8 +83,6 @@ public class DailyReleaseReceiver extends BroadcastReceiver {
             connection.connect();
             InputStream input = connection.getInputStream();
             return BitmapFactory.decodeStream(input);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,7 +103,7 @@ public class DailyReleaseReceiver extends BroadcastReceiver {
             Log.d("ERROR",e.getMessage());
         }
 
-        String msg = "";
+        String msg;
         if(movies == 0) {
             msg = context.getResources().getString(R.string.no_movies_today);
 
@@ -189,7 +190,7 @@ public class DailyReleaseReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, DailyReleaseReceiver.class);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
