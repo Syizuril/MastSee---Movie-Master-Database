@@ -12,6 +12,7 @@ public class SettingReminderFragment extends PreferenceFragmentCompat implements
     private String DAILY, RELEASE, LOVE;
     private SwitchPreferenceCompat dailyPreference, releasePreferences;
     private DailyReminderReceiver dailyReminderReceiver;
+    private DailyReleaseReceiver dailyReleaseReceiver;
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -54,11 +55,25 @@ public class SettingReminderFragment extends PreferenceFragmentCompat implements
                 Toast.makeText(getActivity(), "Reminder Berhasil Dinonaktifkan", Toast.LENGTH_SHORT).show();
             }
         }
+        if(key.equals(RELEASE)){
+            boolean isActive = sharedPreferences.getBoolean(RELEASE, false);
+            releasePreferences.setChecked(isActive);
+
+            if(isActive){
+                dailyReleaseReceiver.setDailyReminder(Objects.requireNonNull(getActivity()));
+                Toast.makeText(getActivity(), "Reminder Berhasil Diaktifkan", Toast.LENGTH_SHORT).show();
+            }else {
+                dailyReleaseReceiver.cancelDailyReminder(getActivity());
+                Toast.makeText(getActivity(), "Reminder Berhasil Dinonaktifkan", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void setSettings(){
         SharedPreferences sh = getPreferenceManager().getSharedPreferences();
         dailyPreference.setChecked(sh.getBoolean(DAILY, false));
         dailyReminderReceiver = new DailyReminderReceiver();
+        releasePreferences.setChecked(sh.getBoolean(RELEASE, false));
+        dailyReleaseReceiver = new DailyReleaseReceiver();
     }
 }

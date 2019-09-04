@@ -16,6 +16,8 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.Calendar;
 
+import id.syizuril.app.mastsee.view.MainActivity;
+
 public class DailyReminderReceiver extends BroadcastReceiver {
 
     private final int DAILY_REMINDER_ID = 101;
@@ -39,7 +41,14 @@ public class DailyReminderReceiver extends BroadcastReceiver {
                 .setSubText(context.getResources().getString(R.string.sub_text_reminder))
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getResources().getString(R.string.content_text_reminder)))
                 .setSound(alarmSound);
+
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder.setContentIntent(pendingIntent);
+        builder.setAutoCancel(true);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
@@ -66,8 +75,8 @@ public class DailyReminderReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, DailyReminderReceiver.class);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 4);
-        calendar.set(Calendar.MINUTE, 31);
+        calendar.set(Calendar.HOUR_OF_DAY, 5);
+        calendar.set(Calendar.MINUTE, 35);
         calendar.set(Calendar.SECOND, 0);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, DAILY_REMINDER_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);

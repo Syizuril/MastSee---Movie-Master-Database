@@ -44,4 +44,13 @@ public interface MovieApi {
             @Query("language") String language,
             @Query("query") String query
     );
+
+    @GET("/3/{type}/{category}")
+    Call<MovieResponse> getMovieRelease(
+            @Path("type") String type,
+            @Path("category") String category,
+            @Query("api_key") String apiKey,
+            @Query("primary_release_date.gte") String releaseDate,
+            @Query("primary_release_date.lte") String reReleaseDate
+    );
 }

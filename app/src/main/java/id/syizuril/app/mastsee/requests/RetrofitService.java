@@ -13,4 +13,8 @@ public class RetrofitService {
     public static <S> S createService(Class<S> serviceClass){
         return retrofit.create(serviceClass);
     }
+
+    public static MovieApi getMovieApi(){
+        return retrofit.create(MovieApi.class);
+    }
 }
