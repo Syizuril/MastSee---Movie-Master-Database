@@ -18,7 +18,10 @@ import java.util.Calendar;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.view.MainActivity;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class DailyReminderReceiver extends BroadcastReceiver {
 
     private final int DAILY_REMINDER_ID = 101;

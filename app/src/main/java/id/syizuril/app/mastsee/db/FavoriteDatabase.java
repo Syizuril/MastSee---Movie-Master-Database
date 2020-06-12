@@ -10,7 +10,10 @@ import android.support.annotation.NonNull;
 
 import id.syizuril.app.mastsee.models.MovieResult;
 import id.syizuril.app.mastsee.models.TvShowsResult;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 @Database(entities = {MovieResult.class, TvShowsResult.class}, version = 2, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class FavoriteDatabase extends RoomDatabase {

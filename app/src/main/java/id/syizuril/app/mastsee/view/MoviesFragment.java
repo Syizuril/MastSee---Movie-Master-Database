@@ -34,9 +34,9 @@ import id.syizuril.app.mastsee.viewmodels.ListPopularMoviesViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListTopMoviesViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListUpcomingMoviesViewModel;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
  */
 public class MoviesFragment extends Fragment implements View.OnClickListener {
     private RecyclerView rvUpcomingMovies, rvPopularMovies, rvTopMovies;

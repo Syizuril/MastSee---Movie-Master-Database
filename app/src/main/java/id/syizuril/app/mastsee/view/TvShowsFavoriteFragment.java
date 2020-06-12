@@ -25,7 +25,10 @@ import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.adapters.TvShowFavoriteAdapter;
 import id.syizuril.app.mastsee.models.TvShowsResult;
 import id.syizuril.app.mastsee.viewmodels.TvShowsFavoriteViewModel;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class TvShowsFavoriteFragment extends Fragment implements View.OnClickListener{
     private TvShowsFavoriteViewModel tvShowsFavoriteViewModel;
     private RecyclerView rvMovies;

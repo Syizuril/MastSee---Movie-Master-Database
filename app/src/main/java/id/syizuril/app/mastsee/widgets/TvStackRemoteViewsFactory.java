@@ -18,7 +18,10 @@ import java.util.List;
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.TvShowsResult;
 import id.syizuril.app.mastsee.provider.TvContentProvider;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class TvStackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private List<TvShowsResult> mWidgetItems = new ArrayList<>();
     private Cursor cursor;

@@ -9,7 +9,10 @@ import java.util.List;
 import id.syizuril.app.mastsee.db.FavoriteDatabase;
 import id.syizuril.app.mastsee.db.TvShowFavoriteDao;
 import id.syizuril.app.mastsee.models.TvShowsResult;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class TvShowsFavoriteRepository {
     private TvShowFavoriteDao tvShowFavoriteDao;
     private LiveData<List<TvShowsResult>> allTvShows;

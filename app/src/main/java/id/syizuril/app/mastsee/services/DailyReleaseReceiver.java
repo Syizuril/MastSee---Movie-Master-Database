@@ -40,7 +40,10 @@ import id.syizuril.app.mastsee.view.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class DailyReleaseReceiver extends BroadcastReceiver {
 
     private final int DAILY_RELEASE_ID = 102;

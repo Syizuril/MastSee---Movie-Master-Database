@@ -10,7 +10,10 @@ import android.database.Cursor;
 import java.util.List;
 
 import id.syizuril.app.mastsee.models.MovieResult;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 @Dao
 public interface MovieFavoriteDao {
 

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AboutActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbBack"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mastsee"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
+            android:lines="1"
+            android:ellipsize="end"
+            />
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/ivMastee"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/mastsee"
+        app:layout_constraintTop_toBottomOf="@id/tbBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDibuatOleh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:text="@string/dibuat_oleh"
+        app:layout_constraintTop_toBottomOf="@id/ivMastee"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/tvSyizuril"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:text="@string/syekh_syihabuddin_azmil_umri"
+        app:layout_constraintTop_toBottomOf="@id/tvDibuatOleh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/tvSyizurilNPM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:text="@string/_1710631170023"
+        app:layout_constraintTop_toBottomOf="@id/tvSyizuril"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginTop="8dp"/>
+
+
+    <ImageView
+        android:id="@+id/ivtmdb"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_tmdb"
+        app:layout_constraintTop_toBottomOf="@id/tvSyizurilNPM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/tvtmdb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:textAlignment="center"
+        android:text="@string/semua_data_dalam_aplikasi_ini_digunakan_untuk_tujuan_berbagi_informasi_di_bawah_ketentuan_penggunaan_yang_adil_semua_data_berupa_deskripsi_rating_gambar_yang_diambil_dari_tmdb_api_digunakan_milik_masing_masing_pemilik"
+        app:layout_constraintTop_toBottomOf="@id/ivtmdb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"/>
+
+
+</android.support.constraint.ConstraintLayout>

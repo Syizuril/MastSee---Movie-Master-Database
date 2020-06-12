@@ -33,10 +33,9 @@ import id.syizuril.app.mastsee.models.TvShowsResult;
 import id.syizuril.app.mastsee.viewmodels.ListAiringTvShowsViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListPopularTvShowsViewModel;
 import id.syizuril.app.mastsee.viewmodels.ListTopTvShowsViewModel;
-
-
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
  */
 public class TvShowsFragment extends Fragment implements View.OnClickListener{
     private RecyclerView rvAiringTvShow, rvPopularTvShow, rvTopTvShow;

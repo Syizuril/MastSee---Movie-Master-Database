@@ -8,7 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import id.syizuril.app.mastsee.R;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class SettingReminderActivity extends AppCompatActivity {
 
     @Override

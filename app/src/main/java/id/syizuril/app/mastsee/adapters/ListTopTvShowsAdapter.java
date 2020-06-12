@@ -17,7 +17,10 @@ import java.util.List;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.TvShowsResult;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class ListTopTvShowsAdapter extends RecyclerView.Adapter<ListTopTvShowsAdapter.ListViewHolder> {
     private List<TvShowsResult> listTopTvShows;
 

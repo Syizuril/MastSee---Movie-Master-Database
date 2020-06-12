@@ -18,7 +18,10 @@ import java.util.List;
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
 import id.syizuril.app.mastsee.provider.MovieContentProvider;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class MovieStackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private List<MovieResult> mWidgetItems = new ArrayList<>();
     private Cursor cursor;

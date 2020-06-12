@@ -13,7 +13,8 @@ import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.services.StackWidgetService;
 
 /**
- * Implementation of App Widget functionality.
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
  */
 public class MovieFavoriteWidget extends AppWidgetProvider {
 

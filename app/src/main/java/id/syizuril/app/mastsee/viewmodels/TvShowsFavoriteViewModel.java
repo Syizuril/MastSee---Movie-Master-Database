@@ -9,7 +9,10 @@ import java.util.List;
 
 import id.syizuril.app.mastsee.models.TvShowsResult;
 import id.syizuril.app.mastsee.repositories.TvShowsFavoriteRepository;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class TvShowsFavoriteViewModel extends AndroidViewModel {
     private TvShowsFavoriteRepository repository;
     private LiveData<List<TvShowsResult>> allTvShows;

@@ -30,7 +30,10 @@ import java.util.Date;
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
 import id.syizuril.app.mastsee.viewmodels.MovieFavoriteViewModel;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String EXTRA_MOVIE = "extra_movie";
     public static final String EXTRA_FAVORIT = "extra_favorit";
@@ -197,6 +200,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(mIntent);
         }else if(item.getItemId() == R.id.setting_reminder){
             Intent mIntent = new Intent(this, SettingReminderActivity.class);
+            startActivity(mIntent);
+        }else if(item.getItemId() == R.id.about){
+            Intent mIntent = new Intent(this, AboutActivity.class);
             startActivity(mIntent);
         }
         return super.onOptionsItemSelected(item);

@@ -9,7 +9,10 @@ import java.util.List;
 
 import id.syizuril.app.mastsee.models.MovieResult;
 import id.syizuril.app.mastsee.repositories.MoviesFavoriteRepository;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class MovieFavoriteViewModel extends AndroidViewModel {
     private MoviesFavoriteRepository repository;
     private LiveData<List<MovieResult>> allMovies;

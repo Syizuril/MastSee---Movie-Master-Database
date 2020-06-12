@@ -15,7 +15,10 @@ import java.util.List;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class ListUpcomingMoviesAdapter extends RecyclerView.Adapter<ListUpcomingMoviesAdapter.ListViewHolder> {
     private List<MovieResult> listUpcomingMovies;
 

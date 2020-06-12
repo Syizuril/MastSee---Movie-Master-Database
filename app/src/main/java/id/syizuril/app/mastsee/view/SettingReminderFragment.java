@@ -11,7 +11,10 @@ import java.util.Objects;
 import id.syizuril.app.mastsee.services.DailyReleaseReceiver;
 import id.syizuril.app.mastsee.services.DailyReminderReceiver;
 import id.syizuril.app.mastsee.R;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class SettingReminderFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private String DAILY;
     private String RELEASE;

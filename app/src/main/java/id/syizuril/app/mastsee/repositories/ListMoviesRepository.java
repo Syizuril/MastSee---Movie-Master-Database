@@ -12,7 +12,10 @@ import id.syizuril.app.mastsee.requests.RetrofitService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class ListMoviesRepository {
     private MutableLiveData<Boolean> isConnected = new MutableLiveData<>();
     private static ListMoviesRepository instance;

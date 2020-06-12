@@ -18,7 +18,10 @@ import java.util.ArrayList;
 import id.syizuril.app.mastsee.db.FavoriteDatabase;
 import id.syizuril.app.mastsee.db.TvShowFavoriteDao;
 import id.syizuril.app.mastsee.models.TvShowsResult;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class TvContentProvider extends ContentProvider {
     public static final String AUTHORITY = "id.syizuril.app.mastsee.provider.TvContentProvider";
     public static final Uri URI_TV = Uri.parse("content://"+AUTHORITY+"/"+ TvShowsResult.TABLE_NAME);

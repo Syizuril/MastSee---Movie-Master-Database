@@ -62,7 +62,7 @@
             app:layout_constraintStart_toStartOf="@id/banner"
             app:layout_constraintEnd_toEndOf="@id/banner"
             app:layout_constraintBottom_toBottomOf="@id/banner"
-            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintVertical_bias="0.1"
             android:src="@drawable/ic_favorite_border_white_24dp"
             android:contentDescription="@string/favorite" />
@@ -75,7 +75,7 @@
             app:layout_constraintStart_toStartOf="@id/banner"
             app:layout_constraintEnd_toEndOf="@id/banner"
             app:layout_constraintBottom_toBottomOf="@id/banner"
-            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintVertical_bias="0.1"
             android:src="@drawable/ic_favorite_gray_24dp"
             android:visibility="gone"

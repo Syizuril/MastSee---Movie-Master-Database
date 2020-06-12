@@ -13,7 +13,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 @Entity(tableName = TvShowsResult.TABLE_NAME)
 public class TvShowsResult implements Parcelable {
     public static final String TABLE_NAME = "tvshows_table";

@@ -17,7 +17,10 @@ import java.util.List;
 
 import id.syizuril.app.mastsee.R;
 import id.syizuril.app.mastsee.models.MovieResult;
-
+/**
+ * Created by Syekh Syihabuddin Azmil Umri on 11.06.2020.
+ * NPM : 1710631170023
+ */
 public class ListTopMoviesAdapter extends RecyclerView.Adapter<ListTopMoviesAdapter.ListViewHolder> {
     private List<MovieResult> listPopularMovies;
 

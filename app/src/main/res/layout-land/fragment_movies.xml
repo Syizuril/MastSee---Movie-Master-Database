@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:fillViewport="true"
+    tools:context=".view.MoviesFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/upcoming_movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/upcoming"
+            android:textColor="#37474f"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rv_upcoming_movie"
+            android:visibility="gone"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_upcoming_movie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/upcoming_movie_title"
+            tools:listitem="@layout/item_row_upcoming_movies" />
+
+        <TextView
+            android:id="@+id/popular_movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="586dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/popular"
+            android:textColor="#37474f"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/rv_populer_movie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_upcoming_movie"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/seeMorePopular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:clickable="true"
+            android:text="@string/see_more"
+            android:fontFamily="sans-serif"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/popular_movie_title"
+            app:layout_constraintEnd_toEndOf="@id/popular_movie_title"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toTopOf="@id/popular_movie_title"
+            app:layout_constraintBottom_toBottomOf="@id/popular_movie_title"
+            android:focusable="true" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_populer_movie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="8dp"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/popular_movie_title"
+            tools:listitem="@layout/item_row_movies" />
+        
+        <TextView
+            android:id="@+id/top_movies_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="586dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/top_movies"
+            android:textColor="#37474f"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/rv_top_movies"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_populer_movie"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/seeMoreTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:fontFamily="sans-serif"
+            android:text="@string/see_more"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/top_movies_title"
+            app:layout_constraintEnd_toEndOf="@id/top_movies_title"
+            app:layout_constraintStart_toStartOf="@id/top_movies_title"
+            app:layout_constraintTop_toTopOf="@id/top_movies_title"
+            app:layout_constraintHorizontal_bias="1.0"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_top_movies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="8dp"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_movies_title"
+            tools:listitem="@layout/item_row_movies" />
+
+        <ProgressBar
+            android:id="@+id/progressBarTopMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/ivConnectionError"
+            android:layout_width="408dp"
+            android:layout_height="254dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/undraw_server_down_s4lk"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            android:contentDescription="@string/connection_error" />
+
+        <TextView
+            android:id="@+id/tvConnectionError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/connection_error"
+            android:textColor="#37474f"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivConnectionError"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1"
+            android:visibility="gone"/>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

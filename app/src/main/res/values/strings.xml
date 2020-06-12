@@ -58,4 +58,9 @@
     <string name="no_movies_today">There is no movie release today.</string>
     <string name="reminder_activated">Reminder has been activated</string>
     <string name="reminder_deactivated">Reminder has been deactivated</string>
+    <string name="about">About</string>
+    <string name="dibuat_oleh">Dibuat oleh :</string>
+    <string name="syekh_syihabuddin_azmil_umri">Syekh Syihabuddin Azmil Umri</string>
+    <string name="_1710631170023">1710631170023</string>
+    <string name="semua_data_dalam_aplikasi_ini_digunakan_untuk_tujuan_berbagi_informasi_di_bawah_ketentuan_penggunaan_yang_adil_semua_data_berupa_deskripsi_rating_gambar_yang_diambil_dari_tmdb_api_digunakan_milik_masing_masing_pemilik"><![CDATA[Semua data dalam aplikasi ini digunakan untuk tujuan berbagi informasi di bawah ketentuan penggunaan yang adil. Semua data berupa deskripsi, rating, & gambar yang diambil dari TMDB API digunakan milik masing-masing pemilik.]]></string>
 </resources>
